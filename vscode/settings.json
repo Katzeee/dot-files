@@ -409,6 +409,17 @@
 				"git.revertSelectedRanges",
 			]
 		},
+        { // open markdown preview
+            "before": [
+                "<leader>",
+                "v"
+            ],
+            "commands": [
+                "markdown.showPreviewToSide",
+                "workbench.action.focusFirstEditorGroup",
+                "workbench.action.focusPreviousGroup"
+            ]
+        }
     ],
     // visual mode快捷键绑定
     "vim.visualModeKeyBindings": [
@@ -567,8 +578,16 @@
                     "workbench.action.closeAuxiliaryBar"
                 ]
             }
+        },
+        {
+            "command": "workbench.actions.view.problems",
+            "key": "p",
+            "name": "View problems",
+            "type": "command"
         }
     ],
+    "whichkey.sortOrder": "alphabetically",
+
     "timeline.excludeSources": [
         "timeline.localHistory"
     ],

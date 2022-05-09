@@ -118,12 +118,12 @@
 		"when": "sideBarFocus && !inputFocus"
 	},
 	{ // swtich side bar tabs
-		"key": "1",
+		"key": "2",
 		"command": "workbench.action.nextSideBarView",
 		"when": "sideBarFocus"
 	},
 	{ // swtich side bar tabs
-		"key": "2",
+		"key": "1",
 		"command": "workbench.action.previousSideBarView",
 		"when": "sideBarFocus"
 	},
@@ -136,11 +136,6 @@
 		"key": "ctrl+k",
 		"command": "selectPrevSuggestion",
 		"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
-	},
-	{ // move cursor from panel to editor 
-		"key": "ctrl+k", 
-		"command": "workbench.action.focusActiveEditorGroup", 
-		"when": "panelFocus"
 	},
 	{ // maxmize terminal
 		"key": "ctrl+m",
@@ -198,5 +193,21 @@
 		"key": "alt+enter",
 		"command": "git.sync",
 		"when": "view.workbench.scm.visible && sideBarFocus"
-	}
+	},
+	{
+		"key": "ctrl+e",
+		"command": "workbench.view.explorer",
+		"when": "viewContainer.workbench.view.explorer.enabled"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"command": "-workbench.view.explorer",
+		"when": "viewContainer.workbench.view.explorer.enabled"
+	},
+	{ // switch editorGroup except in first group
+		"key": "ctrl+h",
+		"command": "workbench.action.focusPreviousGroup",
+		"when": "activeEditorGroupIndex != 1"
+	},
+	
 ]
