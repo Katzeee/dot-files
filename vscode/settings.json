@@ -1,0 +1,501 @@
+{
+    "editor.codeLens": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDragAndDrop": false,
+    "git.confirmSync": false,
+    // camke
+    //"cmake.cmakePath": "D:\\cmake-3.23.1-windows-x86_64\\bin\\cmake.exe",
+    //"cmake.mingwSearchDirs": [
+    //  "D:\\msys64\\mingw64\\bin"
+    //],
+    //"cmake.generator": "MinGW Makefiles",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "/usr/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    // latex
+    "latex-workshop.latex.outDir": "%DIR%/.build",
+    "latex-workshop.latex.tools": [
+        {
+            // 编译工具和命令
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                // "-pdf",
+                "--shell-escape",
+                "--output-directory=%OUTDIR%",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "--output-directory=%OUTDIR%",
+                "%DOCFILE%"
+            ],
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%OUTDIR%/%DOCFILE%"
+            ],
+            "env": {
+                "TEXMFOUTPUT": "%OUTDIR%",
+            }
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "xe->bib->xe->xe",
+            "tools": [
+                "xelatex",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdf->bib->pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.clean.fileTypes": [ //要清理的文件
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.ist",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+    ],
+    // 使用内置的pdf阅读器
+    // "latex-workshop.view.pdf.viewer": "tab",
+    // 使用Acrobat打开pdf
+    "latex-workshop.view.pdf.viewer": "external",
+    "latex-workshop.view.pdf.external.viewer.command": "C:/Program Files (x86)/Adobe/Acrobat DC/Acrobat/Acrobat.exe", //自己的安装位置
+    "latex-workshop.view.pdf.external.viewer.args": [
+        "%PDF%"
+    ],
+    //* 括号颜色
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    //* markdown文件相关
+    "[markdown]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": true
+    },
+    // 设置多行粘贴到terminal不警告
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    //* cmake自动配置
+    "cmake.configureOnOpen": true,
+    //* git自动fetch
+    "git.autofetch": true,
+    //* vim配置
+    // 设置leader
+    "vim.leader": "<space>",
+    // 插入模式快捷键绑定
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        },
+    ],
+    "vim.normalModeKeyBindings": [
+        { // which key
+            "before": [
+                "<tab>"
+            ],
+            "commands": [
+                "whichkey.show"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<C-n>"
+            ], // 暂时取消搜索高亮
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ], // normal mode下的enter
+            "commands": [
+                "lineBreakInsert"
+            ],
+            "silent": true
+        },
+        // 到行首^映射为H，到行尾$映射为L
+        {
+            "before": [
+                "H"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ] // 缩进
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ] // 缩进
+        },
+        {
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "u"
+            ],
+            "commands": [
+                "editor.action.referenceSearch.trigger"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "U"
+            ],
+            "commands": [
+                "references-view.findReferences"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "i",
+                "n"
+            ],
+            "commands": [
+                "references-view.showCallHierarchy"
+            ]
+        },
+        // -- debug add breakpoint
+		{
+			"before": [
+				"<leader>",
+				"d",
+				"b"
+			],
+			"commands": [
+				"editor.debug.action.toggleBreakpoint"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"d",
+				"c"
+			],
+			"commands": [
+				"editor.debug.action.conditionalBreakpoint"
+			]
+		},
+		// -- error navigation
+		{
+			"before": [
+				"<leader>",
+				"e",
+				"k"
+			],
+			"commands": [
+				"editor.action.marker.prev"
+			],
+            "after": [
+                "z z",
+            ]
+		},
+		{
+			"before": [
+				"<leader>",
+				"e",
+				"j"
+			],
+			"commands": [
+				"editor.action.marker.next"
+			]
+		},
+        // when jumping to other line, move to the center of the screen
+        {
+            "before": [
+                "g",
+                "d",
+            ],
+            "after": [
+                "g",
+                "d",
+                "z",
+                "z",
+                "z",
+                "z"
+            ]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "after": [
+                "n",
+                "z",
+                "z"
+            ]
+        },
+        {
+            "before": [
+                "N"
+            ],
+            "after": [
+                "N",
+                "z",
+                "z"
+            ]
+        },
+        // switch tab
+        {
+            "before": [
+                "2"
+            ],
+            "after": [
+                "g",
+                "t"
+            ]
+        },
+        {
+            "before": [
+                "1"
+            ],
+            "after": [
+                "g",
+                "T"
+            ]
+        }
+    ],
+    // visual mode快捷键绑定
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ] // 缩进
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ] // 缩进
+        },
+        // 到行首^映射为H，到行尾$映射为L
+        {
+            "before": [
+                "H"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+    ],
+    // vim快捷键删除
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false,
+        "<C-w>": false,
+    },
+    // 设置相对行号
+    "editor.lineNumbers": "relative",
+    // 使用系统剪切板
+    "vim.useSystemClipboard": true,
+    // 高亮搜索结果
+    "vim.hlsearch": true,
+    // easymotion模式
+    "vim.easymotion": true,
+    // 更高级的搜索
+    "vim.incsearch": true,
+    // 输入法切换设置
+    //"vim.autoSwitchInputMethod.enable": true,
+    //"vim.autoSwitchInputMethod.defaultIM": "1033",
+    //"vim.autoSwitchInputMethod.obtainIMCmd": "D:\\im-select\\im-select.exe", 
+    //"vim.autoSwitchInputMethod.switchIMCmd": "D:\\im-select\\im-select.exe {im}",
+    //* whichkey settings
+    "whichkey.bindings": [
+        {
+            "key": "\t",
+            "name": "Commands",
+            "type": "command",
+            "command": "workbench.action.showCommands"
+        },
+        {
+            "key": "e",
+            "name": "Show tree/explorer view",
+            "type": "conditional",
+            "bindings": [
+                {
+                    "key": "",
+                    "name": "default",
+                    "type": "command",
+                    "command": "workbench.view.explorer"
+                },
+                {
+                    "key": "when:sideBarVisible && explorerViewletVisible",
+                    "name": "Hide explorer",
+                    "type": "command",
+                    "command": "workbench.action.toggleSidebarVisibility"
+                }
+            ],
+        },
+        {
+            "key": "o",
+            "name": "Outline",
+            "type": "conditional",
+            "bindings": [
+                {
+                    "key": "",
+                    "name": "default",
+                    "type": "command",
+                    "command": "extension.multiCommand.execute",
+                    "args": {
+                        "sequence": [
+                            "outline.focus",
+                            "outline.focus",
+                        ]
+                    },
+                },
+                {
+                    "key": "when:outlinerExplorerView.active && view.outline.visible",
+                    "name": "Hide outline",
+                    "type": "command",
+                    "command": "workbench.action.toggleAuxiliaryBar"
+                }
+            ],
+        },
+        {
+			"key": "g",
+			"name": "Source contrl",
+			"type": "command",
+			"command": "workbench.view.scm",
+		},
+		{
+			"command": "workbench.action.quickOpen",
+			"key": "f",
+			"name": "Find file",
+			"type": "command"
+		},
+		{
+			"command": "workbench.view.search",
+			"key": "w",
+			"name": "Search Word",
+			"type": "command"
+		},
+		{
+			"command": "search.action.openEditor",
+			"key": "F",
+			"name": "New Search Editor",
+			"type": "command"
+		},
+		{
+			"command": "workbench.action.gotoSymbol",
+			"key": "s",
+			"name": "Search document symbol",
+			"type": "command"
+		},
+		{
+			"command": "workbench.action.showAllSymbols",
+			"key": "S",
+			"name": "Search project symbol",
+			"type": "command"
+		},
+    ],
+    "timeline.excludeSources": [
+        "timeline.localHistory"
+    ],
+    "remote.SSH.remotePlatform": {
+        "192.168.1.70": "linux"
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "git.enableSmartCommit": true,
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "explorer.confirmDelete": false,
+    "editor.acceptSuggestionOnEnter": "off",
+}
