@@ -15,11 +15,6 @@
 		"command": "workbench.action.focusActiveEditorGroup",
 		"when": "!terminalFocus && !editorFocus"
 	},
-//    {
-//        "key": "ctrl+h",
-//        "command": "-editor.action.startFindReplaceAction",
-//        "when": "editorFocus || editorIsOpen"
-//    },
 	{ // find & replace
 		"key": "ctrl+f",
 		"command": "editor.action.startFindReplaceAction",
@@ -123,12 +118,12 @@
 		"when": "sideBarFocus && !inputFocus"
 	},
 	{ // swtich side bar tabs
-		"key": "ctrl+j",
+		"key": "1",
 		"command": "workbench.action.nextSideBarView",
 		"when": "sideBarFocus"
 	},
 	{ // swtich side bar tabs
-		"key": "ctrl+k",
+		"key": "2",
 		"command": "workbench.action.previousSideBarView",
 		"when": "sideBarFocus"
 	},
@@ -188,5 +183,20 @@
 		"key": "ctrl+k",
 		"command": "workbench.action.quickOpenNavigatePrevious",
 		"when": "inQuickOpen"
+	},
+	{ // search sidebar
+		"key": "ctrl+j",
+		"command": "search.action.focusSearchList",
+		"when": "searchViewletVisible && sideBarFocus"
+	},
+	{ // search sidebar
+		"key": "ctrl+k",
+		"command": "search.action.focusSearchFromResults",
+		"when": "searchViewletVisible && sideBarFocus"
+	},
+	{ // sync commit to github
+		"key": "alt+enter",
+		"command": "git.sync",
+		"when": "view.workbench.scm.visible && sideBarFocus"
 	}
 ]

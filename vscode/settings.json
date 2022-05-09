@@ -1,4 +1,10 @@
 {
+    "editor.snippetSuggestions": "bottom",
+    "editor.minimap.enabled": false,
+	"errorLens.enabledDiagnosticLevels": [
+		"error",
+		"warning"
+	],
     "editor.codeLens": true,
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDragAndDrop": false,
@@ -128,7 +134,6 @@
     "cmake.configureOnOpen": true,
     //* git自动fetch
     "git.autofetch": true,
-
     //* vim配置
     // 设置leader
     "vim.leader": "<space>",
@@ -214,6 +219,7 @@
                 "editor.action.formatDocument"
             ]
         },
+        // find reference
         {
             "before": [
                 "<leader>",
@@ -337,7 +343,72 @@
                 "g",
                 "T"
             ]
-        }
+        },
+        // -- rename symbol
+		{
+			"before": [
+				"<leader>",
+				"r",
+				"n"
+			],
+			"commands": [
+				"editor.action.rename",
+			]
+		},
+		// -- git hunk nav
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"k"
+			],
+			"commands": [
+				"workbench.action.editor.previousChange",
+				"editor.action.dirtydiff.previous"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"j"
+			],
+			"commands": [
+				"workbench.action.editor.nextChange",
+				"editor.action.dirtydiff.next"
+			]
+		},
+		// git (un)stage 
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"s"
+			],
+			"commands": [
+				"git.stage",
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"u"
+			],
+			"commands": [
+				"git.unstage",
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"r"
+			],
+			"commands": [
+				"git.revertSelectedRanges",
+			]
+		},
     ],
     // visual mode快捷键绑定
     "vim.visualModeKeyBindings": [
@@ -484,6 +555,19 @@
             "name": "Search project symbol",
             "type": "command"
         },
+        {
+            "command": "extension.multiCommand.execute",
+            "key": "q",
+            "name": "Quit all windows except editor",
+            "type": "command",
+            "args": {
+                "sequence": [
+                    "workbench.action.closeSidebar",
+                    "workbench.action.closePanel",
+                    "workbench.action.closeAuxiliaryBar"
+                ]
+            }
+        }
     ],
     "timeline.excludeSources": [
         "timeline.localHistory"
@@ -492,8 +576,9 @@
         "192.168.1.70": "linux"
     },
     "workbench.editor.untitled.hint": "hidden",
-    "git.enableSmartCommit": true,
     "editor.unicodeHighlight.ambiguousCharacters": false,
-    "explorer.confirmDelete": false,
     "editor.acceptSuggestionOnEnter": "off",
+    // you can see the change in gutter
+    "gitlens.changes.toggleMode": "window",
+    "workbench.startupEditor": "none",
 }
