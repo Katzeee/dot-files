@@ -128,6 +128,7 @@
     "cmake.configureOnOpen": true,
     //* git自动fetch
     "git.autofetch": true,
+
     //* vim配置
     // 设置leader
     "vim.leader": "<space>",
@@ -242,50 +243,47 @@
             ]
         },
         // -- debug add breakpoint
-		{
-			"before": [
-				"<leader>",
-				"d",
-				"b"
-			],
-			"commands": [
-				"editor.debug.action.toggleBreakpoint"
-			]
-		},
-		{
-			"before": [
-				"<leader>",
-				"d",
-				"c"
-			],
-			"commands": [
-				"editor.debug.action.conditionalBreakpoint"
-			]
-		},
-		// -- error navigation
-		{
-			"before": [
-				"<leader>",
-				"e",
-				"k"
-			],
-			"commands": [
-				"editor.action.marker.prev"
-			],
-            "after": [
-                "z z",
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "b"
+            ],
+            "commands": [
+                "editor.debug.action.toggleBreakpoint"
             ]
-		},
-		{
-			"before": [
-				"<leader>",
-				"e",
-				"j"
-			],
-			"commands": [
-				"editor.action.marker.next"
-			]
-		},
+        },
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "c"
+            ],
+            "commands": [
+                "editor.debug.action.conditionalBreakpoint"
+            ]
+        },
+        // -- error navigation
+        {
+            "before": [
+                "<leader>",
+                "e",
+                "k"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
+            ],
+        },
+        {
+            "before": [
+                "<leader>",
+                "e",
+                "j"
+            ],
+            "commands": [
+                "editor.action.marker.next",
+            ]
+        },
         // when jumping to other line, move to the center of the screen
         {
             "before": [
@@ -451,41 +449,41 @@
             ],
         },
         {
-			"key": "g",
-			"name": "Source contrl",
-			"type": "command",
-			"command": "workbench.view.scm",
-		},
-		{
-			"command": "workbench.action.quickOpen",
-			"key": "f",
-			"name": "Find file",
-			"type": "command"
-		},
-		{
-			"command": "workbench.view.search",
-			"key": "w",
-			"name": "Search Word",
-			"type": "command"
-		},
-		{
-			"command": "search.action.openEditor",
-			"key": "F",
-			"name": "New Search Editor",
-			"type": "command"
-		},
-		{
-			"command": "workbench.action.gotoSymbol",
-			"key": "s",
-			"name": "Search document symbol",
-			"type": "command"
-		},
-		{
-			"command": "workbench.action.showAllSymbols",
-			"key": "S",
-			"name": "Search project symbol",
-			"type": "command"
-		},
+            "key": "g",
+            "name": "Source contrl",
+            "type": "command",
+            "command": "workbench.view.scm",
+        },
+        {
+            "command": "workbench.action.quickOpen",
+            "key": "f",
+            "name": "Find file",
+            "type": "command"
+        },
+        {
+            "command": "workbench.view.search",
+            "key": "w",
+            "name": "Search Word",
+            "type": "command"
+        },
+        {
+            "command": "search.action.openEditor",
+            "key": "F",
+            "name": "New Search Editor",
+            "type": "command"
+        },
+        {
+            "command": "workbench.action.gotoSymbol",
+            "key": "s",
+            "name": "Search document symbol",
+            "type": "command"
+        },
+        {
+            "command": "workbench.action.showAllSymbols",
+            "key": "S",
+            "name": "Search project symbol",
+            "type": "command"
+        },
     ],
     "timeline.excludeSources": [
         "timeline.localHistory"
