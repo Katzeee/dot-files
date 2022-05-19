@@ -1,0 +1,2 @@
+Put xorg.conf to /etc/X11/
+Put others to /etc/X11/xorg.conf.d/
