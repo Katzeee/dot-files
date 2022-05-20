@@ -120,12 +120,12 @@
 	{ // swtich side bar tabs
 		"key": "2",
 		"command": "workbench.action.nextSideBarView",
-		"when": "sideBarFocus"
+		"when": "sideBarFocus && !inputFocus"
 	},
 	{ // swtich side bar tabs
 		"key": "1",
 		"command": "workbench.action.previousSideBarView",
-		"when": "sideBarFocus"
+		"when": "sideBarFocus && !inputFocus"
 	},
 	{ // quit side bar only when explore is focused
 		"key": "q",
@@ -204,7 +204,7 @@
 		"command": "-workbench.view.explorer",
 		"when": "viewContainer.workbench.view.explorer.enabled"
 	},
-	{ // switch editorGroup except in first group
+	{
 		"key": "ctrl+h",
 		"command": "workbench.action.focusPreviousGroup",
 		"when": "activeEditorGroupIndex != 1"
