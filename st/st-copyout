@@ -2,7 +2,7 @@
 # Using external pipe with st, give a dmenu prompt of recent commands,
 # allowing the user to copy the output of one.
 # xclip required for this script.
-# By Jaywalker and Luke
+# https://stackoverflow.com/questions/68687965/sed-command-stuck-sed-n-w-tmpfile-st-copyout-script/68688237#68688237
 tmpfile=$(mktemp /tmp/st-cmd-output.XXXXXX) || exit
 trap 'rm -f "$tmpfile"; exit' 0 1 15
 sed 's/\x0//g' > "$tmpfile"
@@ -13,4 +13,4 @@ chosen=$(tac "$tmpfile" | awk -v ps1="$ps1" 'index($0,ps1) && c++' | dmenu -p "C
 # $0 means the whole line, $1 means the first field
 # the p after `;` means to print all of the output, because after $0==chosen, p equals to 1, until we meet the next ps1, but if we do nothing at the every line, we can't get the output. So we need put a `p` there to tell awk "this line is the output"
 # awk -v chosen="$chosen" -v ps1="$ps1" '$0==chosen{p=1;print;next} p&&index($0,ps1){p=0};p' "$tmpfile" | xclip -selection clipboard
-awk -v chosen="$chosen" -v ps1="$ps1" '$0==chosen{p=1;print;next} p&&index($0,ps1){p=0} p' "$tmpfile" | xclip -selection clipboard
+awk -v chosen="$chosen" -v ps1="$ps1" '$0==chosen{p=1;next} p&&index($0,ps1){p=0} p' "$tmpfile" | xclip -selection clipboard
