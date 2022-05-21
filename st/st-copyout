@@ -3,11 +3,14 @@
 # allowing the user to copy the output of one.
 # xclip required for this script.
 # By Jaywalker and Luke
-tmpfile=$(mktemp /tmp/st-cmd-output.XXXXXX)
-trap 'rm "$tmpfile"' 0 1 15
-sed -n "w $tmpfile"
-sed -i 's/\x0//g' "$tmpfile"
-ps1="$(grep "\S" "$tmpfile" | tail -n 1 | sed 's/^\s*//' | cut -d' ' -f1)"
-chosen="$(grep -F "$ps1" "$tmpfile" | sed '$ d' | tac | dmenu -p "Copy which command's output?" -i -l 10 | sed 's/[^^]/[&]/g; s/\^/\\^/g')"
-eps1="$(echo "$ps1" | sed 's/[^^]/[&]/g; s/\^/\\^/g')"
-awk "/^$chosen$/{p=1;print;next} p&&/$eps1/{p=0};p" "$tmpfile" | xclip -selection clipboard
+tmpfile=$(mktemp /tmp/st-cmd-output.XXXXXX) || exit
+trap 'rm -f "$tmpfile"; exit' 0 1 15
+sed 's/\x0//g' > "$tmpfile"
+# NF{line=$1} get the first field(coloumn) of the current row
+ps1=$(awk 'NF{line=$1} END{print line}' "$tmpfile")
+# Get the whole command line of the output
+chosen=$(tac "$tmpfile" | awk -v ps1="$ps1" 'index($0,ps1) && c++' | dmenu -p "Copy which command's output?" -i -l 10)
+# $0 means the whole line, $1 means the first field
+# the p after `;` means to print all of the output, because after $0==chosen, p equals to 1, until we meet the next ps1, but if we do nothing at the every line, we can't get the output. So we need put a `p` there to tell awk "this line is the output"
+# awk -v chosen="$chosen" -v ps1="$ps1" '$0==chosen{p=1;print;next} p&&index($0,ps1){p=0};p' "$tmpfile" | xclip -selection clipboard
+awk -v chosen="$chosen" -v ps1="$ps1" '$0==chosen{p=1;print;next} p&&index($0,ps1){p=0} p' "$tmpfile" | xclip -selection clipboard
