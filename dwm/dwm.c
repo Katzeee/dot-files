@@ -945,8 +945,8 @@ void
 focusstack(int inc, int hid) // hid==1 means include hidden client
 {
 	Client *c = NULL, *i;
-
-	if ((!selmon->sel && !hid) || (selmon->sel && selmon->sel->isfullscreen && lockfullscreen)) // if no client selected and exclude hidden client
+	// if no client selected and exclude hidden client, if client selected but fullscreen
+	if ((!selmon->sel && !hid) || (selmon->sel && selmon->sel->isfullscreen && lockfullscreen)) 
 		return;
 	if (!selmon->clients) // if no clients
 		return;
@@ -1810,11 +1810,16 @@ show(const Arg *arg)
 void
 showall(const Arg *arg)
 {
-	Client *c;
+	Client *c = NULL;
 	selmon->hidsel = 0;
 	for (c = selmon->clients; c ; c = c->next) {
 		if (ISVISIBLE(c)) // the client in current tag
 			showwin(c);
+	}
+	if (!selmon->sel) { // if no focus, select one to focus
+		for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+		if (c)
+			focus(c);
 	}
 	restack(selmon);
 }
