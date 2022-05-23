@@ -1,6 +1,7 @@
 **/*.o
 **/*.orig
 **/*.rej
+gdb*
 dwm/dwm
 st/st
 dmenu/dmenu

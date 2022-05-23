@@ -49,7 +49,7 @@
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
-#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags])) // is the client in current tag
 #define HIDDEN(C)               ((getstate(C->win) == IconicState))
 #define LENGTH(X)               (sizeof X / sizeof X[0])
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
@@ -85,6 +85,7 @@ typedef struct {
 
 typedef struct Monitor Monitor;
 typedef struct Client Client;
+// Many Clients can lay in one tag
 struct Client {
 	char name[256];
 	float mina, maxa;
@@ -113,6 +114,7 @@ typedef struct {
 } Layout;
 
 typedef struct Pertag Pertag;
+// Monitor
 struct Monitor {
 	char ltsymbol[16];
 	float mfact;
@@ -128,9 +130,9 @@ struct Monitor {
 	unsigned int tagset[2];
 	int showbar;
 	int topbar;
-	int hidsel;
-	Client *clients;
-	Client *sel;
+	int hidsel; // is focusing a hidden client, hidsel==1 means yes
+	Client *clients; // head point of the client list
+	Client *sel;  // means selected client
 	Client *stack;
 	Monitor *next;
 	Window barwin;
@@ -217,6 +219,7 @@ static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void show(const Arg *arg);
+static void showall(const Arg *arg); // show all hidden client in selected tag
 static void showwin(Client *c);
 static void showhide(Client *c);
 static void sigchld(int unused);
@@ -281,7 +284,7 @@ static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
 static Drw *drw;
-static Monitor *mons, *selmon;
+static Monitor *mons, *selmon; // selmon means selected monitor
 static Window root, wmcheckwin;
 
 /* configuration, allows nested code to access above variables */
@@ -427,7 +430,7 @@ arrangemon(Monitor *m)
 }
 
 void
-attach(Client *c)
+attach(Client *c)  // insert the new client to the head of the client list
 {
 	c->next = c->mon->clients;
 	c->mon->clients = c;
@@ -939,20 +942,20 @@ focusstackhid(const Arg *arg)
 }
 
 void
-focusstack(int inc, int hid)
+focusstack(int inc, int hid) // hid==1 means include hidden client
 {
 	Client *c = NULL, *i;
 
-	if ((!selmon->sel && !hid) || (selmon->sel->isfullscreen && lockfullscreen))
+	if ((!selmon->sel && !hid) || (selmon->sel && selmon->sel->isfullscreen && lockfullscreen)) // if no client selected and exclude hidden client
 		return;
-	if (!selmon->clients)
+	if (!selmon->clients) // if no clients
 		return;
 	if (inc > 0) {
-		if (selmon->sel)
+		if (selmon->sel)  // if there is a client selected
 			for (c = selmon->sel->next;
-					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c)));
-					 c = c->next);
-		if (!c)
+					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c))); // find a cilent in current tag, include/exclude hidden client
+					 c = c->next); // find the next client
+		if (!c) // selmon->sel is not a recurssive list, if can't find one non-hidden client after current client, we need find again from the head of the list
 			for (c = selmon->clients;
 					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c)));
 					 c = c->next);
@@ -975,6 +978,8 @@ focusstack(int inc, int hid)
 			showwin(c);
 			c->mon->hidsel = 1;
 		}
+	} else {
+		return;
 	}
 }
 
@@ -1799,11 +1804,23 @@ show(const Arg *arg)
 {
 	if (selmon->hidsel)
 		selmon->hidsel = 0;
-	showwin(selmon->sel);
+	showwin(selmon->sel); 
 }
 
 void
-showwin(Client *c)
+showall(const Arg *arg)
+{
+	Client *c;
+	selmon->hidsel = 0;
+	for (c = selmon->clients; c ; c = c->next) {
+		if (ISVISIBLE(c)) // the client in current tag
+			showwin(c);
+	}
+	restack(selmon);
+}
+
+void
+showwin(Client *c) // show the selected client  
 {
 	if (!c || !HIDDEN(c))
 		return;
