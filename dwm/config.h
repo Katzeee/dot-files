@@ -22,6 +22,13 @@ static const char *colors[][3]      = {
 	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 
+static const char *const autostart[] = {
+	"st", NULL,
+	"qv2ray", NULL,
+	"google-chrome-stable", "--proxy-server=127.0.0.1:8889", NULL,
+	NULL /* terminate */
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -30,9 +37,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
+	/* run `xprop` in command line and click the window, then you will get the output of xprop */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Google-chrome", NULL, NULL, 1<<1, 0, -1},
+	{ "qv2ray", NULL, NULL, 1<<8, 0, -1},
 };
 
 /* layout(s) */
@@ -117,10 +127,11 @@ static Key keys[] = {
 };
 
 /* button definitions */
+/* buttons are on bar, like every tag is a button*/
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+	{ ClkLtSymbol,          0,              Button1,        layoutscroll,   {.i = -1 } },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
