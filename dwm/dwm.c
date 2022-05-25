@@ -94,7 +94,7 @@ struct Client {
 	int oldx, oldy, oldw, oldh;
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
 	int bw, oldbw;
-	unsigned int tags;
+	unsigned int tags; // bit map
 	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
 	Client *next;
 	Client *snext;
@@ -126,9 +126,9 @@ struct Monitor {
 	int bt;               /* number of tasks */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
-	unsigned int seltags;
+	unsigned int seltags; // can only be 1 or 0, means current tag set and previous tag set
 	unsigned int sellt;
-	unsigned int tagset[2];
+	unsigned int tagset[2]; // in order to use MODKEY+TAB to switch in two groups of tags, this is two bit map to record curret tag set and previous tag set
 	int showbar;
 	int topbar;
 	int hidsel; // is focusing a hidden client, hidsel==1 means yes
@@ -1961,7 +1961,7 @@ spawn(const Arg *arg)
 }
 
 void
-tag(const Arg *arg)
+tag(const Arg *arg) // move client to tag
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
@@ -2040,14 +2040,14 @@ togglefloating(const Arg *arg)
 }
 
 void
-toggletag(const Arg *arg)
+toggletag(const Arg *arg) // set the focused client being seen both on current tag and the chosen tag
 {
 	unsigned int newtags;
 
 	if (!selmon->sel)
 		return;
 	newtags = selmon->sel->tags ^ (arg->ui & TAGMASK);
-	if (newtags) {
+	if (newtags) { // at least show on one tag, if client is only shown on one tag, newtags==0 when arg->ui equals to that tag 
 		selmon->sel->tags = newtags;
 		focus(NULL);
 		arrange(selmon);
@@ -2055,7 +2055,7 @@ toggletag(const Arg *arg)
 }
 
 void
-toggleview(const Arg *arg)
+toggleview(const Arg *arg) // set tags being seen simultaneously, toggle a tag to be seen
 {
 	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);
 	int i;
