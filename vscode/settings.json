@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": 0.4,
+    //"window.zoomLevel": 0.4,
     "editor.snippetSuggestions": "bottom",
     "editor.minimap.enabled": false,
 	"errorLens.enabledDiagnosticLevels": [
@@ -602,4 +602,5 @@
     "gitlens.changes.toggleMode": "window",
     "workbench.startupEditor": "none",
     "editor.fontSize": 16,
+    "workbench.colorTheme": "Monokai",
 }

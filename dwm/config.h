@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -23,9 +23,10 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"st", NULL,
 	"qv2ray", NULL,
 	"google-chrome-stable", "--proxy-server=127.0.0.1:8889", NULL,
+	"st", NULL,
+	"autorandr", "--change", NULL,
 	NULL /* terminate */
 };
 
