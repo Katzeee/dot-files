@@ -58,6 +58,7 @@
 		"command": "workbench.action.terminal.toggleTerminal",
 		"when": "terminal.active"
 	},
+    /*
 	{ // window move down
 		"key": "ctrl+j",
 		"command": "vim.remap",
@@ -102,6 +103,7 @@
 			]
 		}
 	},
+    */
 	{ // new file
 		"key": "a",
 		"command": "explorer.newFile",
@@ -208,6 +210,93 @@
 		"key": "ctrl+h",
 		"command": "workbench.action.focusPreviousGroup",
 		"when": "activeEditorGroupIndex != 1"
-	},
+    },
+    {
+        "key": "ctrl+,",
+        "command": "workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "ctrl+shift+pageup",
+        "command": "-workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "ctrl+shift+pagedown",
+        "command": "-workbench.action.moveEditorRightInGroup"
+    },
+    // focus editor groups
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.focusAboveGroup",
+        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+up",
+        "command": "-workbench.action.focusAboveGroup",
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusBelowGroup",
+        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+down",
+        "command": "-workbench.action.focusBelowGroup",
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+left",
+        "command": "-workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+right",
+        "command": "-workbench.action.focusRightGroup"
+    },
+    // move editor to other groups
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.moveEditorToLeftGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+        "key": "ctrl+shift+k",
+        "command": "workbench.action.moveEditorToAboveGroup"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "workbench.action.moveEditorToBelowGroup"
+    },
+    // focus editor
+    {
+        "key": "shift+r",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+e",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-workbench.action.previousEditor"
+    },
 	
 ]
