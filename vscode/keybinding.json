@@ -284,7 +284,8 @@
     // focus editor
     {
         "key": "shift+r",
-        "command": "workbench.action.nextEditor"
+        "command": "workbench.action.nextEditor",
+        "when": "vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+pagedown",
@@ -292,7 +293,8 @@
     },
     {
         "key": "shift+e",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.previousEditor",
+        "when": "vim.mode == 'Normal'"
     },
     {
         "key": "ctrl+pageup",
