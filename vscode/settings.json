@@ -622,7 +622,6 @@
     "editor.fontSize": 16,
     "workbench.colorTheme": "Monokai",
     "editor.detectIndentation": false,
-    "editor.autoClosingBrackets": "never",
     //* doxdocgen
     // The prefix that is used for each comment line except for first and last.
     "doxdocgen.c.commentPrefix": " * ",
@@ -717,4 +716,5 @@
     "doxdocgen.generic.commandSuggestion": true,
     // Add `\\` in doxygen command suggestion for better readbility (need to enable commandSuggestion)
     "doxdocgen.generic.commandSuggestionAddPrefix": false,
+    "editor.autoClosingBrackets": "beforeWhitespace",
 }
