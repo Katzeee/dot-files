@@ -16,9 +16,9 @@
     //  "D:\\msys64\\mingw64\\bin"
     //],
     //"cmake.generator": "MinGW Makefiles",
-    "cmake.configureSettings": {
-        "CMAKE_TOOLCHAIN_FILE": "/usr/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
-    },
+    //"cmake.configureSettings": {
+    //   "CMAKE_TOOLCHAIN_FILE": "/usr/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    //},
     // latex
     "latex-workshop.latex.outDir": "%DIR%/.build",
     "latex-workshop.latex.tools": [
@@ -326,6 +326,7 @@
                 "z"
             ]
         },
+        /*
         // switch tab
         {
             "before": [
@@ -345,6 +346,7 @@
                 "T"
             ]
         },
+        */
         // -- rename symbol
 		{
 			"before": [
@@ -457,6 +459,17 @@
                 "$"
             ]
         },
+    ],
+    // like yL dL
+    "vim.operatorPendingModeKeyBindings": [
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        }
     ],
     // vim快捷键删除
     "vim.handleKeys": {
@@ -589,9 +602,7 @@
     ],
     "whichkey.sortOrder": "alphabetically",
 
-    "timeline.excludeSources": [
-        "timeline.localHistory"
-    ],
+    "timeline.excludeSources": [],
     "remote.SSH.remotePlatform": {
         "192.168.1.70": "linux"
     },
@@ -603,4 +614,6 @@
     "workbench.startupEditor": "none",
     "editor.fontSize": 16,
     "workbench.colorTheme": "Monokai",
+    "editor.detectIndentation": false,
+    "editor.autoClosingBrackets": "never",
 }
