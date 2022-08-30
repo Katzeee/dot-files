@@ -26,6 +26,8 @@ static const char *const autostart[] = {
 	"qv2ray", NULL,
 	"google-chrome-stable", "--proxy-server=127.0.0.1:8889", NULL,
 	"st", NULL,
+	// "sh", "-c", "refresh-bar", NULL,
+	"refresh-bar", NULL,
 //	"autorandr", "--change", NULL,
 	NULL /* terminate */
 };
