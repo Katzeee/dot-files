@@ -41,11 +41,11 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* run `xprop` in command line and click the window, then you will get the output of xprop */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "Google-chrome", NULL, NULL, 1<<1, 0, -1},
-	{ "qv2ray", NULL, NULL, 1<<8, 0, -1},
+	/* class              instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",             NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox",          NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Google-chrome",    NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "qv2ray",           NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -76,46 +76,50 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *backlightupcmd[]  = { "backlightup", NULL };
+static const char *backlightdowncmd[]  = { "backlightdown", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	/* modifier                     key                         function        argument */
+	{ 0,                XF86XK_MonBrightnessDown,   spawn,          {.v = backlightdowncmd } },
+	{ 0,                XF86XK_MonBrightnessUp,     spawn,          {.v = backlightupcmd } },
+	{ MODKEY,                       XK_space,                   spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Return,                  spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_b,                       togglebar,      {0} },
 	// scroll in tasks, hide or visble
-	{ MODKEY,                       XK_s,      show,           {0} },
-	{ MODKEY|ShiftMask,             XK_s,      showall,        {0} },
-	{ MODKEY,                       XK_h,      hide,           {0} },
-	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      focusstackhid,  {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_s,                       show,           {0} },
+	{ MODKEY|ShiftMask,             XK_s,                       showall,        {0} },
+	{ MODKEY,                       XK_h,                       hide,           {0} },
+	{ MODKEY,                       XK_j,                       focusstackvis,  {.i = +1 } },
+	{ MODKEY,                       XK_k,                       focusstackvis,  {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,                       focusstackhid,  {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,                       focusstackhid,  {.i = -1 } },
+	{ MODKEY,                       XK_i,                       incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
 	// resize the tasks' window
-	{ MODKEY,                       XK_comma,  setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_period, setmfact,       {.f = +0.05} },
-	{ MODKEY,            		    XK_n,      setcfact,       {.f = +0.25} },
-	{ MODKEY,            		    XK_m,      setcfact,       {.f = -0.25} },
-	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+	{ MODKEY,                       XK_comma,                   setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_period,                  setmfact,       {.f = +0.05} },
+	{ MODKEY,            		        XK_n,                       setcfact,       {.f = +0.25} },
+	{ MODKEY,            		        XK_m,                       setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,             XK_o,                       setcfact,       {.f =  0.00} },
 	// put the task window to main position
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,                       XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_Return,                  zoom,           {0} },
+	{ MODKEY,                       XK_Tab,                     view,           {0} },
+	{ MODKEY,                       XK_c,                       killclient,     {0} },
 	// change layout
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_t,                       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_f,                       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,             XK_m,                       setlayout,      {.v = &layouts[2]} },
 	//{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	//{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY,                       XK_0,                       view,           {.ui = ~0 } },
 	//{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_space,  layoutscroll,   {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_space,                   layoutscroll,   {.i = -1 } },
 	// focus monitor
-	{ MODKEY|ShiftMask,             XK_h,      focusmon,       {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_l,      focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Left,   tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_Right,  tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,                       focusmon,       {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,                       focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Left,                    tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Right,                   tagmon,         {.i = +1 } },
 	// change tags
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)

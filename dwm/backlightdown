@@ -1,0 +1,10 @@
+#/bin/bash
+if ! [[ -f /bin/brightnessctl ]];
+then
+    echo "\033[031mInstall brightnessctl\033[0m"
+    sudo pacman -S brightnessctl
+fi
+
+brightnessctl -d intel_backlight s 10%-
+
+

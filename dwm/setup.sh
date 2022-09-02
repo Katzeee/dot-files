@@ -12,3 +12,5 @@ then
 else
 	pip install psutil
 fi
+
+make && sudo make install
