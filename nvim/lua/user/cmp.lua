@@ -94,6 +94,10 @@ cmp.setup {
       "s",
     }),
   },
+  completion = {
+    --highlight the first selection
+    completeopt = 'menu, menuone, noinsert' 
+  },
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
