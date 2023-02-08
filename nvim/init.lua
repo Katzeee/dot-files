@@ -10,3 +10,4 @@ require "user.colorscheme"
 require "user.cmp"
 -- LSP
 require "user.lsp"
+require("clangd_extensions").setup()
