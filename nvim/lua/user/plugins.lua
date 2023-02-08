@@ -69,6 +69,23 @@ return packer.startup(function(use)
 
   use "p00f/clangd_extensions.nvim" -- LSP clangd extension
 
+
+  -- other
+  use "folke/which-key.nvim" -- which key
+  use "kyazdani42/nvim-tree.lua" -- tree explorer
+  use "nvim-telescope/telescope.nvim" -- telescope for find files and words
+  use {
+    "nvim-lualine/lualine.nvim", -- status line
+    requires = { "kyazdani42/nvim-web-devicons", opt = true} -- icons 
+  }
+  use "numToStr/Comment.nvim" -- comment line
+  use "windwp/nvim-autopairs" -- autopair
+  use "akinsho/bufferline.nvim" -- tabs
+
+  -- syntax highligh
+  use "nvim-treesitter/nvim-treesitter" -- syntax highlight
+  use "p00f/nvim-ts-rainbow"
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

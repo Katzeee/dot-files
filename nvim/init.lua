@@ -1,5 +1,5 @@
 -- some vim options
-require "user.options" 
+require "user.options"
 -- keymapping
 require "user.keymaps"
 -- plugins
@@ -10,4 +10,18 @@ require "user.colorscheme"
 require "user.cmp"
 -- LSP
 require "user.lsp"
-require("clangd_extensions").setup()
+-- require("clangd_extensions").setup()
+-- whichkey
+require "user.whichkey"
+-- nvim tree
+require "user.nvim-tree"
+-- telescope
+require "user.telescope"
+-- lualine
+require "user.lualine"
+-- treesitter
+require "user.treesitter"
+
+require "user.autopairs"
+require "user.comment"
+require "user.bufferline"

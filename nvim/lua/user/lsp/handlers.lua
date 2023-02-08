@@ -13,6 +13,26 @@ M.setup = function()
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
   end
 
+
+  -- local util = require "vim.lsp.util"
+  -- local function location_callback(_, method, result)
+  --   if result == nil or vim.tbl_isempty(result) then
+  --     local _ = print(method, 'No location found')
+  --     return nil
+  --   end
+  --   if vim.tbl_islist(result) then
+  --     util.jump_to_location(result[1])
+  --
+  --     if #result > 1 then
+  --       util.set_qflist(util.locations_to_items(result))
+  --       vim.api.nvim_command("copen")
+  --       vim.api.nvim_command("wincmd p")
+  --     end
+  --   else
+  --     util.jump_to_location(result)
+  --   end
+  -- end
+
   local config = {
     -- disable virtual text
     virtual_text = false,
@@ -42,6 +62,8 @@ M.setup = function()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "rounded",
   })
+
+  -- vim.lsp.handlers["textDocument/definition"] = location_callback
 end
 
 local function lsp_highlight_document(client)
@@ -71,7 +93,7 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ek", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(
     bufnr,
     "n",
@@ -79,7 +101,7 @@ local function lsp_keymaps(bufnr)
     '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
     opts
   )
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ej", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
