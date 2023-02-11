@@ -46,10 +46,21 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup.cmdline(":", {
-    enable = true,
     sources = {
         { name = 'cmdline' },
+    },
+    completion = {
+        autocomplete = {
+            cmp.TriggerEvent.TextChanged,
+        }
     }
+})
+
+cmp.setup.cmdline('/', {
+  -- completion = { autocomplete =  },
+  sources = {
+    { name = 'buffer' }
+  }
 })
 
 cmp.setup {
@@ -77,8 +88,8 @@ cmp.setup {
         --       fallback()
         --     end
         -- }),
-        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
-        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c" }),
+        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c", "s" }),
+        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c", "s" }),
         ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs( -1), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
         ["<A-x>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -102,7 +113,7 @@ cmp.setup {
           else
             fallback()
           end
-        end, { "i", "s", "c"}),
+        end, { "i", "s", "c" }),
         -- ["<S-Tab>"] = cmp.mapping(function(fallback)
         --   if cmp.visible() then
         --     cmp.select_prev_item()
@@ -157,4 +168,4 @@ cmp.setup {
         ghost_text = false,
         native_menu = false,
     },
-}
+    }

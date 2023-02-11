@@ -29,8 +29,8 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
 keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
-keymap("n", "<C-W>", ":bdelete<CR>", opts)
-keymap("n", "<leader>w", ":bdelete<CR>", opts)
+keymap("n", "<C-W>", ":BufferLineCloseCustom<CR>", opts)
+-- keymap("n", "<leader>w", ":bdelete<CR>", opts)
 
 -- keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
