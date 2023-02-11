@@ -83,6 +83,7 @@ return packer.startup(function(use)
   use "akinsho/bufferline.nvim" -- tabs
 
   -- syntax highligh
+  use "kyazdani42/nvim-web-devicons"
   use "nvim-treesitter/nvim-treesitter" -- syntax highlight
   use "p00f/nvim-ts-rainbow"
 

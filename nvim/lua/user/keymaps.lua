@@ -27,8 +27,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
-keymap("n", "E", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "R", ":BufferLineCyclePrev<CR>", opts)
+keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
+keymap("n", "<C-W>", ":bdelete<CR>", opts)
+keymap("n", "<leader>w", ":bdelete<CR>", opts)
 
 -- keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
@@ -90,19 +92,19 @@ keymap("x", "<S-l>", "$", opts)
 
 -- Command --
 -- Cmdline Completion
-vim.keymap.set("c", "<Tab>", function()
-  return vim.fn.pumvisible() == 1 and "<Space>" or "<C-Z>" 
-end, {expr = true, noremap = true})
-vim.keymap.set("c", "<C-k>", function()
-  return "<C-P>"
-end, {expr = true})
-vim.keymap.set("c", "<C-j>", function()
-  return "<C-N>"
-end, {expr = true})
+-- vim.keymap.set("c", "<Tab>", function()
+--   return vim.fn.pumvisible() == 1 and "<Space>" or "<C-Z>"
+-- end, { expr = true, noremap = true })
+-- vim.keymap.set("c", "<C-k>", function()
+--   return "<C-P>"
+-- end, { expr = true })
+-- vim.keymap.set("c", "<C-j>", function()
+--   return "<C-N>"
+-- end, { expr = true })
 
 -- Terminal --
 -- Better terminal navigation
-keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
-keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
-keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+-- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
+-- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
+-- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
+-- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)

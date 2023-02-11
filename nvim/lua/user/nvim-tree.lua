@@ -40,19 +40,19 @@ end
 
 local function open_file_then_close_tree(node)
   nvim_tree_api.node.open.edit(node)
-  nvim_tree_api.tree.close()
+  -- nvim_tree_api.tree.close()
 end
 
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-  },
+  -- ignore_ft_on_setup = {
+  --   "startify",
+  --   "dashboard",
+  --   "alpha",
+  -- },
   -- auto_close = true,
-  -- open_on_tab = false,
+  open_on_tab = false,
   hijack_cursor = false,
   update_cwd = true,
   diagnostics = {
