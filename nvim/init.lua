@@ -26,3 +26,6 @@ require "user.autopairs"
 require "user.comment"
 require "user.bufferline"
 require "user.autocommands"
+
+require "user.debug"
+

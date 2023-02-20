@@ -2,6 +2,7 @@ local function open_nvim_tree(data)
   if vim.fn.isdirectory(data.file) == 0 then
     vim.cmd.cd(vim.fs.dirname(data.file))
   else
+    vim.cmd.cd(data.file)
     require("nvim-tree.api").tree.open()
   end
 end

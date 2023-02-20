@@ -87,6 +87,12 @@ return packer.startup(function(use)
   use "nvim-treesitter/nvim-treesitter" -- syntax highlight
   use "p00f/nvim-ts-rainbow"
 
+  -- Debug
+  use {
+    "sakhnik/nvim-gdb",
+    run = "./install.sh"
+  }
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

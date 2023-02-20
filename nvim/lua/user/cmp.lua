@@ -48,6 +48,7 @@ local kind_icons = {
 cmp.setup.cmdline(":", {
     sources = {
         { name = 'cmdline' },
+        { name = "path" },
     },
     completion = {
         autocomplete = {
@@ -57,10 +58,10 @@ cmp.setup.cmdline(":", {
 })
 
 cmp.setup.cmdline('/', {
-  -- completion = { autocomplete =  },
-  sources = {
-    { name = 'buffer' }
-  }
+    -- completion = { autocomplete =  },
+    sources = {
+        { name = 'buffer' }
+    }
 })
 
 cmp.setup {
@@ -168,4 +169,4 @@ cmp.setup {
         ghost_text = false,
         native_menu = false,
     },
-    }
+}

@@ -14,6 +14,7 @@ local function close_tab(bufid)
 end
 
 vim.api.nvim_create_user_command("BufferLineCloseCustom", function() close_tab(vim.api.nvim_get_current_buf()) end, {})
+vim.api.nvim_set_keymap("n", "<leader>t", ":BufferLineTogglePin<CR>" ,{noremap = true, silent=true})
 
 bufferline.setup {
     options = {
