@@ -20,8 +20,8 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Formatting
-keymap("n", "<leader>f", ":lua vim.lsp.buf.format { async = true }<CR>", opts)
 -- Better window navigation
+-- vim.api.keymap("n", "<leader>f", ":lua vim.lsp.buf.format { async = true }<CR>", opts)
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)

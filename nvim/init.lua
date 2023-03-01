@@ -10,7 +10,6 @@ require "user.colorscheme"
 require "user.cmp"
 -- LSP
 require "user.lsp"
--- require("clangd_extensions").setup()
 -- whichkey
 require "user.whichkey"
 -- nvim tree
@@ -28,4 +27,5 @@ require "user.bufferline"
 require "user.autocommands"
 
 require "user.debug"
+
 

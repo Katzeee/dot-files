@@ -67,7 +67,9 @@ return packer.startup(function(use)
   use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer
   use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
 
-  use "p00f/clangd_extensions.nvim" -- LSP clangd extension
+  -- use "p00f/clangd_extensions.nvim" -- LSP clangd extension
+  use "lvimuser/lsp-inlayhints.nvim" -- temp solution of inlay hints
+  use "ray-x/lsp_signature.nvim" -- signature
 
 
   -- other

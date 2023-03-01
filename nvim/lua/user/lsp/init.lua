@@ -4,5 +4,7 @@ if not status_ok then
 end
 
 require "user.lsp.mason"
-require("user.lsp.handlers").setup()
+require "user.lsp.handlers".setup()
+require "lsp-inlayhints".setup()
+require "lsp_signature".setup()
 -- require "user.lsp.null-ls"
