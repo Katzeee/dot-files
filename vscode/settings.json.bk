@@ -1,13 +1,6 @@
 {
-    "editor.snippetSuggestions": "top",
-    "keyboard.dispatch": "keyCode",
     //"window.zoomLevel": 0.4,
-    "workbench.editorAssociations": {
-        "*.md": "default",
-        "*.puml": "default",
-        "*.pu": "default",
-        "git-rebase-todo": "default"
-    },
+    "editor.snippetSuggestions": "bottom",
     "editor.minimap.enabled": false,
     "errorLens.enabledDiagnosticLevels": [
         "error",
@@ -17,7 +10,17 @@
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDragAndDrop": false,
     "git.confirmSync": false,
-    "git.path": "D:\\github-codes\\git-wrap.bat",
+    // camke
+    //"cmake.cmakePath": "D:\\cmake-3.23.1-windows-x86_64\\bin\\cmake.exe",
+    //"cmake.mingwSearchDirs": [
+    //  "D:\\msys64\\mingw64\\bin"
+    //],
+    //"cmake.generator": "MinGW Makefiles",
+    "cmake.generator": "Ninja",
+    "cmake.configureSettings": {
+       "CMAKE_TOOLCHAIN_FILE": "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    // latex
     "latex-workshop.latex.outDir": "%DIR%/.build",
     "latex-workshop.latex.tools": [
         {
@@ -110,7 +113,13 @@
         "*.fdb_latexmk",
     ],
     // 使用内置的pdf阅读器
-    "latex-workshop.view.pdf.viewer": "tab",
+    // "latex-workshop.view.pdf.viewer": "tab",
+    // 使用Acrobat打开pdf
+    "latex-workshop.view.pdf.viewer": "external",
+    "latex-workshop.view.pdf.external.viewer.command": "C:/Program Files (x86)/Adobe/Acrobat DC/Acrobat/Acrobat.exe", //自己的安装位置
+    "latex-workshop.view.pdf.external.viewer.args": [
+        "%PDF%"
+    ],
     //* 括号颜色
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": "active",
@@ -119,11 +128,7 @@
         "editor.unicodeHighlight.ambiguousCharacters": false,
         "editor.unicodeHighlight.invisibleCharacters": false,
         "editor.wordWrap": "on",
-        "editor.quickSuggestions": {
-            "comments": "on",
-            "strings": "on",
-            "other": "on"
-        }
+        "editor.quickSuggestions": true
     },
     // 设置多行粘贴到terminal不警告
     "terminal.integrated.enableMultiLinePasteWarning": false,
@@ -138,7 +143,8 @@
     "vim.insertModeKeyBindings": [
         {
             "before": [
-                ""
+                "j",
+                "j"
             ],
             "after": [
                 "<Esc>"
@@ -156,15 +162,6 @@
         }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "<leader>",
-                "c"
-            ],
-            "commands": [
-                "editor.action.commentLine"
-            ]
-        },
         {
             "before": [
                 "<C-n>"
@@ -429,15 +426,7 @@
         }
     ],
     // visual mode快捷键绑定
-    "vim.visualModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "n"
-            ],
-            "commands": [
-                "editor.action.addSelectionToNextFindMatch"
-            ]
-        },
+    "vim.visualModeKeyBindings": [
         {
             "before": [
                 ">"
@@ -507,24 +496,6 @@
     "vim.easymotion": true,
     // 更高级的搜索
     "vim.incsearch": true,
-    // surrounding
-    "vim.surround": true,
-    // vim statusbar color
-    "vim.statusBarColorControl": true,
-    "vim.statusBarColors.normal": [
-        "#8FBCBB",
-        "#434C5E"
-    ],
-    "vim.statusBarColors.insert": "#BF616A",
-    "vim.statusBarColors.visual": "#B48EAD",
-    "vim.statusBarColors.visualline": "#B48EAD",
-    "vim.statusBarColors.visualblock": "#A3BE8C",
-    "vim.statusBarColors.replace": "#D08770",
-    "vim.statusBarColors.commandlineinprogress": "#007ACC",
-    "vim.statusBarColors.searchinprogressmode": "#007ACC",
-    "vim.statusBarColors.easymotionmode": "#007ACC",
-    "vim.statusBarColors.easymotioninputmode": "#007ACC",
-    "vim.statusBarColors.surroundinputmode": "#007ACC",
     // 输入法切换设置
     //"vim.autoSwitchInputMethod.enable": true,
     //"vim.autoSwitchInputMethod.defaultIM": "1033",
@@ -639,6 +610,10 @@
         }
     ],
     "whichkey.sortOrder": "alphabetically",
+    "timeline.excludeSources": [],
+    "remote.SSH.remotePlatform": {
+        "192.168.1.70": "linux"
+    },
     "workbench.editor.untitled.hint": "hidden",
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.acceptSuggestionOnEnter": "off",
@@ -647,127 +622,106 @@
     "workbench.startupEditor": "none",
     "editor.fontSize": 16,
     "workbench.colorTheme": "Monokai",
-    "editor.autoClosingBrackets": "never",
-    "leetcode.endpoint": "leetcode-cn",
-    //"leetcode.workspaceFolder": "C:\\Users\\Xac\\.leetcode",
-    "leetcode.workspaceFolder": "/home/xac/.leetcode",
-    "cmake.generator": "Ninja",
-    // "cmake.generator": "Unix Makefiles",
-    "cmake.configureSettings": {
-        "CMAKE_TOOLCHAIN_FILE": "D:/Scoop/apps/vcpkg/current/scripts/buildsystems/vcpkg.cmake"
-    },
-    // "idf.gitPath": "D:\\espressif\\.espressif\\tools\\idf-git\\2.30.1\\cmd\\git.exe",
-    "leetcode.defaultLanguage": "cpp",
-    "files.exclude": {
-        "**/.git": false
-    },
-    "workbench.colorCustomizations": {
-        "statusBar.background": "#8FBCBB",
-        "statusBar.noFolderBackground": "#8FBCBB",
-        "statusBar.debuggingBackground": "#8FBCBB",
-        "statusBar.foreground": "#434C5E",
-        "statusBar.debuggingForeground": "#434C5E"
-    },
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.inlayHints.referenceOperator.enabled": true,
-    "C_Cpp.inlayHints.parameterNames.enabled": true,
-    "C_Cpp.inlayHints.autoDeclarationTypes.enabled": true,
-    "[cpp]": {
-        "editor.defaultFormatter": "xaver.clang-format"
-    },
-    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
-    "C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
-        "bugprone-*",
-        "clang-analyzer-*",
-        "google-*",
-        "modernize-*",
-        "performance-*",
-        "portability-*",
-        "readability-*",
-        "bugprone-easily-swappable-parameters",
-        "bugprone-implicit-widening-of-multiplication-result",
-        "bugprone-narrowing-conversions",
-        "bugprone-reserved-identifier",
-        "bugprone-signed-char-misuse",
-        "bugprone-suspicious-include",
-        "bugprone-unhandled-self-assignment",
-        "clang-analyzer-cplusplus.NewDelete",
-        "clang-analyzer-cplusplus.NewDeleteLeaks",
-        "clang-analyzer-security.insecureAPI.rand",
-        //"clang-diagnostic-implicit-int-float-conversion",
-        "google-readability-avoid-underscore-in-googletest-name",
-        "modernize-avoid-c-arrays",
-        "modernize-use-nodiscard",
-        "readability-convert-member-functions-to-static",
-        //"readability-identifier-length",
-        "readability-function-cognitive-complexity",
-        "readability-magic-numbers",
-        "readability-make-member-function-const",
-        "readability-qualified-auto",
-        "readability-redundant-access-specifiers",
+    "editor.detectIndentation": false,
+    //* doxdocgen
+    // The prefix that is used for each comment line except for first and last.
+    "doxdocgen.c.commentPrefix": " * ",
+    // Smart text snippet for factory methods/functions.
+    "doxdocgen.c.factoryMethodText": "Create a {name} object",
+    // The first line of the comment that gets generated. If empty it won't get generated at all.
+    "doxdocgen.c.firstLine": "/**",
+    // Smart text snippet for getters.
+    "doxdocgen.c.getterText": "Get the {name} object",
+    // The last line of the comment that gets generated. If empty it won't get generated at all.
+    "doxdocgen.c.lastLine": " **/",
+    // Smart text snippet for setters.
+    "doxdocgen.c.setterText": "Set the {name} object",
+    // Doxygen comment trigger. This character sequence triggers generation of Doxygen comments.
+    "doxdocgen.c.triggerSequence": "/**",
+    // Smart text snippet for constructors.
+    "doxdocgen.cpp.ctorText": "Construct a new {name} object",
+    // Smart text snippet for destructors.
+    "doxdocgen.cpp.dtorText": "Destroy the {name} object",
+    // The template of the template parameter Doxygen line(s) that are generated. If empty it won't get generated at all.
+    "doxdocgen.cpp.tparamTemplate": "@tparam {param} ",
+    // File copyright documentation tag.  Array of strings will be converted to one line per element.  Can template {year}.
+    "doxdocgen.file.copyrightTag": [
+        "@copyright Copyright (c) {year}"
     ],
-    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
-        "readability-identifier-length",
-        "readability-implicit-bool-conversion",
-        "readability-magic-numbers"
+    // Additional file documentation. One tag per line will be added. Can template `{year}`, `{date}`, `{author}`, `{email}` and `{file}`. You have to specify the prefix.
+    "doxdocgen.file.customTag": [],
+    // The order to use for the file comment. Values can be used multiple times. Valid values are shown in default setting.
+    "doxdocgen.file.fileOrder": [
+        "file",
+        "author",
+        "brief",
+        "version",
+        "date",
+        "empty",
+        "copyright",
+        //"empty",
+        "custom"
     ],
-    "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
-    "C_Cpp.codeAnalysis.clangTidy.config": "{CheckOptions: [{ key: readability-identifier-naming.ClassCase, value: CamelCase  },{ key: readability-identifier-naming.EnumCase, value: CamelCase  }]}",
-    "editor.wordWrap": "on",
-    "plantuml.server": "https://www.plantuml.com/plantuml",
-    "plantuml.render": "PlantUMLServer",
-    "ltex.enabled": [
-        "bibtex",
-        //"context",
-        //"context.tex",
-        "html",
-        "latex",
-        "markdown",
-        //"org",
-        //"restructuredtext",
-        //"rsweave"
+    // The template for the file parameter in Doxygen.
+    "doxdocgen.file.fileTemplate": "@file {name}",
+    // Version number for the file.
+    "doxdocgen.file.versionTag": "@version 0.1",
+    // Set the e-mail address of the author.  Replaces {email}.
+    "doxdocgen.generic.authorEmail": "jiangfengxi.c@gmail.com",
+    // Set the name of the author.  Replaces {author}.
+    "doxdocgen.generic.authorName": "xac",
+    // Set the style of the author tag and your name.  Can template {author} and {email}.
+    "doxdocgen.generic.authorTag": "@author {author} ({email})",
+    // If this is enabled a bool return value will be split into true and false return param.
+    "doxdocgen.generic.boolReturnsTrueFalse": true,
+    // The template of the brief Doxygen line that is generated. If empty it won't get generated at all.
+    "doxdocgen.generic.briefTemplate": "@brief {text}",
+    // The format to use for the date.
+    "doxdocgen.generic.dateFormat": "YYYY-MM-DD",
+    // The template for the date parameter in Doxygen.
+    "doxdocgen.generic.dateTemplate": "@date {date}",
+    // Decide if you want to get smart text for certain commands.
+    "doxdocgen.generic.generateSmartText": true,
+    // Whether include type information at return.
+    "doxdocgen.generic.includeTypeAtReturn": true,
+    // How many lines the plugin should look for to find the end of the declaration. Please be aware that setting this value too low could improve the speed of comment generation by a very slim margin but the plugin also may not correctly detect all declarations or definitions anymore.
+    "doxdocgen.generic.linesToGet": 20,
+    // The order to use for the comment generation. Values can be used multiple times. Valid values are shown in default setting.
+    "doxdocgen.generic.order": [
+        "brief",
+        //"empty",
+        "tparam",
+        "param",
+        "return",
+        "custom",
+        //"version",
+        //"author",
+        //"date",
+        //"copyright"
     ],
-    "editor.fontFamily": "Consolas, 'Courier New', monospace, 'JetBrainsMono NF'",
-    // "plantuml.server": "https://www.plantuml.com/plantuml",
-    // "plantuml.render": "PlantUMLServer"
-    // { key: readability-identifier-naming.FunctionCase,        value: CamelCase  },
-    // { key: readability-identifier-naming.GlobalConstantCase,  value: UPPER_CASE },
-    // { key: readability-identifier-naming.MemberCase,          value: lower_case },
-    // { key: readability-identifier-naming.MemberSuffix,        value: _          },
-    // { key: readability-identifier-naming.NamespaceCase,       value: lower_case },
-    // { key: readability-identifier-naming.StructCase,          value: CamelCase  },
-    // { key: readability-identifier-naming.UnionCase,           value: CamelCase  },
-    // { key: readability-identifier-naming.VariableCase,        value: lower_case },
-    //  ]},
-    "python.linting.pylintArgs": [
-        "--rcfile",
-        "${workspace}/.pylintrc"
-    ],
-    "python.formatting.provider": "yapf", // or "black" here
-    "python.linting.pylintEnabled": true,
-    "editor.tabSize": 2,
-    "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "C_Cpp.suggestSnippets": false,
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "python.analysis.inlayHints.variableTypes": true,
-    "python.diagnostics.sourceMapsEnabled": true,
-    "python.languageServer": "Pylance",
-    "omnisharp.useModernNet": false,
-    "csharp.inlayHints.parameters.enabled": true,
-    "csharp.inlayHints.types.enabled": true,
-    "csharp.inlayHints.parameters.forIndexerParameters": true,
-    "csharp.inlayHints.parameters.forLiteralParameters": true,
-    "csharp.inlayHints.parameters.forObjectCreationParameters": true,
-    "csharp.inlayHints.parameters.forOtherParameters": true,
-    "csharp.inlayHints.parameters.suppressForParametersThatDifferOnlyBySuffix": true,
-    "csharp.inlayHints.parameters.suppressForParametersThatMatchArgumentName": true,
-    "csharp.inlayHints.parameters.suppressForParametersThatMatchMethodIntent": true,
-    "csharp.inlayHints.types.forImplicitObjectCreation": true,
-    "csharp.inlayHints.types.forImplicitVariableTypes": true,
-    "csharp.inlayHints.types.forLambdaParameterTypes": true,
-    "[python]": {
-        "editor.formatOnType": true
-    },
+    // Custom tags to be added to the generic order. One tag per line will be added. Can template `{year}`, `{date}`, `{author}`, `{email}` and `{file}`. You have to specify the prefix.
+    "doxdocgen.generic.customTags": [],
+    // The template of the param Doxygen line(s) that are generated. If empty it won't get generated at all.
+    "doxdocgen.generic.paramTemplate": "@param {param} ",
+    // The template of the return Doxygen line that is generated. If empty it won't get generated at all.
+    "doxdocgen.generic.returnTemplate": "@return {type} ",
+    // Decide if the values put into {name} should be split according to their casing.
+    "doxdocgen.generic.splitCasingSmartText": true,
+    // Array of keywords that should be removed from the input prior to parsing.
+    "doxdocgen.generic.filteredKeywords": [],
+    // Substitute {author} with git config --get user.name.
+    "doxdocgen.generic.useGitUserName": true,
+    // Substitute {email} with git config --get user.email.
+    "doxdocgen.generic.useGitUserEmail": true,
+    // Provide intellisense and snippet for doxygen commands
+    "doxdocgen.generic.commandSuggestion": true,
+    // Add `\\` in doxygen command suggestion for better readbility (need to enable commandSuggestion)
+    "doxdocgen.generic.commandSuggestionAddPrefix": false,
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "idf.espIdfPath": "/home/xac/esp/esp-idf",
+    "idf.pythonBinPath": "/home/xac/.espressif/python_env/idf4.4_py3.10_env/bin/python",
+    "idf.toolsPath": "/home/xac/.espressif",
+    "idf.customExtraPaths": "/home/xac/.espressif/tools/xtensa-esp32-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32-elf/bin:/home/xac/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s2-elf/bin:/home/xac/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin:/home/xac/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin:/home/xac/.espressif/tools/esp32ulp-elf/2.28.51-esp-20191205/esp32ulp-elf-binutils/bin:/home/xac/.espressif/tools/esp32s2ulp-elf/2.28.51-esp-20191205/esp32s2ulp-elf-binutils/bin:/home/xac/.espressif/tools/cmake/3.20.3/bin:/home/xac/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/bin:/home/xac/.espressif/tools/ninja/1.10.2",
+    "idf.customExtraVars": "{\"OPENOCD_SCRIPTS\":\"/home/xac/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/share/openocd/scripts\"}",
+    "idf.gitPath": "/usr/bin/git",
 }
