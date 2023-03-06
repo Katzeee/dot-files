@@ -127,7 +127,7 @@ M.on_attach = function(client, bufnr)
   end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-  require("lsp-inlayhints").on_attach(client, bufnr)
+  require "lsp-inlayhints".on_attach(client, bufnr, true)
   require "lsp_signature".on_attach(client, bufnr)
 end
 

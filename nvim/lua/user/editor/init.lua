@@ -1,0 +1,5 @@
+require "user.editor.cmp"
+require "user.editor.telescope"
+require "user.editor.treesitter"
+require "user.editor.autopairs"
+require "user.editor.comment"

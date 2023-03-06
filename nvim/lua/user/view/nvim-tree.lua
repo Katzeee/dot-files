@@ -36,22 +36,28 @@ if not api_status_ok then
   return
 end
 
--- local tree_cb = nvim_tree_config.nvim_tree_callback
-
 local function open_file_then_close_tree(node)
   nvim_tree_api.node.open.edit(node)
   -- nvim_tree_api.tree.close()
 end
 
+local function open_folder_or_preview(node)
+  if node.name == ".." then
+    require("nvim-tree.actions.root.change-dir").fn ".."
+  elseif node.nodes then
+    require("nvim-tree.lib").expand_or_collapse(node)
+  else
+    local path = node.absolute_path
+    if node.link_to and not node.nodes then
+      path = node.link_to
+    end
+    require("nvim-tree.actions.node.open-file").fn("preview", path)
+  end
+end
+
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
-  -- ignore_ft_on_setup = {
-  --   "startify",
-  --   "dashboard",
-  --   "alpha",
-  -- },
-  -- auto_close = true,
   open_on_tab = false,
   hijack_cursor = false,
   update_cwd = true,
@@ -89,11 +95,11 @@ nvim_tree.setup {
     mappings = {
       custom_only = false,
       list = {
-        { key = "<tab>e", action = "close" },
-        { key = "o", action = "preview" },
-        { key = { "<CR>" }, action = "oftct", action_cb = open_file_then_close_tree }, -- arbitrary name of action
-        { key = "h", action = "close_node" },
-        { key = "v", action = "vsplit" },
+        { key = "<tab>e",   action = "close" },
+        { key = "o",        action = "ofop",      action_cb = open_folder_or_preview },
+        { key = { "<CR>" }, action = "oftct",         action_cb = open_file_then_close_tree }, -- arbitrary name of action
+        -- { key = "h",        action = "close_node" },
+        { key = "v",        action = "vsplit" },
       },
     },
     number = false,

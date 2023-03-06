@@ -66,10 +66,10 @@ return packer.startup(function(use)
   use "williamboman/mason.nvim" -- simple to use language server installer
   use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer
   use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
-
   -- use "p00f/clangd_extensions.nvim" -- LSP clangd extension
   use "lvimuser/lsp-inlayhints.nvim" -- temp solution of inlay hints
   use "ray-x/lsp_signature.nvim" -- signature
+  use "folke/neodev.nvim" -- complete nvim functions
 
 
   -- other
@@ -83,6 +83,7 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- comment line
   use "windwp/nvim-autopairs" -- autopair
   use "akinsho/bufferline.nvim" -- tabs
+  use "akinsho/toggleterm.nvim" -- terminal
 
   -- syntax highligh
   use "kyazdani42/nvim-web-devicons"
@@ -94,6 +95,7 @@ return packer.startup(function(use)
     "sakhnik/nvim-gdb",
     run = "./install.sh"
   }
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
