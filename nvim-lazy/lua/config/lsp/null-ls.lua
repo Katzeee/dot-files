@@ -1,27 +1,28 @@
-local M = {}
+local M = {
+	requires = {
+		"null-ls"
+	}
+}
 
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
-	return
+
+function M.before()
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-local diagnostics = null_ls.builtins.diagnostics
+function M.load()
+	local formatting = M.null_ls.builtins.formatting
+	local diagnostics = M.null_ls.builtins.diagnostics
+	M.null_ls.setup({
+		debug = false,
+		sources = {
+			formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+			formatting.black.with({ extra_args = { "--fast" } }),
+			formatting.stylua,
+			-- diagnostics.flake8
+		},
+	})
+end
 
-function M.before() end
-function M.load() end
-function M.after() end
-
-null_ls.setup({
-	debug = false,
-	sources = {
-		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
-		formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.stylua,
-    -- diagnostics.flake8
-	},
-})
+function M.after()
+end
 
 return M

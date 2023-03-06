@@ -1,39 +1,37 @@
 local M = {
   requires = {
     "nvim-tree",
+    "nvim-tree.api"
   },
 }
 
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "",
-    staged = "S",
-    unmerged = "",
-    renamed = "➜",
-    deleted = "",
-    untracked = "U",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
 
-local api_status_ok, nvim_tree_api = pcall(require, "nvim-tree.api")
-if not api_status_ok then
-  return
-end
+-- vim.g.nvim_tree_icons = {
+--   default = "",
+--   symlink = "",
+--   git = {
+--     unstaged = "",
+--     staged = "S",
+--     unmerged = "",
+--     renamed = "➜",
+--     deleted = "",
+--     untracked = "U",
+--     ignored = "◌",
+--   },
+--   folder = {
+--     default = "",
+--     open = "",
+--     empty = "",
+--     empty_open = "",
+--     symlink = "",
+--   },
+-- }
+
 
 local function open_file_then_close_tree(node)
-  nvim_tree_api.node.open.edit(node)
+  M.nvim_tree_api.node.open.edit(node)
   -- nvim_tree_api.tree.close()
 end
 

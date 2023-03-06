@@ -87,30 +87,26 @@ local opts = {
 local mappings = {
   -- ["/"] = { "<cmd>lua require(\"Comment.api\").toggle_current_linewise()<CR>", "Comment" },
   -- ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-      ["b"] = {
+  ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Buffers",
   },
   -- ["e"] = { "<cmd>NvimTreeToggle<cr><C-\\><C-N><C-w>l", "Explorer" },
-      ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   -- ["w"] = { "<cmd>w!<CR>", "Save" },
-      ["q"] = { "<cmd>q!<CR>", "Quit" },
+  ["q"] = { "<cmd>q!<CR>", "Quit" },
   -- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-      ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-      ["f"] = {
+  ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+  ["f"] = {
     "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Find files",
   },
-      ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+  ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },     -- !YOU NEED 'RIPGREP' INSTALLED (yay ripgrep)
   -- ["F"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-      ["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
+  ["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
   p = {
-    name = "Packer",
-    c = { "<cmd>PackerCompile<cr>", "Compile" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = { "<cmd>PackerStatus<cr>", "Status" },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
+    name = "Lazy",
+    p = { "<cmd>Lazy<cr>", "Lazy" },
   },
   g = {
     name = "Git",
@@ -197,7 +193,7 @@ local vopts = {
   nowait = true,  -- use `nowait` when creating keymaps
 }
 local vmappings = {
-      ["/"] = { "<ESC><CMD>lua require(\"Comment.api\").toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+  ["/"] = { "<ESC><CMD>lua require(\"Comment.api\").toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
 }
 
 function M.after()

@@ -1,7 +1,14 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-  return
-end
+
+local M = {
+  requires = {
+    "toggleterm",
+  },
+}
+
+function M.before() end
+function M.load() end
+function M.after() end
+
 
 local Terminal = require "toggleterm.terminal".Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
@@ -18,7 +25,7 @@ require "utils.api.map".bulk_register({
       require("toggleterm").term_toggle()
     end,
     options = { silent = true },
-    description = "Toggle bottom or vertical terminal",
+    description = "Toggle bottom or vertical terminal",
   },
   {
     mode = { "n" },
@@ -27,7 +34,7 @@ require "utils.api.map".bulk_register({
       require("toggleterm").float_toggle()
     end,
     options = { silent = true },
-    description = "Toggle floating terminal",
+    description = "Toggle floating terminal",
   },
   {
     mode = { "n" },
@@ -36,7 +43,7 @@ require "utils.api.map".bulk_register({
       require("toggleterm").vertical_toggle()
     end,
     options = { silent = true },
-    description = "Toggle vertical terminal",
+    description = "Toggle vertical terminal",
   },
   {
     mode = { "n" },
@@ -45,7 +52,7 @@ require "utils.api.map".bulk_register({
       require("toggleterm").lazygit_toggle()
     end,
     options = { silent = true },
-    description = "Toggle lazygit terminal",
+    description = "Toggle lazygit terminal",
   },
   {
     mode = { "n" },
@@ -54,7 +61,7 @@ require "utils.api.map".bulk_register({
       require("toggleterm").toggle_all_term()
     end,
     options = { silent = true },
-    description = "Toggle all terminal",
+    description = "Toggle all terminal",
   },
 })
 
@@ -62,3 +69,5 @@ require "utils.api.map".bulk_register({
 toggleterm.setup {
   open_mapping = [[<c-\]],
 }
+
+return M

@@ -26,8 +26,8 @@ local function require_all_package(module)
   end
 
   local replace_char = {
-        ["%."] = "_",
-        ["%-"] = "_",
+    ["%."] = "_",
+    ["%-"] = "_",
   }
 
   for _, require_name in ipairs(module.requires) do
@@ -54,8 +54,8 @@ function M.before()
       install_path,
     })
   end
-    vim.opt.runtimepath:prepend(install_path)
-    M.lazy = require("lazy")
+  vim.opt.runtimepath:prepend(install_path)
+  M.lazy = require("lazy")
 end
 
 function M.load(plugins)
@@ -71,7 +71,7 @@ function M.load(plugins)
         local ok, module = pcall(require, require_file_path)
 
         if ok then
-          print(require_file_path)
+          -- print(require_file_path, module)
           plugin_opts.init = plugin_opts.init
               or function()
                 module.before()
@@ -102,6 +102,7 @@ function M.entry(plugins)
   M.after()
 end
 
-function M.register_key() end
+function M.register_key()
+end
 
 return M

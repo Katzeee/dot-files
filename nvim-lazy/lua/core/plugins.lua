@@ -13,12 +13,19 @@ M.basic = {
   {
     "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
     lazy = true,
-  }
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
+    event = { "VimEnter" },
+  },
 }
 
 M.theme = {
   {
     "lunarvim/darkplus.nvim"
+  },
+  {
+    "sainnhe/everforest"
   },
 }
 
@@ -47,7 +54,6 @@ M.cmp = {
 M.lsp = {
   {
     "neovim/nvim-lspconfig",                   -- enable LSP
-    event = { "VimEnter" },
     dependencies = {
       { "williamboman/mason-lspconfig.nvim" }, -- LSP installer
     },
