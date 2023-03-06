@@ -3,10 +3,14 @@ if not status_ok then
   return
 end
 
--- vim.api.
---
+local Terminal = require "toggleterm.terminal".Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local opt = {noremap = true, silent = true}
 
-vim.api.map.bulk_register({
+vim.api.nvim_set_keymap("n", "<C-\\>", "<cmd>lua lazygit:toggle()<CR>", opt)
+
+
+require "utils.api.map".bulk_register({
   {
     mode = { "n" },
     lhs = "<leader>tt",

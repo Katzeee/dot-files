@@ -16,6 +16,10 @@ From the official site of the `oh-my-zsh`, we got this command:
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
 ```
 
+```bash
+$ wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh
+```
+
 ## plugins configuration
 
 - auto-suggestions
