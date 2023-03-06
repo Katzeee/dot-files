@@ -107,6 +107,10 @@ M.editor = {
     "windwp/nvim-autopairs",
     event = { "InsertEnter" },
   },
+  {
+    "stevearc/aerial.nvim",
+    event = { "UIEnter" },
+  },
 }
 
 M.tool = {
