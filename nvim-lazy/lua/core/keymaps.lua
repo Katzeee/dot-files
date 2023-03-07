@@ -1,15 +1,4 @@
-local opts = { noremap = true, silent = true }
-
-local term_opts = { silent = true }
-
--- Shorten function name
-local keymap = vim.api.nvim_set_keymap
-
---Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
+local utils = require "utils"
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
@@ -17,94 +6,119 @@ vim.g.maplocalleader = " "
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
+--   operation_mode = "o"
 
--- Normal --
--- Formatting
--- Better window navigation
--- vim.api.keymap("n", "<leader>f", ":lua vim.lsp.buf.format { async = true }<CR>", opts)
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+local opts = { noremap = true, silent = true }
+--Remap space as leader key
+utils.keymap.register({
+  mode = { "n", "v", "x", "t", "c" },
+  lhs = "<Space>",
+  rhs = "<Nop>",
+  options = opts,
+  desc = "Leader key"
+})
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
-keymap("n", "<C-W>", ":BufferLineCloseCustom<CR>", opts)
--- keymap("n", "<leader>w", ":bdelete<CR>", opts)
+utils.keymap.batch_register_in_mode({ "" }, {
+  {
+    lhs = "<S-h>",
+    rhs = "0",
+    options = opts,
+    desc = "Eazy line navigation"
+  },
+  {
+    lhs = "<S-l>",
+    rhs = "$",
+    options = opts,
+    desc = "Eazy line navigation"
+  },
+})
 
--- keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+utils.keymap.batch_register_in_mode({ "n" }, {
+  {
+    lhs = "<",
+    rhs = "v<gv<Esc>",
+    options = opts,
+    desc = "Indent"
+  },
+  {
+    lhs = ">",
+    rhs = "v>gv<Esc>",
+    options = opts,
+    desc = "Indent"
+  },
+  {
+    lhs = "<C-h>",
+    rhs = "<C-w>h",
+    options = opts,
+    desc = "Better window navigation"
+  },
+  {
+    lhs = "<C-j>",
+    rhs = "<C-w>j",
+    options = opts,
+    desc = "Better window navigation"
+  },
+  {
+    lhs = "<C-k>",
+    rhs = "<C-w>k",
+    options = opts,
+    desc = "Better window navigation"
+  },
+  {
+    lhs = "<C-l>",
+    rhs = "<C-w>l",
+    options = opts,
+    desc = "Better window navigation"
+  },
+  {
+    lhs = "<C-Up>",
+    rhs = ":resize -2<CR>",
+    options = opts,
+    desc = "Resize with arrow"
+  },
+  {
+    lhs = "<C-Down>",
+    rhs = ":resize +2<CR>",
+    options = opts,
+    desc = "Resize with arrow"
+  },
+  {
+    lhs = "<C-Left>",
+    rhs = ":vertical resize -2<CR>",
+    options = opts,
+    desc = "Resize with arrow"
+  },
+  {
+    lhs = "<C-Right>",
+    rhs = ":vertical resize +2<CR>",
+    options = opts,
+    desc = "Resize with arrow"
+  },
 
--- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+})
 
--- Eazy line navigation
-keymap("", "<S-h>", "0", opts)
-keymap("", "<S-l>", "$", opts)
+utils.keymap.batch_register_in_mode({ "v" }, {
+  {
+    lhs = "<",
+    rhs = "<gv",
+    options = opts,
+    desc = "Indent"
+  },
+  {
+    lhs = ">",
+    rhs = ">gv",
+    options = opts,
+    desc = "Indent"
+  }
+})
 
--- Navigate buffers
--- keymap("n", "<S-l>", ":bnext<CR>", opts)
--- keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
--- Move text up and down
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-
--- Indent
-keymap("n", "<", "v<gv<Esc>", opts)
-keymap("n", ">", "v>gv<Esc>", opts)
-
--- Insert --
--- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
-
--- Visual --
--- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
-
--- Move text up and down
-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
-keymap("v", "p", '"_dP', opts)
-
--- Eazy line navigation
--- keymap("v", "<S-h>", "0", opts)
--- keymap("v", "<S-l>", "$", opts)
-
--- Visual Block --
--- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
-
--- Eazy line navigation
-keymap("x", "<S-h>", "0", opts)
-keymap("x", "<S-l>", "$", opts)
-
--- Operation --
--- Eazy line navigation
--- keymap("o", "<S-h>", "0", opts)
--- keymap("o", "<S-l>", "$", opts)
-
--- Command --
--- Cmdline Completion
--- vim.keymap.set("c", "<Tab>", function()
---   return vim.fn.pumvisible() == 1 and "<Space>" or "<C-Z>"
--- end, { expr = true, noremap = true })
--- vim.keymap.set("c", "<C-k>", function()
---   return "<C-P>"
--- end, { expr = true })
--- vim.keymap.set("c", "<C-j>", function()
---   return "<C-N>"
--- end, { expr = true })
-
--- Terminal --
--- Better terminal navigation
--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
--- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+utils.keymap.batch_register_in_mode({"i"},{
+  {
+    lhs = "jk",
+    rhs = "<ESC>",
+    options = opts,
+    desc = "Escape insert"
+  }
+})

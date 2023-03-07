@@ -6,6 +6,9 @@ local M = {
 function M.before()
 end
 
+function M.register_key()
+end
+
 function M.load()
   M.aerial.setup({
     -- icons = icons,

@@ -1,3 +1,4 @@
+local utils = require "utils"
 local M = {
   requires = {
     "bufferline",
@@ -5,16 +6,46 @@ local M = {
   }
 }
 
-function M.before()
-  local function close_tab(bufid)
-    if (vim.api.nvim_get_current_buf() == bufid) then
-      vim.cmd("bnext")
-    end
-    vim.api.nvim_buf_delete(bufid, { force = false })
-    M.bufferline.ui.refresh()
+local function close_tab(bufid)
+  if (vim.api.nvim_get_current_buf() == bufid) then
+    vim.cmd("bnext")
   end
+  vim.api.nvim_buf_delete(bufid, { force = false })
+  M.bufferline_ui.refresh()
+end
+
+function M.before()
   vim.api.nvim_create_user_command("BufferLineCloseCustom", function() close_tab(vim.api.nvim_get_current_buf()) end, {})
-  vim.api.nvim_set_keymap("n", "<leader>t", ":BufferLineTogglePin<CR>", { noremap = true, silent = true })
+
+
+  local opts = { noremap = true, silent = true }
+
+  utils.keymap.batch_register_in_mode({ "n" }, {
+    {
+      lhs = "E",
+      rhs = "<cmd>BufferLineCyclePrev<CR>",
+      options = opts,
+      desc = "Buffer line navigation"
+    },
+    {
+      lhs = "R",
+      rhs = "<cmd>BufferLineCycleNext<CR>",
+      options = opts,
+      desc = "Buffer line navigation"
+    },
+    {
+      lhs = "<C-w>",
+      rhs = "<cmd>BufferLineCloseCustom<CR>",
+      options = opts,
+      desc = "Buffer line close tab"
+    },
+    {
+      lhs = "<leader>t",
+      rhs = "<cmd>BufferLineTogglePin<CR>",
+      options = opts,
+      desc = "Buffer line toggle tab"
+    },
+  })
 end
 
 function M.load()
