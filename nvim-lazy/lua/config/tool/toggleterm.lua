@@ -1,73 +1,85 @@
-
+local utils = require("utils")
 local M = {
-  requires = {
-    "toggleterm",
-  },
+	requires = {
+		"toggleterm",
+		"toggleterm.terminal",
+		"code_runner",
+	},
 }
+
+M.terminals = {}
 
 function M.before() end
-function M.load() end
-function M.after() end
 
+function M.load()
+	M.Terminal = M.toggleterm_terminal.Terminal
+	M.toggleterm.setup({
+		shade_terminals = true,
+		shading_factor = 1,
+		highlights = {
+			NormalFloat = {
+				link = "NormalFloat",
+			},
+			FloatBorder = {
+				link = "FloatBorder",
+			},
+		},
+	})
+	M.code_runner.setup({
+		mode = "toggleterm",
+		filetype = {
+			cpp = "cd $dir",
+		},
+	})
+end
 
-local Terminal = require "toggleterm.terminal".Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
-local opt = {noremap = true, silent = true}
+function M.after()
+	M.create_terminal()
+	M.wrapper_commands()
+end
 
-vim.api.nvim_set_keymap("n", "<C-\\>", "<cmd>lua lazygit:toggle()<CR>", opt)
+function M.unregister_esc()
+	utils.keymap.unregister({ "t" }, "<esc>")
+end
 
+function M.create_terminal()
+	M.terminals.float = M.Terminal:new({
+		hidden = true,
+		count = 5,
+		direction = "float",
+		float_opts = {
+			border = "double",
+		},
+		on_open = function(term)
+			utils.keymap.batch_register_in_mode({ "t" }, {
+				{
+					lhs = "<esc>",
+					rhs = "<C-\\><C-n><cmd>close<CR>",
+					options = { silent = true, noremap = true, buffer = term.bufnr },
+					desc = "Esc to exit float term",
+				},
+			})
+		end,
+		-- on_close = M.unregister_esc,
+	})
+	M.terminals.lazygit = M.Terminal:new({
+		cmd = "lazygit",
+		-- dir = "git_dir",
+		hidden = true,
+		direction = "float",
+		float_opts = {
+			border = "single",
+		},
+	})
+end
 
-require "utils.api.map".bulk_register({
-  {
-    mode = { "n" },
-    lhs = "<leader>tt",
-    rhs = function()
-      require("toggleterm").term_toggle()
-    end,
-    options = { silent = true },
-    description = "Toggle bottom or vertical terminal",
-  },
-  {
-    mode = { "n" },
-    lhs = "<leader>tf",
-    rhs = function()
-      require("toggleterm").float_toggle()
-    end,
-    options = { silent = true },
-    description = "Toggle floating terminal",
-  },
-  {
-    mode = { "n" },
-    lhs = "<leader>tv",
-    rhs = function()
-      require("toggleterm").vertical_toggle()
-    end,
-    options = { silent = true },
-    description = "Toggle vertical terminal",
-  },
-  {
-    mode = { "n" },
-    lhs = "<leader>tg",
-    rhs = function()
-      require("toggleterm").lazygit_toggle()
-    end,
-    options = { silent = true },
-    description = "Toggle lazygit terminal",
-  },
-  {
-    mode = { "n" },
-    lhs = "<leader>ta",
-    rhs = function()
-      require("toggleterm").toggle_all_term()
-    end,
-    options = { silent = true },
-    description = "Toggle all terminal",
-  },
-})
-
-
-toggleterm.setup {
-  open_mapping = [[<c-\]],
-}
+function M.wrapper_commands()
+	M.toggleterm.lazygit_toggle = function()
+		M.terminals.lazygit:toggle()
+	end
+	M.toggleterm.float_toggle = function()
+		M.terminals.float:toggle()
+	end
+end
 
 return M

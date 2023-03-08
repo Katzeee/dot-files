@@ -10,6 +10,9 @@ local utils = require "utils"
 
 local opts = { noremap = true, silent = true }
 --Remap space as leader key
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 utils.keymap.register({
   mode = { "n", "v", "x", "t", "c" },
   lhs = "<Space>",
@@ -17,8 +20,6 @@ utils.keymap.register({
   options = opts,
   desc = "Leader key"
 })
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 utils.keymap.batch_register_in_mode({ "" }, {
   {

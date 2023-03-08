@@ -1,13 +1,9 @@
-local M = {}
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-  return
-end
-
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-  return
-end
+local M = {
+  requires = {
+    "cmp",
+    "luasnip"
+  }
+}
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -47,52 +43,37 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 
-function M.before() end
+function M.before()
+end
 
 function M.load()
-  cmp.setup {
+  M.cmp.setup {
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        M.luasnip.lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
     mapping = {
-      -- ["<C-j>"] = cmp.mapping({
-      --     i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      --     c = function(fallback)
-      --       if cmp.visible() then
-      --         return cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })
-      --       end
-      --       fallback()
-      --     end
-      -- }),
-      -- ["<C-k>"] = cmp.mapping({
-      --     i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      --     c = function(fallback)
-      --       if cmp.visible() then
-      --         return cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-      --       end
-      --       fallback()
-      --     end
-      -- }),
-          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c", "s" }),
-          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i", "c", "s" }),
-          ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-          ["<A-x>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-          ["<C-e>"] = cmp.mapping {
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
+          ["<C-j>"] = M.cmp.mapping(M.cmp.mapping.select_next_item({ behavior = M.cmp.SelectBehavior.Select }), { "i",
+        "c", "s" }),
+          ["<C-k>"] = M.cmp.mapping(M.cmp.mapping.select_prev_item({ behavior = M.cmp.SelectBehavior.Select }), { "i",
+        "c", "s" }),
+          ["<C-b>"] = M.cmp.mapping(M.cmp.mapping.scroll_docs(-1), { "i", "c" }),
+          ["<C-f>"] = M.cmp.mapping(M.cmp.mapping.scroll_docs(1), { "i", "c" }),
+          ["<A-x>"] = M.cmp.mapping(M.cmp.mapping.complete(), { "i", "c" }),
+          ["<C-y>"] = M.cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+          ["<C-e>"] = M.cmp.mapping {
+        i = M.cmp.mapping.abort(),
+        c = M.cmp.mapping.close(),
       },
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
       -- ["<CR>"] = cmp.mapping.confirm { select = true },
-          ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.confirm()
-        elseif luasnip.expandable() then
-          luasnip.expand()
+          ["<Tab>"] = M.cmp.mapping(function(fallback)
+        if M.cmp.visible() then
+          M.cmp.confirm()
+        elseif M.luasnip.expandable() then
+          M.luasnip.expand()
           -- elseif luasnip.expand_or_jumpable() then
           --   luasnip.expand_or_jump()
         elseif check_backspace() then
@@ -115,7 +96,7 @@ function M.load()
       -- }),
     },
     completion = {
-      -- highlight the first selection
+      -- preselect the first selection
       completeopt = 'menu, menuone, noinsert'
     },
     formatting = {
@@ -142,35 +123,31 @@ function M.load()
       { name = "path" },
     },
     confirm_opts = {
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = M.cmp.ConfirmBehavior.Replace,
       select = false,
     },
-    views = { entry = "wildmenu" },
-    -- window = {
-    --   documentation = cmp.config.window.bordered()
+    view = { entry = "wildmenu" },
+    -- experimental = {
+    --   ghost_text = false,
+    --   native_menu = false,
     -- },
-    experimental = {
-      ghost_text = false,
-      native_menu = false,
-    },
   }
 end
 
 function M.after()
-  cmp.setup.cmdline(":", {
+  M.cmp.setup.cmdline(":", {
     sources = {
       { name = 'cmdline' },
       { name = "path" },
     },
     completion = {
       autocomplete = {
-        cmp.TriggerEvent.TextChanged,
+        M.cmp.TriggerEvent.TextChanged,
       }
     }
   })
 
-  cmp.setup.cmdline('/', {
-    -- completion = { autocomplete =  },
+  M.cmp.setup.cmdline({ '/', '?' }, {
     sources = {
       { name = 'buffer' }
     }
