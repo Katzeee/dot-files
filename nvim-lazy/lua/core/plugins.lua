@@ -76,7 +76,12 @@ M.lsp = {
 	},
 }
 
-M.dap = {}
+M.dap = {
+	{
+		"sakhnik/nvim-gdb",
+		build = "./install.sh",
+	},
+}
 
 M.editor = {
 	{
@@ -102,11 +107,19 @@ M.editor = {
 		event = { "VeryLazy" },
 	},
 	{
-		"windwp/nvim-autopairs",
+		"windwp/nvim-autopairs", -- autopair
 		event = { "InsertEnter" },
 	},
 	{
-		"stevearc/aerial.nvim",
+		"stevearc/aerial.nvim", -- outline
+		event = { "UIEnter" },
+	},
+	-- {
+	-- 	"yaocccc/nvim-hlchunk", -- highlight indent
+	-- 	event = { "UIEnter" },
+	-- },
+	{
+		"lukas-reineke/indent-blankline.nvim",
 		event = { "UIEnter" },
 	},
 }
@@ -124,6 +137,10 @@ M.tool = {
 		dependencies = {
 			"CRAG666/code_runner.nvim",
 		},
+	},
+	{
+		"lewis6991/gitsigns.nvim",
+		event = { "UIEnter" },
 	},
 }
 
