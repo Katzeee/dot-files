@@ -92,6 +92,7 @@ M.dap = {
 	{
 		"rcarriga/nvim-dap-ui",
 		event = { "UIEnter" },
+		version = "v3.2.3", -- https://github.com/rcarriga/nvim-dap-ui/issues/227
 	},
 }
 

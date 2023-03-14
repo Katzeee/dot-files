@@ -96,9 +96,11 @@ function M.load()
         --     return true
         --   end
         -- filter out by buffer name
-        if vim.fn.bufname(buf_number) ~= "" then
+        --
+        -- if vim.fn.bufname(buf_number) ~= "" then
           return true
-        end
+        -- end
+
         --   -- filter out based on arbitrary rules
         --   -- e.g. filter out vim wiki buffer from tabline in your work repo
         --   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
