@@ -77,9 +77,21 @@ M.lsp = {
 }
 
 M.dap = {
+	-- {
+	-- 	"sakhnik/nvim-gdb",
+	-- 	build = "./install.sh",
+	-- },
 	{
-		"sakhnik/nvim-gdb",
-		build = "./install.sh",
+		"mfussenegger/nvim-dap",
+		-- lazy = true,
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		event = { "UIEnter" },
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		event = { "UIEnter" },
 	},
 }
 
