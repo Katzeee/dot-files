@@ -1,8 +1,9 @@
 local M = {}
 
 M.dap = {
+	"c-cpp-rust",
 	"cpp",
-  "rust"
+  -- "rust"
 }
 
 return M

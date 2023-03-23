@@ -10,10 +10,15 @@ local M = {
 
 function M.before()
 	M.register_key()
+	vim.keymap.set("n", "<Leader>ds", function()
+		local widgets = require("dap.ui.widgets")
+		widgets.centered_float(widgets.threads)
+	end)
 end
 
 function M.load()
-	-- join full path
+	-- print(vim.inspect(M.dap))
+	-- M.dap.defaults.fallback.auto_continue_if_many_stopped = true
 
 	---@diagnostic disable-next-line: param-type-mismatch
 	for _, dap_server in ipairs(dap_servers) do
@@ -21,17 +26,19 @@ function M.load()
 		local require_ok, conf_opts = pcall(require, dap_conf_file)
 		if require_ok then
 			M.dap.adapters = vim.tbl_deep_extend("force", M.dap.adapters, conf_opts.adapters or {})
-      -- print(vim.inspect(M.dap.adapters))
+			-- print(vim.inspect(M.dap.adapters))
 			M.dap.configurations = vim.tbl_deep_extend("force", M.dap.configurations, conf_opts.configurations or {})
-      -- print(vim.inspect(M.dap.configurations))
+			-- print(vim.inspect(M.dap.configurations))
 		end
 	end
-  -- M.dap.listeners.before.event_initialized["split_window"] = function()
-  --   vim.cmd("vs")
-  -- end
+	-- M.dap.listeners.before.event_initialized["split_window"] = function()
+	--   vim.cmd("vs")
+	-- end
 end
 
-function M.after() end
+function M.after()
+	require("dap.ext.vscode").load_launchjs(nil, { cppdbg = { "c", "cpp", "rust" } })
+end
 
 function M.register_key()
 	utils.keymap.batch_register_in_mode({ "n" }, {

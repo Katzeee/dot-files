@@ -91,7 +91,7 @@ function M.load()
 
 	local config = {
 		-- disable virtual text
-		virtual_text = false,
+		virtual_text = true,
 		-- show signs
 		signs = {
 			active = signs,
@@ -134,6 +134,7 @@ function M.load()
 
 		local require_ok, conf_opts = pcall(require, "config.lsp.lang_conf." .. server)
 		if require_ok then
+			-- print(vim.inspect(server))
 			opts = vim.tbl_deep_extend("force", conf_opts, opts)
 		end
 
