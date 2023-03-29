@@ -62,7 +62,7 @@ function M.load()
 		},
 		git = {
 			enable = true,
-			ignore = true,
+			ignore = false,
 			timeout = 500,
 		},
 		view = {

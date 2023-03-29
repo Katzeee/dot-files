@@ -174,6 +174,17 @@ M.view = {
 		"akinsho/bufferline.nvim",
 		event = { "UIEnter" },
 	},
+	{
+		"folke/noice.nvim", -- better notice
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		event = "VeryLazy",
+	},
+	{
+		"goolord/alpha-nvim", -- dash board
+		event = { "VimEnter" },
+	},
 }
 
 lazy.entry(M)

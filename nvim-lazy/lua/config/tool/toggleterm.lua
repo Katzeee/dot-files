@@ -70,6 +70,9 @@ function M.create_terminal()
 		float_opts = {
 			border = "single",
 		},
+		on_hidden = function()
+			vim.api.nvim_cmd({"bufdo! e"})
+		end,
 	})
 end
 
