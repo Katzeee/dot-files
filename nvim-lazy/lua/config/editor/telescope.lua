@@ -94,6 +94,7 @@ function M.load()
 		-- please take a look at the readme of the extension you want to configure
 		-- },
 	})
+	M.telescope.load_extension("dap")
 end
 
 return M

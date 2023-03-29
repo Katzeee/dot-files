@@ -83,7 +83,7 @@ M.dap = {
 	-- },
 	{
 		"mfussenegger/nvim-dap",
-		-- lazy = true,
+		lazy = true,
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
@@ -91,7 +91,7 @@ M.dap = {
 	},
 	{
 		"rcarriga/nvim-dap-ui",
-		event = { "UIEnter" },
+		event = { "VeryLazy" },
 		version = "v3.2.3", -- https://github.com/rcarriga/nvim-dap-ui/issues/227
 	},
 }
@@ -113,6 +113,7 @@ M.editor = {
 		"nvim-telescope/telescope.nvim", -- find files and words
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-dap.nvim" },
 		},
 	},
 	{
@@ -127,13 +128,17 @@ M.editor = {
 		"stevearc/aerial.nvim", -- outline
 		event = { "UIEnter" },
 	},
-	-- {
-	-- 	"yaocccc/nvim-hlchunk", -- highlight indent
-	-- 	event = { "UIEnter" },
-	-- },
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = { "UIEnter" },
+	},
+	{
+		"folke/todo-comments.nvim", -- todo highlight
+		event = { "UIEnter" },
+	},
+	{
+		"mg979/vim-visual-multi", -- multi cursor
+		event = { "VeryLazy" },
 	},
 }
 

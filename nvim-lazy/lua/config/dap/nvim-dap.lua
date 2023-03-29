@@ -17,23 +17,15 @@ function M.before()
 end
 
 function M.load()
-	-- print(vim.inspect(M.dap))
-	-- M.dap.defaults.fallback.auto_continue_if_many_stopped = true
-
 	---@diagnostic disable-next-line: param-type-mismatch
 	for _, dap_server in ipairs(dap_servers) do
 		local dap_conf_file = utils.path.join_with_point(M.adapter_configurations_dir_path, dap_server)
 		local require_ok, conf_opts = pcall(require, dap_conf_file)
 		if require_ok then
 			M.dap.adapters = vim.tbl_deep_extend("force", M.dap.adapters, conf_opts.adapters or {})
-			-- print(vim.inspect(M.dap.adapters))
 			M.dap.configurations = vim.tbl_deep_extend("force", M.dap.configurations, conf_opts.configurations or {})
-			-- print(vim.inspect(M.dap.configurations))
 		end
 	end
-	-- M.dap.listeners.before.event_initialized["split_window"] = function()
-	--   vim.cmd("vs")
-	-- end
 end
 
 function M.after()

@@ -34,9 +34,6 @@ function M.load()
 			},
 		},
 	})
-end
-
-function M.after()
 	-- Automatically start dapui when debugging starts
 	M.dap.listeners.after.event_initialized["dapui_config"] = function()
 		---@diagnostic disable-next-line: missing-parameter
@@ -55,6 +52,8 @@ function M.after()
 		M.dap.repl.close()
 	end
 end
+
+function M.after() end
 
 function M.register_key()
 	utils.keymap.batch_register_in_mode({ "n" }, {
