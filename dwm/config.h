@@ -23,12 +23,13 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"qv2ray", NULL,
-	"google-chrome-stable", "--proxy-server=127.0.0.1:8889", NULL,
+	// "qv2ray", NULL,
+	// "google-chrome-stable", "--proxy-server=127.0.0.1:8889", NULL,
+	"google-chrome", NULL,
 	"st", NULL,
 	// "sh", "-c", "refresh-bar", NULL,
 	"refresh-bar", NULL,
-//	"autorandr", "--change", NULL,
+	// "autorandr", "--change", NULL,
 	NULL /* terminate */
 };
 
