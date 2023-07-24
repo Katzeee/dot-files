@@ -126,7 +126,8 @@ function M.load()
     },
     highlights = {
       fill = {
-        fg = { attribute = "fg", highlight = "#ff0000" },
+        fg = { attribute = "fg", highlight = "ff0000" },
+        -- fg = { attribute = "fg", highlight = "Visual" },
         bg = { attribute = "bg", highlight = "TabLine" },
       },
       background = {
@@ -134,8 +135,9 @@ function M.load()
         bg = { attribute = "bg", highlight = "TabLine" },
       },
       buffer_selected = {
-        fg = { attribute = 'fg', highlight = '#ff0000' },
-        bg = { attribute = 'bg', highlight = '#0000ff' },
+        fg = { attribute = 'fg', highlight = 'ff0000' },
+        -- fg = { attribute = 'fg', highlight = 'TabLineSel' },
+        bg = { attribute = 'bg', highlight = '0000ff' },
         -- gui = 'none'
         italic = true
       },
