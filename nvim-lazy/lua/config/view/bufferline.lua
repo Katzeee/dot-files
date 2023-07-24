@@ -98,7 +98,7 @@ function M.load()
         -- filter out by buffer name
         --
         -- if vim.fn.bufname(buf_number) ~= "" then
-          return true
+        return true
         -- end
 
         --   -- filter out based on arbitrary rules
