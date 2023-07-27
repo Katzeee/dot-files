@@ -34,17 +34,18 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = ttf-liberation-sans:pixelsize=12;2
-;font-0 = ttf-liberation-sans-mono:fixed:pixelsize=12;2
-;font-1 = source han sans cn:pixelsize=12:antialias=false;1
-;font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=12;1"
-;font-3 = "Font Awesome 5 Brands:style=Regular:pixelsize=12;1"
-;font-4 = "material icons:pixelsize=16;3"
+# use fc-list to show all fonts installed
+font-0 = ttf-liberation-sans-mono:fixed:pixelsize=12;2 # the number after semicolon means the vertical offset
+font-1 = "Font Awesome:style=Solid:pixelsize=12;3"
+# font-2 = "material icons:pixelsize=16;3"
+# font-3 = "Font Awesome:style=Regular:pixelsize=12;3"
+# font-4 = source han sans cn:pixelsize=12:antialias=false;3
 
 modules-left = i3 xwindow
 modules-center = mpd
 
-modules-right = backlight-acpi alsa wlan eth battery temperature date
+# modules-right = backlight-acpi alsa wlan eth battery temperature date
+modules-right = backlight-acpi alsa wlan eth battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -241,8 +242,8 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
+date = " %Y-%m-%d"
+date-alt =
 
 time = %H:%M
 time-alt = %H:%M:%S
@@ -286,7 +287,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 98
+full-at = 96
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
