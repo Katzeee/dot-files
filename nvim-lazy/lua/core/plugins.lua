@@ -31,13 +31,13 @@ M.theme = {
 
 M.cmp = {
   {
-    "hrsh7th/nvim-cmp",            -- The completion plugin
+    "hrsh7th/nvim-cmp",               -- The completion plugin
     dependencies = {
-      { "hrsh7th/cmp-buffer" },    -- buffer completions
-      { "hrsh7th/cmp-path" },      -- path completions
-      { "hrsh7th/cmp-cmdline" },   -- cmdline completions
+      { "hrsh7th/cmp-buffer" },       -- buffer completions
+      { "hrsh7th/cmp-path" },         -- path completions
+      { "hrsh7th/cmp-cmdline" },      -- cmdline completions
       { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
-      { "hrsh7th/cmp-nvim-lsp" },  -- cmp support lsp
+      { "hrsh7th/cmp-nvim-lsp" },     -- cmp support lsp
     },
     event = { "InsertEnter", "CmdlineEnter" },
   },
@@ -53,7 +53,7 @@ M.cmp = {
 
 M.lsp = {
   {
-    "neovim/nvim-lspconfig",                -- enable LSP
+    "neovim/nvim-lspconfig",                   -- enable LSP
     dependencies = {
       { "williamboman/mason-lspconfig.nvim" }, -- LSP installer
     },
@@ -126,6 +126,9 @@ M.editor = {
   },
   {
     "stevearc/aerial.nvim", -- outline
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
     event = { "UIEnter" },
   },
   {

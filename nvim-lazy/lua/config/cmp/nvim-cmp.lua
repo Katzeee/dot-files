@@ -5,7 +5,7 @@ local M = {
   },
 }
 
-require("luasnip/loaders/from_vscode").lazy_load()
+-- require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
   local col = vim.fn.col(".") - 1
@@ -114,6 +114,15 @@ function M.load()
           buffer = "[Buffer]",
           path = "[Path]",
         })[entry.source.name]
+        -- trim to 40 chars
+        local function trim(text)
+          local max = 40
+          if text and text:len() > max then
+            text = text:sub(1, max) .. "..."
+          end
+          return text
+        end
+        vim_item.abbr = trim(vim_item.abbr)
         return vim_item
       end,
     },
@@ -128,11 +137,16 @@ function M.load()
       behavior = M.cmp.ConfirmBehavior.Replace,
       select = false,
     },
-    view = { entry = "wildmenu" },
-    -- experimental = {
-    --   ghost_text = false,
-    --   native_menu = false,
-    -- },
+    -- customized appearence
+    window = {
+      completion = M.cmp.config.window.bordered({
+        border = "single",
+        col_offset = -2,
+      }),
+      documentation = M.cmp.config.window.bordered({
+        border = "single"
+      }),
+    },
   })
   M.cmp.setup.cmdline({ ":" }, {
     sources = {
