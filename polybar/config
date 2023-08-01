@@ -45,7 +45,7 @@ modules-left = i3 xwindow
 modules-center = mpd
 
 # modules-right = backlight-acpi alsa wlan eth battery temperature date
-modules-right = backlight-acpi alsa wlan eth battery date powermenu
+modules-right = backlight alsa wlan eth battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -158,6 +158,12 @@ toggle-off-foreground = #55
 
 label-song-maxlen = 25
 label-song-ellipsis = true
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+use-actual-brightness = true
+enable-scroll = true
 
 
 [module/xbacklight]

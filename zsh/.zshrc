@@ -130,4 +130,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lg=lazygit
 alias ra=ranger
+alias ssh='TERM=xterm-256color ssh'
 TERMINAL=alacritty
