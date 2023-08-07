@@ -9,7 +9,8 @@ function M.before()
   M.mason_packages = {
     lsp = {
       "clangd",
-      "lua-language-server"
+      "lua-language-server",
+      "pyright"
     }
   }
 end
