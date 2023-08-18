@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
+ZSH_THEME="agnoster"
 # agnoster
 
 # Set list of themes to pick from when loading at random
@@ -80,6 +80,7 @@ plugins=(
   fast-syntax-highlighting
   zsh-vi-mode
   colored-man-pages
+  z
   #command-not-found
 )
 
