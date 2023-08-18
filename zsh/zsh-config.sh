@@ -1,8 +1,16 @@
 #!/bin/bash
 set -e
 set -o pipefail
-if [ `whoami` == "root" ]; then echo "no root"; exit; fi
-yay -S zsh --noconfirm --needed
+if [ `whoami` == "root" ]; then 
+  echo "no root"; 
+  exit; 
+fi
+
+if uname -a | grep -iq ubuntu; then
+  sudo apt install zsh -y
+else
+  yay -S zsh --noconfirm --needed
+fi
 curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh | sh
 cp .zshrc ~/.zshrc
 chsh -s /usr/bin/zsh
