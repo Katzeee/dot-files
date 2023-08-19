@@ -1,6 +1,4 @@
-2022.09.16
----
-# Zsh configuration
+## 2022.09.16
 
 ## zsh installation
 
