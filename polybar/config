@@ -44,8 +44,8 @@ font-1 = "Font Awesome:style=Solid:pixelsize=12;3"
 modules-left = i3 xwindow
 modules-center = mpd
 
-# modules-right = backlight-acpi alsa wlan eth battery temperature date
-modules-right = backlight alsa wlan eth battery date powermenu
+# modules-right = backlight-acpi alsa wlan eth battery temperature date powermenu
+modules-right = backlight alsa wlan eth battery date 
 
 tray-position = right
 tray-padding = 2
