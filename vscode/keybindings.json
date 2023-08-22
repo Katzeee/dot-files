@@ -1,16 +1,20 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
-    {
-        "key": "alt+x",
-        "command": "editor.action.triggerSuggest",
-        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+space",
-        "command": "-editor.action.triggerSuggest",
-        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
-    },
-    { // make cursor back to editor
+	{
+		"key": "f10",
+		"command": "cmake.build",
+	},
+	{
+		"key": "alt+x",
+		"command": "editor.action.triggerSuggest",
+		"when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+	},
+	{
+		"key": "ctrl+space",
+		"command": "-editor.action.triggerSuggest",
+		"when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+	},
+	{ // make cursor back to editor
 		"key": "ctrl+c",
 		"command": "workbench.action.focusActiveEditorGroup",
 		"when": "!terminalFocus && !editorFocus"
@@ -20,7 +24,7 @@
 		"command": "editor.action.startFindReplaceAction",
 		"when": "editorFocus || editorIsOpen"
 	},
-    { // open file expoler use which key
+	{ // open file expoler use which key
 		"key": "e",
 		"command": "whichkey.triggerKey",
 		"when": "whichkeyVisible && sideBarVisible && explorerViewletVisible",
@@ -38,7 +42,12 @@
 			"when": "outlinerExplorerView.active && view.outline.visible"
 		}
 	},
-    { // delete file or folder
+	{
+		"key": "tab",
+		"command": "whichkey.show",
+		"when": "!editorFocus && !whichkeyVisible && !inQuickOpen"
+	},
+	{ // delete file or folder
 		"key": "d",
 		"command": "deleteFile",
 		"when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
@@ -58,52 +67,16 @@
 		"command": "workbench.action.terminal.toggleTerminal",
 		"when": "terminal.active"
 	},
-    /*
-	{ // window move down
-		"key": "ctrl+j",
-		"command": "vim.remap",
-		"when": "vim.mode == 'Normal' && !suggestWidgetVisible && !inQuickOpen",
-		"args": {
-			"after": [
-				"<c-w>",
-				"j"
-			]
-		}
+	{ // close terminal
+		"key": "shift+escape",
+		"command": "workbench.action.terminal.toggleTerminal",
+		"when": "terminal.active && terminalFocus"
 	},
-	{ // window move up
+	{ // focus to editor
 		"key": "ctrl+k",
-		"command": "vim.remap",
-		"when": "vim.mode == 'Normal' && !suggestWidgetVisible && !inQuickOpen && !panelFocus",
-		"args": {
-			"after": [
-				"<c-w>",
-				"k"
-			]
-		}
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "terminal.active && terminalFocus"
 	},
-	{ // window move left
-		"key": "ctrl+h",
-		"command": "vim.remap",
-		"when": "vim.mode == 'Normal' && !suggestWidgetVisible && !inQuickOpen && !panelFocus",
-		"args": {
-			"after": [
-				"<c-w>",
-				"h"
-			]
-		}
-	},
-	{ // window move right
-		"key": "ctrl+l",
-		"command": "vim.remap",
-		"when": "vim.mode == 'Normal' && !suggestWidgetVisible && !inQuickOpen",
-		"args": {
-			"after": [
-				"<c-w>",
-				"l"
-			]
-		}
-	},
-    */
 	{ // new file
 		"key": "a",
 		"command": "explorer.newFile",
@@ -114,8 +87,13 @@
 		"command": "explorer.newFolder",
 		"when": "filesExplorerFocus && !inputFocus"
 	},
+	{ // new folder
+		"key": "shift+h",
+		"command": "workbench.files.action.collapseExplorerFolders",
+		"when": "filesExplorerFocus && !inputFocus"
+	},
 	{ // quit side bar only when explore is focused
-		"key": "q", 
+		"key": "q",
 		"command": "workbench.action.toggleSidebarVisibility",
 		"when": "sideBarFocus && !inputFocus"
 	},
@@ -173,12 +151,12 @@
 	},
 	{ // move down at quick open
 		"key": "ctrl+j",
-		"command": "workbench.action.quickOpenNavigateNext",
+		"command": "workbench.action.quickOpenSelectNext",
 		"when": "inQuickOpen"
 	},
 	{ // move up at quick open
 		"key": "ctrl+k",
-		"command": "workbench.action.quickOpenNavigatePrevious",
+		"command": "workbench.action.quickOpenSelectPrevious",
 		"when": "inQuickOpen"
 	},
 	{ // search sidebar
@@ -207,102 +185,127 @@
 		"when": "viewContainer.workbench.view.explorer.enabled"
 	},
 	{
+		"key": "ctrl+,",
+		"command": "workbench.action.moveEditorLeftInGroup"
+	},
+	{
+		"key": "ctrl+shift+pageup",
+		"command": "-workbench.action.moveEditorLeftInGroup"
+	},
+	{
+		"key": "ctrl+.",
+		"command": "workbench.action.moveEditorRightInGroup"
+	},
+	{
+		"key": "ctrl+shift+pagedown",
+		"command": "-workbench.action.moveEditorRightInGroup"
+	},
+	// focus editor groups
+	{
+		"key": "ctrl+j",
+		"command": "workbench.action.focusAboveGroup",
+		"when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+	},
+	{
+		"key": "ctrl+k",
+		"command": "workbench.action.focusBelowGroup",
+		"when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+	},
+	// focus terminal
+	{
+		"key": "ctrl+j",
+		"command": "terminal.focus",
+		"when": "activeEditorGroupLast && editorFocus && !suggestWidgetVisible && !quickOpen"
+	},
+	{
+		"key": "ctrl+h",
+		"command": "workbench.action.focusLeftGroup",
+		"when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
+	},
+	{
+		"key": "ctrl+h",
+		"command": "workbench.action.focusSideBar",
+		"when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus && activeEditorGroupIndex == 1"
+	},
+	{
 		"key": "ctrl+h",
 		"command": "workbench.action.focusPreviousGroup",
 		"when": "activeEditorGroupIndex != 1"
-    },
-    {
-        "key": "ctrl+,",
-        "command": "workbench.action.moveEditorLeftInGroup"
-    },
-    {
-        "key": "ctrl+shift+pageup",
-        "command": "-workbench.action.moveEditorLeftInGroup"
-    },
-    {
-        "key": "ctrl+.",
-        "command": "workbench.action.moveEditorRightInGroup"
-    },
-    {
-        "key": "ctrl+shift+pagedown",
-        "command": "-workbench.action.moveEditorRightInGroup"
-    },
-    // focus editor groups
-    {
-        "key": "ctrl+j",
-        "command": "workbench.action.focusAboveGroup",
-        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+up",
-        "command": "-workbench.action.focusAboveGroup",
-    },
-    {
-        "key": "ctrl+k",
-        "command": "workbench.action.focusBelowGroup",
-        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+down",
-        "command": "-workbench.action.focusBelowGroup",
-    },
-    {
-        "key": "ctrl+h",
-        "command": "workbench.action.focusLeftGroup",
-        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+left",
-        "command": "-workbench.action.focusLeftGroup"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "workbench.action.focusRightGroup",
-        "when": "!suggestWidgetVisible && !inQuickOpen && !panelFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+right",
-        "command": "-workbench.action.focusRightGroup"
-    },
-    // move editor to other groups
-    {
-        "key": "ctrl+shift+h",
-        "command": "workbench.action.moveEditorToLeftGroup"
-    },
-    {
-        "key": "ctrl+shift+l",
-        "command": "workbench.action.moveEditorToRightGroup"
-    },
-    {
-        "key": "ctrl+shift+k",
-        "command": "workbench.action.moveEditorToAboveGroup"
-    },
-    {
-        "key": "ctrl+shift+j",
-        "command": "workbench.action.moveEditorToBelowGroup"
-    },
-    // focus editor
-    {
-        "key": "shift+r",
-        "command": "workbench.action.nextEditor",
-        "when": "vim.mode == 'Normal'"
-    },
-    {
-        "key": "ctrl+pagedown",
-        "command": "-workbench.action.nextEditor"
-    },
-    {
-        "key": "shift+e",
-        "command": "workbench.action.previousEditor",
-        "when": "vim.mode == 'Normal'"
-    },
-    {
-        "key": "ctrl+pageup",
-        "command": "-workbench.action.previousEditor"
-    },
+	},
 	{
-        "key": "F9",
-        "command": "cmake.launchTarget",
-        "when": "cmake.outline.visible"
-    },
+		"key": "ctrl+l",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "filesExplorerFocus"
+	},
+	{
+		"key": "ctrl+l",
+		"command": "workbench.action.focusRightGroup",
+		"when": "!filesExplorerFocus && !suggestWidgetVisible && !inQuickOpen && !panelFocus"
+	},
+	{
+		"key": "ctrl+shift+h",
+		"command": "workbench.action.moveEditorToLeftGroup"
+	},
+	{
+		"key": "ctrl+shift+l",
+		"command": "workbench.action.moveEditorToRightGroup"
+	},
+	{
+		"key": "ctrl+shift+k",
+		"command": "workbench.action.moveEditorToAboveGroup"
+	},
+	{
+		"key": "ctrl+shift+j",
+		"command": "workbench.action.moveEditorToBelowGroup"
+	},
+	{
+		"key": "shift+r",
+		"command": "workbench.action.nextEditor",
+		"when": "!editorFocus && !inputFocus && !sideBarFocus"
+	},
+	{
+		"key": "shift+e",
+		"command": "workbench.action.previousEditor",
+		"when": "!editorFocus && !inputFocus && !sideBarFocus"
+	},
+	{
+		"key": "ctrl+pagedown",
+		"command": "-workbench.action.nextEditor"
+	},
+	{
+		"key": "ctrl+pageup",
+		"command": "-workbench.action.previousEditor"
+	},
+	{
+		"key": "ctrl+k ctrl+up",
+		"command": "-workbench.action.focusAboveGroup",
+	},
+	{
+		"key": "ctrl+k ctrl+left",
+		"command": "-workbench.action.focusLeftGroup"
+	},
+	{
+		"key": "ctrl+k ctrl+down",
+		"command": "-workbench.action.focusBelowGroup",
+	},
+	{
+		"key": "ctrl+k ctrl+right",
+		"command": "-workbench.action.focusRightGroup"
+	},
+	{
+		"key": "ctrl+k ctrl+\\",
+		"command": "-workbench.action.splitEditorLeft"
+	},
+	{
+		"key": "ctrl+k ctrl+\\",
+		"command": "-workbench.action.splitEditorOrthogonal"
+	},
+	{
+		"key": "ctrl+k ctrl+\\",
+		"command": "-workbench.action.splitEditorRight"
+	},
+	{
+		"key": "ctrl+k ctrl+\\",
+		"command": "-workbench.action.splitEditorUp"
+	},
 ]
