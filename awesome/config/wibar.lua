@@ -1,10 +1,13 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 local beautiful = require("beautiful")
 local utils = require("utils")
 local constants = require("config.app")
 local my_widgets = require("widgets")
+local panel = require("panels")
 
 
 local mods = constants.mods
@@ -13,6 +16,7 @@ utils.volume.set_widget(my_volume)
 
 local cw = my_widgets.calendar()
 local date = wibox.widget.textclock("%a %b %d %Y")
+local brightness = my_widgets.brightness
 
 date:connect_signal("button::press", function(_, _, _, button)
     if button == 1 then
@@ -24,7 +28,7 @@ local clock = wibox.widget.textclock("%H:%M")
 
 local DEFAULT_OPTS = {
     widget_spacing = beautiful.spacing,
-    bg = "#00000050",
+    bg = beautiful.wibar_bg,
 }
 
 local wrap_bg = function(widgets, opts)
@@ -114,8 +118,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s,
     })
     local mysystray = wibox.widget.systray();
-
-
+    panel.central_panel(s)
 
     s.mywibox:setup({
         {
@@ -145,7 +148,6 @@ awful.screen.connect_for_each_screen(function(s)
             },
             {
                 wrap_bg(clock, { bg = "#00000000" }),
-                valign = "center",
                 halign = "center",
                 layout = wibox.container.place,
             },

@@ -1,22 +1,24 @@
-local awful = require("awful")
-local utils = require("utils")
+--- https://github.com/rxyhn/yoru
+
 local wibox = require("wibox")
 local beautiful = require("beautiful")
--- local upower_daemon = require("widgets.battery.signal-battery")
-local upower_daemon = require("widgets.battery.acpi-signal")
+local power_daemon = require("widgets.battery.acpi-signal")
+-- local power_daemon = require("widgets.battery.signal-battery")
 local gears = require("gears")
+local gobject = require("gears.object")
 -- local apps = require("configuration.apps")
 local dpi = require("beautiful").xresources.apply_dpi
 local utils = require("utils")
 local wbutton = require("widgets.components.button")
+local awful = require("awful")
 
 --- Battery Widget
 --- ~~~~~~~~~~~~~~
 
 return function()
-	local happy_color = beautiful.green
+	local happy_color = beautiful.white
 	local sad_color = beautiful.red
-	local ok_color = beautiful.white
+	local ok_color = beautiful.yellow
 	local charging_color = beautiful.green
 
 	local charging_icon = wibox.widget({
@@ -27,7 +29,7 @@ return function()
 		widget = wibox.widget.textbox,
 	})
 
-	local battery_margin = (beautiful.bar_height - dpi(50)) / 2
+	local battery_margin = (beautiful.bar_height - dpi(45)) / 2
 
 	local battery_bar = wibox.widget({
 		max_value = 100,
@@ -100,25 +102,29 @@ return function()
 
 	local widget = wbutton.elevated.state({
 		child = battery_widget,
-		-- normal_bg = beautiful.wibar_bg,
+		normal_bg = beautiful.wibar_bg,
+		normal_shape = utils.ui.rounded_rect(20),
 		on_release = function()
+			local focused = awful.screen.focused()
+			awesome.emit_signal("central_panel::toggle", focused)
 			-- awful.spawn(apps.default.power_manager, false)
 		end,
 	})
 
 	local last_value = 100
 
-	upower_daemon:connect_signal("no_devices", function(_)
+	power_daemon:connect_signal("no_devices", function(_)
 		widget.visible = false
 	end)
 
-	upower_daemon:connect_signal("update", function(self, value, state)
+	-- is charging? is ac plugged?
+	power_daemon:connect_signal("update", function(self, value, charging_state, ac_state)
 		battery_bar.value = value
 		last_value = value
 
 		battery_percentage_text:set_text(math.floor(value) .. "%")
 
-		if charging_icon.visible then
+		if charging_state == 1 then
 			battery_bar.color = charging_color
 		elseif value <= 15 then
 			battery_bar.color = sad_color
@@ -128,9 +134,8 @@ return function()
 			battery_bar.color = happy_color
 		end
 
-		if state == 1 then
+		if ac_state == 1 then
 			charging_icon.visible = true
-			battery_bar.color = charging_color
 		elseif last_value <= 15 then
 			charging_icon.visible = false
 			battery_bar.color = sad_color

@@ -17,7 +17,7 @@ local function effect(widget, bg, shape, border_width, border_color)
 	local animation_targets = {}
 
 	if bg ~= nil then
-		animation_targets.color = utils.color.hex_to_rgb(bg)
+		animation_targets.color = utils.color.hex_to_rgba(bg)
 	end
 	if shape ~= nil then
 		widget:get_children_by_id("background_role")[1].shape = shape
@@ -26,7 +26,7 @@ local function effect(widget, bg, shape, border_width, border_color)
 		animation_targets.border_width = border_width
 	end
 	if border_color ~= nil then
-		animation_targets.border_color = utils.color.hex_to_rgb(border_color)
+		animation_targets.border_color = utils.color.hex_to_rgba(border_color)
 	end
 
 	widget.animation:set(animation_targets)
@@ -55,9 +55,9 @@ local function button(args)
 
 	widget.animation = animation:new({
 		pos = {
-			color = utils.color.hex_to_rgb(args.normal_bg),
+			color = utils.color.hex_to_rgba(args.normal_bg),
 			border_width = args.normal_border_width,
-			border_color = utils.color.hex_to_rgb(args.normal_border_color),
+			border_color = utils.color.hex_to_rgba(args.normal_border_color),
 		},
 		easing = animation.easing.linear,
 		duration = 0.2,

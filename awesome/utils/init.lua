@@ -1,8 +1,8 @@
 local M = {}
-M.misc = require("utils.misc")
-M.ui = require("utils.ui")
-M.color = require("utils.color")
-M.ibus = require("utils.ibus")()
-M.volume = require("utils.volume")()
+M.misc = require(... .. "./misc")
+M.ui = require(... .. "./ui")
+M.color = require(... .. "./color")
+M.ibus = require(... .. "./ibus")()
+M.volume = require(... .. "./volume")()
 
 return M

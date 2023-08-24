@@ -8,9 +8,63 @@ local utils = require("utils")
 
 local theme = {}
 
+
+--- ░█▀▀░█▀█░█░░░█▀█░█▀▄░█▀▀
+--- ░█░░░█░█░█░░░█░█░█▀▄░▀▀█
+--- ░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀
+
+--- Special
+theme.white = "#edeff0"
+theme.darker_black = "#060809"
+theme.black = "#0c0e0f"
+theme.lighter_black = "#121415"
+theme.one_bg = "#161819"
+theme.one_bg2 = "#1f2122"
+theme.one_bg3 = "#27292a"
+theme.grey = "#343637"
+theme.grey_fg = "#3e4041"
+theme.grey_fg2 = "#484a4b"
+theme.light_grey = "#505253"
+
+theme.transparent = "#00000000"
+
+--- Black
+theme.color0 = "#232526"
+theme.color8 = "#2c2e2f"
+
+--- Red
+theme.color1 = "#df5b61"
+theme.color9 = "#e8646a"
+
+--- Green
+theme.color2 = "#78b892"
+theme.color10 = "#81c19b"
+
+--- Yellow
+theme.color3 = "#de8f78"
+theme.color11 = "#e79881"
+
+--- Blue
+theme.color4 = "#6791c9"
+theme.color12 = "#709ad2"
+
+--- Magenta
+theme.color5 = "#bc83e3"
+theme.color13 = "#c58cec"
+
+--- Cyan
+theme.color6 = "#67afc1"
+theme.color14 = "#70b8ca"
+
+--- White
+theme.color7 = "#e4e6e7"
+theme.color15 = "#f2f4f5"
+
+theme.accent = theme.color2
+
 theme.transparent = "#00000000"
 theme.font = "JetBrains Mono Nerd Font Bold 12"
-theme.fontname = "JetBrains Mono Nerd Font"
+theme.font_name = "JetBrains Mono Nerd Font"
 
 theme.black = "#16161D"
 theme.red = "#E46876"
@@ -36,9 +90,9 @@ theme.spacing_lg = dpi(16)
 theme.spacing_xl = dpi(20)
 
 -- border
-theme.useless_gap = dpi(10)
-theme.border_width = dpi(5)
-theme.border_radius = dpi(10)
+theme.useless_gap = dpi(5)
+theme.border_width = dpi(3)
+theme.border_radius = dpi(8)
 theme.border_focus = theme.bg_focus
 theme.border_normal = theme.bg_normal
 
@@ -54,6 +108,7 @@ theme.taglist_fg_occupied = theme.green
 
 -- bar
 theme.bar_height = dpi(60)
+theme.wibar_bg = "#00000050"
 
 -- system tray
 theme.systray_icon_spacing = theme.spacing
@@ -69,7 +124,7 @@ theme.bg_systray = "#FFFFFF"
 local nc = naughty.config
 nc.defaults.margin = theme.spacing_lg
 nc.defaults.shape = utils.ui.rounded_rect()
-nc.defaults.timeout = 500
+nc.defaults.timeout = 5
 nc.defaults['icon_size'] = dpi(50)
 nc.padding = theme.spacing
 nc.padding = theme.spacing_xl

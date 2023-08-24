@@ -36,7 +36,7 @@ end
 
 local function effect(widget, text_bg)
 	if text_bg ~= nil then
-		widget.text_animation:set(utils.color.hex_to_rgb(text_bg))
+		widget.text_animation:set(utils.color.hex_to_rgba(text_bg))
 	end
 end
 
@@ -53,7 +53,7 @@ local function button(args, type)
 	widget._private.text = text_widget
 
 	widget.text_animation = animation:new({
-		pos = utils.color.hex_to_rgb(args.text_normal_bg),
+		pos = utils.color.hex_to_rgba(args.text_normal_bg),
 		easing = animation.easing.linear,
 		duration = 0.2,
 		update = function(self, pos)

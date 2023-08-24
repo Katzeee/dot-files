@@ -10,6 +10,7 @@ local random = math.random
 local abs = math.abs
 local format = string.format
 local misc = require("utils.misc")
+local gdebug = require("gears.debug")
 
 local M = {}
 
@@ -51,8 +52,11 @@ local function color_obj(args)
 
 	-- Methods and stuff
 	function obj:_hex_to_rgba()
-		obj._props.r, obj._props.g, obj._props.b, alpha = M.hex_to_rgba(obj._props.hex)
-		if alpha then self._props.a = alpha end
+		local color = M.hex_to_rgba(obj._props.hex)
+		obj._props.r = color.r
+		obj._props.g = color.g
+		obj._props.b = color.b
+		if color.a then self._props.a = color.a end
 		if obj._props.small_rgb then
 			obj._props.r = math.floor(obj._props.r / 255)
 			obj._props.g = math.floor(obj._props.g / 255)
@@ -176,6 +180,7 @@ local function color_obj(args)
 		elseif operator == "-" then
 			newcolor[key] = newcolor[key] - new:match("[%d\\.]+")
 		end
+		-- newcolor.a = obj.a / 255
 		return newcolor
 	end
 
@@ -200,25 +205,26 @@ local function clip(num, min_num, max_num)
 end
 
 -- Converts the given hex color to rgba
-function M.hex_to_rgb(color)
-	color = color:gsub("#", "")
-	return {
-		r = tonumber("0x" .. color:sub(1, 2)),
-		g = tonumber("0x" .. color:sub(3, 4)),
-		b = tonumber("0x" .. color:sub(5, 6)),
-		a = #color == 8 and tonumber("0x" .. color:sub(7, 8)) or 255,
-	}
-end
+-- function M.hex_to_rgb(color)
+-- 	color = color:gsub("#", "")
+-- 	return {
+-- 		r = tonumber("0x" .. color:sub(1, 2)),
+-- 		g = tonumber("0x" .. color:sub(3, 4)),
+-- 		b = tonumber("0x" .. color:sub(5, 6)),
+-- 		a = #color == 8 and tonumber("0x" .. color:sub(7, 8)) or 255,
+-- 	}
+-- end
 
 -- Useful public methods
 function M.hex_to_rgba(hex)
 	hex = hex:gsub("#", "")
-	return
-		tonumber("0x" .. hex:sub(1, 2)),
-		tonumber("0x" .. hex:sub(3, 4)),
-		tonumber("0x" .. hex:sub(5, 6)),
+	return {
+		r = tonumber("0x" .. hex:sub(1, 2)),
+		g = tonumber("0x" .. hex:sub(3, 4)),
+		b = tonumber("0x" .. hex:sub(5, 6)),
 		--if alpha exists in hex, return it
-		#hex == 8 and tonumber("0x" .. hex:sub(7, 8)) or nil
+		a = #hex == 8 and tonumber("0x" .. hex:sub(7, 8)) or 255
+	}
 end
 
 -- Converts the given rgba color to hex
@@ -339,7 +345,7 @@ end
 
 -- Converts the given hex color to hsv
 function M.hex_to_hsv(color)
-	local color = M.hex_to_rgb(color)
+	local color = M.hex_to_rgba(color)
 	local C_max = max(color.r, color.g, color.b)
 	local C_min = min(color.r, color.g, color.b)
 	local delta = C_max - C_min
@@ -380,7 +386,8 @@ end
 -- Calculates the relative luminance of the given color
 function M.relative_luminance(color)
 	local function from_sRGB(u)
-		return u <= 0.0031308 and 25 * u / 323 or pow(((200 * u + 11) / 211), 12 / 5)
+		-- return u <= 0.0031308 and 25 * u / 323 or pow(((200 * u + 11) / 211), 12 / 5)
+		return u <= 0.0031308 and 25 * u / 323 or ((200 * u + 11) / 211) ^ (12 / 5)
 	end
 
 	color = color_obj({ hex = color })
