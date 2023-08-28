@@ -37,10 +37,10 @@ local action = function(cmd)
 			awesome.emit_signal("widget::volume")
 			-- end
 
-			noti_obj = naughty.notify({
-				replaces_id = noti_obj ~= nil and noti_obj.id or nil,
-				text = text,
-			})
+			if noti_obj ~= nil then
+				noti_obj:destroy()
+			end
+			noti_obj = naughty.notification({ text = text })
 		end)
 	end)
 end

@@ -71,9 +71,9 @@ return function(s)
                 search_icon.visible = false
                 local prompt
                 if action == "run" then
-                    prompt = generate_prompt_icon(" ", beautiful.green)
+                    prompt = generate_prompt_icon(" ", beautiful.accent)
                 elseif action == "web_search" then
-                    prompt = generate_prompt_icon("󰥨 ", beautiful.green)
+                    prompt = generate_prompt_icon("󰥨 ", beautiful.accent)
                 end
                 utils.misc.prompt(action, search_text, prompt, function()
                     search_icon.visible = true
@@ -131,7 +131,7 @@ return function(s)
     --- Widgets
     -- s.stats = require("ui.panels.central-panel.stats")
     -- s.user_profile = require("ui.panels.central-panel.user-profile")
-    -- s.quick_settings = require("ui.panels.central-panel.quick-settings")
+    s.quick_settings = require("widgets.quick-settings")
     s.slider = require("widgets.slider")
     -- s.music_player = require("ui.panels.central-panel.music-player")
 

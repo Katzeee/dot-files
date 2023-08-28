@@ -84,8 +84,6 @@ mic_slider:buttons(gears.table.join(
 
 local update_slider = function()
 	utils.volume.mic_get_level(function(level, status)
-		gdebug.dump(level)
-		gdebug.dump(status)
 		mic_slider:set_value(tonumber(level))
 		if status == "off" then
 			action_level.text = mute_text

@@ -6,15 +6,11 @@ local dpi = xresources.apply_dpi
 local beautiful = require("beautiful")
 local utils = require("utils")
 local constants = require("config.app")
-local my_widgets = require("widgets")
+local widgets = require("widgets")
 local panel = require("panels")
-
 
 local mods = constants.mods
 local date = wibox.widget.textclock("%a %b %d %Y")
-local brightness = my_widgets.brightness
-
-
 local clock = wibox.widget.textclock("%H:%M")
 
 local DEFAULT_OPTS = {
@@ -66,6 +62,9 @@ local taglist_buttons = gears.table.join(
         awful.tag.viewprev(t.screen)
     end)
 )
+
+
+
 
 awful.screen.connect_for_each_screen(function(s)
     utils.ui.set_wallpaper(s)
@@ -127,13 +126,9 @@ awful.screen.connect_for_each_screen(function(s)
                     spacing = beautiful.spacing,
 
                     wrap_bg(mysystray),
-                    my_widgets.yoru_battery(),
-                    -- wrap_bg({
-                    -- layout = wibox.layout.fixed.horizontal,
-                    -- my_widgets.battery(),
-                    -- my_widgets.volume(),
-                    -- }, { widget_spacing = beautiful.spacing_lg }),
+                    widgets.yoru_battery(),
                     wrap_bg(date),
+                    awful.widget.layoutbox(),
                 },
                 widget = wibox.container.margin,
             },

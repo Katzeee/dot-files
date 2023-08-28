@@ -25,6 +25,7 @@ theme.grey = "#343637"
 theme.grey_fg = "#3e4041"
 theme.grey_fg2 = "#484a4b"
 theme.light_grey = "#505253"
+theme.notification_bg = theme.black
 
 theme.transparent = "#00000000"
 
@@ -128,7 +129,7 @@ theme.bar_height = dpi(60)
 theme.wibar_bg = "#00000050"
 
 -- system tray
-theme.systray_icon_spacing = theme.spacing
+theme.systray_icon_spacing = dpi(4)
 theme.systray_max_rows = 7
 theme.bg_systray = "#FFFFFF"
 
@@ -140,22 +141,23 @@ theme.widget_bg = "#1b1d1e"
 --
 -- ********************************* --
 
-local nc = naughty.config
-nc.defaults.margin = theme.spacing_lg
-nc.defaults.shape = utils.ui.rounded_rect()
-nc.defaults.timeout = 5
-nc.defaults['icon_size'] = dpi(50)
-nc.padding = theme.spacing
-nc.padding = theme.spacing_xl
-nc.presets.critical.bg = theme.red
-nc.presets.critical.fg = theme.bg_normal
-nc.presets.low.bg = theme.bg_normal
-nc.presets.normal.bg = theme.green
-nc.presets.normal.fg = theme.bg_normal
-nc.spacing = theme.spacing
-theme.notification_max_width = dpi(400)
-theme.notification_max_height = dpi(150)
-theme.notification_font = "JetBrains Mono Nerd Font 10"
+theme.notification_spacing = theme.spacing
+-- local nc = naughty.config
+-- nc.defaults.margin = theme.spacing_lg
+-- nc.defaults.shape = utils.ui.rounded_rect()
+-- nc.defaults.timeout = 5
+-- nc.defaults['icon_size'] = dpi(50)
+-- nc.padding = theme.spacing
+-- nc.padding = theme.spacing_xl
+-- nc.presets.critical.bg = theme.red
+-- nc.presets.critical.fg = theme.bg_normal
+-- nc.presets.low.bg = theme.bg_normal
+-- nc.presets.normal.bg = theme.green
+-- nc.presets.normal.fg = theme.bg_normal
+-- nc.spacing = theme.spacing
+-- theme.notification_max_width = dpi(400)
+-- theme.notification_max_height = dpi(150)
+-- theme.notification_font = "JetBrains Mono Nerd Font 10"
 
 -- ********************************* --
 --
