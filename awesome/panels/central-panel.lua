@@ -29,8 +29,8 @@ return function(s)
             })
 
             local reset_search_icon = function()
-                -- search_icon.markup = utils.ui.colorize_text("", beautiful.accent)
-                search_icon.markup = utils.ui.colorize_text(" ", beautiful.green)
+                search_icon.markup = utils.ui.colorize_text("", beautiful.accent)
+                -- search_icon.markup = utils.ui.colorize_text(" ", beautiful.accent)
             end
             reset_search_icon()
 
@@ -38,7 +38,7 @@ return function(s)
                 --- markup = helpers.ui.colorize_text("Search", beautiful.color8),
                 align = "center",
                 valign = "center",
-                font = beautiful.font,
+                font = beautiful.font_name .. "Bold 12",
                 widget = wibox.widget.textbox(),
             })
 
@@ -89,7 +89,7 @@ return function(s)
                 end)
             ))
 
-            search:connect_signal("mouse::leave", function (c)
+            search:connect_signal("mouse::leave", function(c)
                 search = nil
                 -- c:deactivate()
             end)
@@ -154,10 +154,12 @@ return function(s)
             {
                 {
                     header(),
-                    top = dpi(10),
-                    bottom = dpi(10),
-                    right = dpi(20),
-                    left = dpi(20),
+                    margins = {
+                        top = dpi(10),
+                        bottom = dpi(10),
+                        right = dpi(20),
+                        left = dpi(20)
+                    },
                     widget = wibox.container.margin,
                 },
                 {
@@ -190,8 +192,8 @@ return function(s)
                 },
                 layout = wibox.layout.align.vertical,
             },
-            -- bg = beautiful.widget_bg,
-            bg = beautiful.color3,
+            bg = beautiful.widget_bg,
+            -- bg = beautiful.color3,
             shape = utils.ui.rrect(beautiful.border_radius),
             widget = wibox.container.background,
         },

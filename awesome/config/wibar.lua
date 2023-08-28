@@ -11,18 +11,18 @@ local panel = require("panels")
 
 
 local mods = constants.mods
-local my_volume = my_widgets.volume()
-utils.volume.set_widget(my_volume)
+-- local my_volume = my_widgets.volume()
+-- utils.volume.set_widget(my_volume)
 
-local cw = my_widgets.calendar()
+-- local cw = my_widgets.calendar()
 local date = wibox.widget.textclock("%a %b %d %Y")
 local brightness = my_widgets.brightness
 
-date:connect_signal("button::press", function(_, _, _, button)
-    if button == 1 then
-        cw.toggle()
-    end
-end)
+-- date:connect_signal("button::press", function(_, _, _, button)
+--     if button == 1 then
+--         cw.toggle()
+--     end
+-- end)
 
 local clock = wibox.widget.textclock("%H:%M")
 
@@ -137,11 +137,11 @@ awful.screen.connect_for_each_screen(function(s)
 
                     wrap_bg(mysystray),
                     my_widgets.yoru_battery(),
-                    wrap_bg({
-                        layout = wibox.layout.fixed.horizontal,
-                        -- my_widgets.battery(),
-                        my_widgets.volume(),
-                    }, { widget_spacing = beautiful.spacing_lg }),
+                    -- wrap_bg({
+                    -- layout = wibox.layout.fixed.horizontal,
+                    -- my_widgets.battery(),
+                    -- my_widgets.volume(),
+                    -- }, { widget_spacing = beautiful.spacing_lg }),
                     wrap_bg(date),
                 },
                 widget = wibox.container.margin,

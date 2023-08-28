@@ -60,28 +60,45 @@ theme.color14 = "#70b8ca"
 theme.color7 = "#e4e6e7"
 theme.color15 = "#f2f4f5"
 
-theme.accent = theme.color2
+--- Background Colors
+theme.bg_normal = theme.black
+theme.bg_focus = theme.black
+theme.bg_urgent = theme.black
+theme.bg_minimize = theme.black
 
-theme.transparent = "#00000000"
-theme.font = "JetBrains Mono Nerd Font Bold 12"
+--- Foreground Colors
+theme.fg_normal = theme.white
+theme.fg_focus = theme.accent
+theme.fg_urgent = theme.color1
+theme.fg_minimize = theme.color0
+
+--- Accent colors
+function theme.random_accent_color()
+    local accents = {
+        theme.color9,
+        theme.color10,
+        theme.color11,
+        theme.color12,
+        theme.color13,
+        theme.color14,
+    }
+
+    local i = math.random(1, #accents)
+    return accents[i]
+end
+
+theme.accent = theme.color4
+
+
+-- theme.font = "JetBrains Mono Nerd Font Bold 12"
 theme.font_name = "JetBrains Mono Nerd Font"
+theme.icon_font = "Material Icons "
 
 theme.black = "#16161D"
 theme.red = "#E46876"
 theme.yellow = "#F2D98C"
 theme.orange = "#FFA066"
 theme.green = "#A8C98FCC"
-theme.white = "#D3D3D3"
-
--- bg
-theme.bg_normal = theme.black
-theme.bg_focus = theme.green
-theme.bg_urgent = theme.red
-
--- fg
-theme.fg_normal = theme.white
-theme.fg_focus = theme.yellow
-theme.fg_urgent = theme.white
 
 -- spacing
 theme.spacing = dpi(8)
@@ -114,6 +131,8 @@ theme.wibar_bg = "#00000050"
 theme.systray_icon_spacing = theme.spacing
 theme.systray_max_rows = 7
 theme.bg_systray = "#FFFFFF"
+
+theme.widget_bg = "#1b1d1e"
 
 -- ********************************* --
 --
