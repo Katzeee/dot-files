@@ -4,23 +4,25 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local utils = require("utils")
 local brightness = require(... .. "./brightness")
--- local volume = require(... .. "./volume")
--- local mic = require(... .. "./mic")
+local volume = require(... .. "./volume")
+local mic = require(... .. "./mic")
 
 return wibox.widget({
 	{
 		{
 			{
 				brightness,
-				-- volume,
-				-- mic,
+				volume,
+				mic,
 				spacing = dpi(12),
 				layout = wibox.layout.fixed.vertical,
 			},
-			top = dpi(12),
-			bottom = dpi(12),
-			left = dpi(18),
-			right = dpi(12),
+			margins = {
+				top = dpi(12),
+				bottom = dpi(12),
+				left = dpi(18),
+				right = dpi(12)
+			},
 			widget = wibox.container.margin,
 		},
 		widget = wibox.container.background,

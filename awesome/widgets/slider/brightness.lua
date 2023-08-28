@@ -7,11 +7,11 @@ local widgets = require("widgets")
 
 local action_level = widgets.button.text.normal({
 	normal_shape = gears.shape.circle,
-	font = beautiful.font_name .. "Round ",
+	font = beautiful.icon_font .. "Round ",
 	size = 17,
 	text_normal_bg = beautiful.accent,
 	normal_bg = beautiful.one_bg3,
-	text = "",
+		text = "",
 	paddings = dpi(5),
 	animate_size = false,
 	on_release = function()

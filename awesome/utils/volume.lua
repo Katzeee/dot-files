@@ -1,54 +1,58 @@
 local awful = require("awful")
 local naughty = require("naughty")
 
-return function()
-	local widget = nil
-	local noti_obj = nil
+local M = {}
 
-	local cmd_set = "amixer -D pulse sset Master"
-	local cmd_get = "amixer -D pulse sget Master"
-	local cmd_inc = cmd_set .. " 5%+"
-	local cmd_dec = cmd_set .. " 5%-"
-	local cmd_toggle = cmd_set .. " toggle"
+-- local widget = nil
+local noti_obj = nil
 
-	local get_level = function(cb)
-		awful.spawn.easy_async(cmd_get, function(out)
-			local level, status = string.match(out, "%[(%d+)%%%] %[(%a+)%]")
-			cb(level, status)
-		end)
-	end
+local volume_set = "amixer -D pulse sset Master"
+local cmd_get = "amixer -D pulse sget "
+local volume_inc = volume_set .. " 5%+"
+local volume_dec = volume_set .. " 5%-"
+local volume_toggle = volume_set .. " toggle"
 
-	local action = function(cmd)
-		awful.spawn.easy_async(cmd, function()
-			get_level(function(level, status)
-				local percentage = level .. "%"
-				local text = status == "on" and "Volume: " .. percentage or "[Muted] " .. percentage
-
-				if widget then
-					widget:emit_signal("volume::update", level, status)
-				end
-
-				noti_obj = naughty.notify({
-					replaces_id = noti_obj ~= nil and noti_obj.id or nil,
-					text = text,
-				})
-			end)
-		end)
-	end
-
-	return {
-    get_level = get_level,
-		increase = function()
-			action(cmd_inc)
-		end,
-		decrease = function()
-			action(cmd_dec)
-		end,
-		toggle = function()
-			action(cmd_toggle)
-		end,
-		set_widget = function(w)
-			widget = w
-		end,
-	}
+local get_level = function(channel, cb)
+	awful.spawn.easy_async(cmd_get .. channel, function(out)
+		local level, status = string.match(out, "%[(%d+)%%%] %[(%a+)%]")
+		cb(level, status)
+	end)
 end
+
+function M.volume_get_level(cb)
+	get_level("Master", cb)
+end
+
+function M.mic_get_level(cb)
+	get_level("Capture", cb)
+end
+
+local action = function(cmd)
+	awful.spawn.easy_async(cmd, function()
+		M.volume_get_level(function(level, status)
+			local percentage = level .. "%"
+			local text = status == "on" and "Volume: " .. percentage or "[Muted] " .. percentage
+
+			-- if widget then
+			awesome.emit_signal("widget::volume")
+			-- end
+
+			noti_obj = naughty.notify({
+				replaces_id = noti_obj ~= nil and noti_obj.id or nil,
+				text = text,
+			})
+		end)
+	end)
+end
+
+M.increase = function()
+	action(volume_inc)
+end
+M.decrease = function()
+	action(volume_dec)
+end
+M.toggle = function()
+	action(volume_toggle)
+end
+
+return M

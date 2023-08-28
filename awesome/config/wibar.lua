@@ -11,18 +11,9 @@ local panel = require("panels")
 
 
 local mods = constants.mods
--- local my_volume = my_widgets.volume()
--- utils.volume.set_widget(my_volume)
-
--- local cw = my_widgets.calendar()
 local date = wibox.widget.textclock("%a %b %d %Y")
 local brightness = my_widgets.brightness
 
--- date:connect_signal("button::press", function(_, _, _, button)
---     if button == 1 then
---         cw.toggle()
---     end
--- end)
 
 local clock = wibox.widget.textclock("%H:%M")
 

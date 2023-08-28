@@ -1,15 +1,14 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
-local naughty = require("naughty")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local widgets = require("widgets")
-local gdebug = require("gears.debug")
 local utils = require("utils")
+local gdebug = require("gears.debug")
 
-local mute_text = ""
-local unmute_text = ""
+local mute_text = ""
+local unmute_text = ""
 
 local action_level = widgets.button.text.normal({
 	normal_shape = gears.shape.circle,
@@ -21,7 +20,7 @@ local action_level = widgets.button.text.normal({
 	paddings = dpi(5),
 	animate_size = false,
 	on_release = function()
-		volume_mute_toggle()
+		capture_mute_toggle()
 	end,
 })
 
@@ -36,7 +35,7 @@ local osd_value = wibox.widget({
 local slider = wibox.widget({
 	nil,
 	{
-		id = "volume_slider",
+		id = "mic_slider",
 		shape = gears.shape.rounded_bar,
 		bar_shape = gears.shape.rounded_bar,
 		bar_color = beautiful.grey,
@@ -56,39 +55,38 @@ local slider = wibox.widget({
 	layout = wibox.layout.align.vertical,
 })
 
-local volume_slider = slider.volume_slider
+local mic_slider = slider.mic_slider
 
-volume_slider:connect_signal("property::value", function()
-	local volume_level = volume_slider:get_value()
-	awful.spawn("amixer -D pulse sset Master " .. volume_level .. "%", false)
+mic_slider:connect_signal("property::value", function()
+	local mic_level = mic_slider:get_value()
+	awful.spawn("amixer -D pulse sset Capture " .. mic_level .. "%", false)
 
 	-- Update textbox widget text
-	osd_value.text = volume_level .. "%"
-
-	-- Update volume osd
-	awesome.emit_signal("module::volume_osd", volume_level)
+	osd_value.text = mic_level .. "%"
 end)
 
-volume_slider:buttons(gears.table.join(
+mic_slider:buttons(gears.table.join(
 	awful.button({}, 4, nil, function()
-		if volume_slider:get_value() > 100 then
-			volume_slider:set_value(100)
+		if mic_slider:get_value() > 100 then
+			mic_slider:set_value(100)
 			return
 		end
-		volume_slider:set_value(volume_slider:get_value() + 5)
+		mic_slider:set_value(mic_slider:get_value() + 5)
 	end),
 	awful.button({}, 5, nil, function()
-		if volume_slider:get_value() < 0 then
-			volume_slider:set_value(0)
+		if mic_slider:get_value() < 0 then
+			mic_slider:set_value(0)
 			return
 		end
-		volume_slider:set_value(volume_slider:get_value() - 5)
+		mic_slider:set_value(mic_slider:get_value() - 5)
 	end)
 ))
 
 local update_slider = function()
-	utils.volume.volume_get_level(function(level, status)
-		volume_slider:set_value(tonumber(level))
+	utils.volume.mic_get_level(function(level, status)
+		gdebug.dump(level)
+		gdebug.dump(status)
+		mic_slider:set_value(tonumber(level))
 		if status == "off" then
 			action_level.text = mute_text
 		elseif status == "on" then
@@ -101,22 +99,11 @@ end
 -- Update on startup
 update_slider()
 
-function volume_mute_toggle()
-	-- naughty.notify({ text = "master toggle" })
-	awful.spawn.easy_async("amixer -D pulse sset Master toggle", update_slider)
+function capture_mute_toggle()
+	awful.spawn.easy_async("amixer -D pulse sset Capture toggle", update_slider)
 end
 
--- The emit will come from the global keybind
-awesome.connect_signal("widget::volume", function()
-	update_slider()
-end)
-
--- The emit will come from the OSD
-awesome.connect_signal("widget::volume:update", function(value)
-	volume_slider:set_value(tonumber(value))
-end)
-
-local volume_setting = wibox.widget({
+local mic_setting = wibox.widget({
 	{
 		layout = wibox.layout.fixed.horizontal,
 		spacing = dpi(5),
@@ -135,4 +122,4 @@ local volume_setting = wibox.widget({
 	spacing = dpi(17),
 })
 
-return volume_setting
+return mic_setting

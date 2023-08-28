@@ -90,8 +90,8 @@ end
 theme.accent = theme.color4
 
 
--- theme.font = "JetBrains Mono Nerd Font Bold 12"
 theme.font_name = "JetBrains Mono Nerd Font"
+theme.font = theme.font_name .. " Bold 12"
 theme.icon_font = "Material Icons "
 
 theme.black = "#16161D"
@@ -110,7 +110,7 @@ theme.spacing_xl = dpi(20)
 theme.useless_gap = dpi(5)
 theme.border_width = dpi(3)
 theme.border_radius = dpi(8)
-theme.border_focus = theme.bg_focus
+theme.border_focus = theme.accent
 theme.border_normal = theme.bg_normal
 
 -- taglist
