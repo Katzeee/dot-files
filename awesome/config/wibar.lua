@@ -5,17 +5,14 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local beautiful = require("beautiful")
 local utils = require("utils")
-local constants = require("config.app")
 local widgets = require("widgets")
 local panel = require("panels")
 
-local mods = constants.mods
-local date = wibox.widget.textclock("%a %b %d %Y")
-local clock = wibox.widget.textclock("%H:%M")
+local mysystray = widgets.systray()
 
 local DEFAULT_OPTS = {
     widget_spacing = beautiful.spacing,
-    bg = beautiful.wibar_bg,
+    bg = beautiful.transparent,
 }
 
 local wrap_bg = function(widgets, opts)
@@ -40,74 +37,18 @@ local wrap_bg = function(widgets, opts)
     })
 end
 
-local taglist_buttons = gears.table.join(
-    awful.button({}, 1, function(t)
-        t:view_only()
-    end),
-    awful.button({ mods.m }, 1, function(t)
-        if client.focus then
-            client.focus:move_to_tag(t)
-        end
-    end),
-    awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ mods.m }, 3, function(t)
-        if client.focus then
-            client.focus:toggle_tag(t)
-        end
-    end),
-    awful.button({}, 4, function(t)
-        awful.tag.viewnext(t.screen)
-    end),
-    awful.button({}, 5, function(t)
-        awful.tag.viewprev(t.screen)
-    end)
-)
-
-
-
-
 awful.screen.connect_for_each_screen(function(s)
     utils.ui.set_wallpaper(s)
-
-    -- Each screen has its own tag table.
-    awful.tag(utils.misc.range(1, 9), s, awful.layout.layouts[1])
-
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist({
-        screen = s,
-        buttons = taglist_buttons,
-        filter = awful.widget.taglist.filter.all,
-        layout = {
-            layout = wibox.layout.fixed.horizontal,
-            spacing = beautiful.spacing,
-        },
-        style = { shape = gears.shape.circle },
-        widget_template = {
-            {
-                {
-                    {
-                        id = "text_role",
-                        widget = wibox.widget.textbox,
-                    },
-                    layout = wibox.layout.fixed.horizontal,
-                },
-                left = beautiful.spacing,
-                right = beautiful.spacing,
-                widget = wibox.container.margin,
-            },
-            id = "background_role",
-            widget = wibox.container.background,
-        },
-    })
 
     s.mywibox = awful.wibar({
         height = beautiful.bar_height,
         type = "dock",
-        bg = "#00000000",
+        bg = beautiful.wibar_bg,
         position = "top",
         screen = s,
     })
-    local mysystray = wibox.widget.systray();
+
+    widgets.taglist(s)
     panel.central_panel(s)
 
     s.mywibox:setup({
@@ -124,23 +65,24 @@ awful.screen.connect_for_each_screen(function(s)
                 { -- Right widgets
                     layout = wibox.layout.fixed.horizontal,
                     spacing = beautiful.spacing,
+                    valign = "center",
 
-                    wrap_bg(mysystray),
+                    mysystray,
                     widgets.yoru_battery(),
-                    wrap_bg(date),
-                    awful.widget.layoutbox(),
+                    widgets.layoutbox(s),
                 },
                 widget = wibox.container.margin,
             },
             {
-                wrap_bg(clock, { bg = "#00000000" }),
+                widgets.clock(s),
                 halign = "center",
                 layout = wibox.container.place,
             },
         },
         left = beautiful.useless_gap * 2,
         right = beautiful.useless_gap * 2,
-        top = beautiful.useless_gap,
+        -- top = beautiful.useless_gap,
+        -- bottom = beautiful.useless_gap,
         widget = wibox.container.margin,
     })
 end)

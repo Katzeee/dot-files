@@ -1,6 +1,7 @@
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
+local icons = require("icons")
 local gears = require("gears")
 local naughty = require("naughty")
 local constants = require("config.app")
@@ -28,6 +29,7 @@ theme.light_grey = "#505253"
 theme.notification_bg = theme.black
 
 theme.transparent = "#00000000"
+theme.widget_bg = "#1b1d1e"
 
 --- Black
 theme.color0 = "#232526"
@@ -95,12 +97,6 @@ theme.font_name = "JetBrains Mono Nerd Font"
 theme.font = theme.font_name .. " Bold 12"
 theme.icon_font = "Material Icons "
 
-theme.black = "#16161D"
-theme.red = "#E46876"
-theme.yellow = "#F2D98C"
-theme.orange = "#FFA066"
-theme.green = "#A8C98FCC"
-
 -- spacing
 theme.spacing = dpi(8)
 theme.spacing_md = dpi(12)
@@ -116,24 +112,24 @@ theme.border_normal = theme.bg_normal
 
 -- taglist
 theme.taglist_bg = theme.bg_normal
-theme.taglist_bg_focus = theme.green
-theme.taglist_bg_urgent = theme.red
+theme.taglist_bg_focus = theme.color4
+theme.taglist_bg_urgent = theme.color1
+theme.taglist_fg_urgent = theme.black
 theme.taglist_fg_focus = theme.bg_normal
-theme.taglist_fg_occupied = theme.green
+theme.taglist_fg_occupied = theme.color4
 
 -- wallpaper
 -- theme.wallpaper = gears.surface.load_uncached(constants.wallpapers .. "teal-liquid.jpg")
 
 -- bar
-theme.bar_height = dpi(60)
-theme.wibar_bg = "#00000050"
+theme.bar_height = dpi(40)
+theme.wibar_bg = "#000000"
 
 -- system tray
 theme.systray_icon_spacing = dpi(4)
-theme.systray_max_rows = 7
-theme.bg_systray = "#FFFFFF"
+theme.systray_max_rows = 1
+theme.bg_systray = theme.wibar_bg
 
-theme.widget_bg = "#1b1d1e"
 
 -- ********************************* --
 --
@@ -164,6 +160,21 @@ theme.notification_spacing = theme.spacing
 --              Widgets
 --
 -- ********************************* --
+
+-- layout
+theme.layout_floating = icons.floating
+theme.layout_max = icons.max
+theme.layout_tile = icons.tile
+theme.layout_dwindle = icons.dwindle
+theme.layout_centered = icons.centered
+theme.layout_mstab = icons.mstab
+theme.layout_equalarea = icons.equalarea
+theme.layout_machi = icons.machi
+theme.layoutlist_shape_selected = utils.ui.rounded_rect(theme.border_radius)
+theme.layoutlist_bg_selected = theme.widget_bg
+theme.tooltip_bg = theme.lighter_black
+theme.tooltip_fg = theme.white
+theme.tooltip_font = theme.font_name .. "Regular 10"
 
 -- battery
 theme.battery_happy = theme.fg_normal

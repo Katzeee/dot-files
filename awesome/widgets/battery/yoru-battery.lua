@@ -17,27 +17,22 @@ local awful = require("awful")
 
 return function()
 	local happy_color = beautiful.white
-	local sad_color = beautiful.red
-	local ok_color = beautiful.yellow
-	local charging_color = beautiful.green
+	local sad_color = beautiful.color1
+	local ok_color = beautiful.white
+	local charging_color = beautiful.color2
 
 	local charging_icon = wibox.widget({
-		markup = utils.ui.colorize_text("", beautiful.green),
+		markup = utils.ui.colorize_text("", beautiful.color2),
 		font = beautiful.icon_font .. "Round 14",
 		align = "center",
 		valign = "center",
 		widget = wibox.widget.textbox,
 	})
 
-	local battery_margin = (beautiful.bar_height - dpi(45)) / 2
 
 	local battery_bar = wibox.widget({
 		max_value = 100,
 		value = 50,
-		margins = {
-			top    = battery_margin,
-			bottom = battery_margin,
-		},
 		forced_width = dpi(30),
 		border_width = dpi(1),
 		paddings = dpi(2),
@@ -102,10 +97,7 @@ return function()
 	local widget = wbutton.elevated.state({
 		child = battery_widget,
 		normal_bg = beautiful.wibar_bg,
-		normal_shape = utils.ui.rounded_rect(20),
 		on_release = function()
-			local focused = awful.screen.focused()
-			awesome.emit_signal("central_panel::toggle", focused)
 			-- awful.spawn(apps.default.power_manager, false)
 		end,
 	})
