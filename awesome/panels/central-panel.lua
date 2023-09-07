@@ -101,7 +101,7 @@ return function(s)
             {
                 dashboard_text,
                 nil,
-                search_box(),
+                -- search_box(),
                 layout = wibox.layout.align.horizontal,
             },
             margins = dpi(10),
@@ -130,7 +130,7 @@ return function(s)
 
     --- Widgets
     -- s.stats = require("ui.panels.central-panel.stats")
-    -- s.user_profile = require("ui.panels.central-panel.user-profile")
+    s.user_profile = require("widgets.user-profile")
     s.quick_settings = require("widgets.quick-settings")
     s.slider = require("widgets.slider")
     -- s.music_player = require("ui.panels.central-panel.music-player")

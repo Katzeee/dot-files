@@ -325,8 +325,6 @@ local CLIENT_GROUPS = {
                     end,
                     description = "toggle maximize horizontally",
                 },
-            },
-            [mods.c] = {
                 {
                     key = "Return",
                     action = function(c)
@@ -334,6 +332,9 @@ local CLIENT_GROUPS = {
                     end,
                     description = "move to master",
                 },
+            },
+            [mods.c] = {
+
                 {
                     key = "m",
                     action = function(c)

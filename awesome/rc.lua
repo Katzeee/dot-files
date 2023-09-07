@@ -40,5 +40,6 @@ require("config.wibar")
 require("config.keys")
 require("config.rules")
 require("config.signals")
+require("modules")
 
 awful.spawn.with_shell("autostart")

@@ -105,7 +105,7 @@ theme.spacing_xl = dpi(20)
 
 -- border
 theme.useless_gap = dpi(5)
-theme.border_width = dpi(3)
+theme.border_width = dpi(5)
 theme.border_radius = dpi(8)
 theme.border_focus = theme.accent
 theme.border_normal = theme.bg_normal
@@ -166,6 +166,7 @@ theme.layout_floating = icons.floating
 theme.layout_max = icons.max
 theme.layout_tile = icons.tile
 theme.layout_dwindle = icons.dwindle
+theme.layout_fairv = "F"
 theme.layout_centered = icons.centered
 theme.layout_mstab = icons.mstab
 theme.layout_equalarea = icons.equalarea
@@ -177,17 +178,17 @@ theme.tooltip_fg = theme.white
 theme.tooltip_font = theme.font_name .. "Regular 10"
 
 -- battery
-theme.battery_happy = theme.fg_normal
-theme.battery_tired = theme.yellow
-theme.battery_sad = theme.red
-theme.battery_charging = theme.green
+-- theme.battery_happy = theme.fg_normal
+-- theme.battery_tired = theme.yellow
+-- theme.battery_sad = theme.red
+-- theme.battery_charging = theme.green
 
 -- calendar
-theme.calendar_fg_header = theme.fg_normal
-theme.calendar_fg_focus = theme.bg_normal
-theme.calendar_fg_weekday = theme.green
-theme.calendar_fg = theme.fg_normal
-theme.calendar_bg = theme.bg_normal
-theme.calendar_bg_focus = theme.green
+-- theme.calendar_fg_header = theme.fg_normal
+-- theme.calendar_fg_focus = theme.bg_normal
+-- theme.calendar_fg_weekday = theme.green
+-- theme.calendar_fg = theme.fg_normal
+-- theme.calendar_bg = theme.bg_normal
+-- theme.calendar_bg_focus = theme.green
 
 return theme
