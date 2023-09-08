@@ -1,0 +1,45 @@
+If:                                 # Apply this config conditionally
+  PathExclude: .*\.h                # exclude all .h files
+Diagnostics:
+  ClangTidy:
+    Add: [
+      bugprone-*,
+      clang-analyzer-*,
+      google-*,
+      modernize-*,
+      performance-*,
+      portability-*,
+      readability-*,
+      bugprone-easily-swappable-parameters,
+      bugprone-implicit-widening-of-multiplication-result,
+      bugprone-narrowing-conversions,
+      bugprone-reserved-identifier,
+      bugprone-signed-char-misuse,
+      bugprone-suspicious-include,
+      bugprone-unhandled-self-assignment,
+      google-readability-avoid-underscore-in-googletest-name,
+      modernize-avoid-c-arrays,
+      modernize-use-nodiscard,
+      #      readability-convert-member-functions-to-static,
+      #      readability-function-cognitive-complexity,
+      #      readability-make-member-function-const,
+      #      readability-qualified-auto,
+      #      readability-redundant-access-specifiers,
+    ]
+    Remove: [
+      readability-identifier-length,
+      readability-implicit-bool-conversion,
+      google-readability-todo,
+      readability-magic-numbers,
+      readability-uppercase-literal-suffix,
+    ]
+    CheckOptions: 
+      readability-identifier-naming.VariableCase         : lower_case
+      readability-identifier-naming.GlobalConstantCase   : UPPER_CASE 
+      readability-identifier-naming.MemberCase           : lower_case 
+      readability-identifier-naming.MemberSuffix         : _          
+      readability-identifier-naming.NamespaceCase        : lower_case 
+      readability-identifier-naming.StructCase           : CamelCase  
+      readability-identifier-naming.UnionCase            : CamelCase  
+CompileFlags:                     # Tweak the parse settings
+  Add: [-std=c++20, -Wall, -Wextra] 
