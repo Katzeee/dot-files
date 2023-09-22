@@ -43,7 +43,7 @@ awful.rules.rules = {
 			-- and the name shown there might not match defined rules here.
 			name = {
 				"Event Tester", -- xev.
-				"图片",
+				"^图片",
 				"会话记录$",
 				"飞书会议",
 				"EmojiFloatWnd"
@@ -52,11 +52,22 @@ awful.rules.rules = {
 				"AlarmWindow", -- Thunderbird's calendar.
 				"ConfigManager", -- Thunderbird's about:config.
 				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
-				"bubble"
+				"bubble",
+        "browser-window"
 			},
 		},
 		properties = { floating = true },
 	},
+
+  -- Chrome
+  {
+    rule = {
+      role = {
+        "browser",
+      }
+    },
+	  properties = { floating = false, maximized = false },
+  },
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
