@@ -53,7 +53,7 @@ awful.rules.rules = {
 				"ConfigManager", -- Thunderbird's about:config.
 				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
 				"bubble",
-        "browser-window"
+        -- "browser-window"
 			},
 		},
 		properties = { floating = true },
