@@ -227,14 +227,17 @@ naughty.connect_signal("request::display", function(n)
     })
 
     local widget = naughty.layout.box({
-        notification = n,
-        type = "notification",
-        cursor = "hand2",
+        notification    = n,
+        type            = "notification",
+        cursor          = "hand2",
         --- For antialiasing: The real shape is set in widget_template
-        shape = gears.shape.rectangle,
-        maximum_width = dpi(350),
-        maximum_height = dpi(180),
-        bg = "#00000000",
+        shape           = gears.shape.rectangle,
+        -- shape = utils.ui.rrect(beautiful.border_radius),
+        maximum_width   = dpi(350),
+        maximum_height  = dpi(180),
+        bg              = "#00000000",
+        border_width    = dpi(3),
+        border_color    = beautiful.accent,
         widget_template = {
             {
                 layout = wibox.layout.fixed.vertical,
@@ -287,8 +290,10 @@ naughty.connect_signal("request::display", function(n)
                 },
             },
             --- Anti-aliasing container
-            shape = utils.ui.rrect(beautiful.border_radius),
-            bg = beautiful.notification_bg,
+            -- shape = utils.ui.rrect(beautiful.border_radius),
+            shape = gears.shape.rectangle,
+            bg = beautiful.notification_bg .. "DD",
+            -- widget = wibox.container.margin,
             widget = wibox.container.background,
         },
     })
