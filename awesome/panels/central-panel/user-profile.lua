@@ -195,7 +195,7 @@ local function widget()
 					text = "",
 					size = 17,
 					on_release = function()
-						awesome.emit_signal("module::exit_screen:show")
+						awesome.emit_signal("central_panel::exit_screen:show")
 						awesome.emit_signal("central_panel::toggle", focused)
 					end,
 				}),

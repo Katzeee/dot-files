@@ -54,6 +54,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     widgets.taglist(s)
     panel.central_panel(s)
+    panel.exit_screen(s)
 
     s.mywibox:setup({
         {

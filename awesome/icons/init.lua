@@ -11,4 +11,5 @@ M.centered = dir .. "layouts/centered.png"
 M.mstab = dir .. "layouts/mstab.png"
 M.equalarea = dir .. "layouts/equalarea.png"
 M.machi = dir .. "layouts/machi.png"
+M.icons_path = dir
 return M
