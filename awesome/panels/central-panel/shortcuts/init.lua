@@ -19,19 +19,19 @@ local quick_settings_text = wibox.widget({
 local bluetooth = require(... .. ".bluetooth")
 -- local dnd = require(... .. ".dnd")
 local floating_mode = require(... .. ".floating-mode")
--- local screenshot_area = require(... .. ".screenshot").area
--- local screenshot_full = require(... .. ".screenshot").full
+local screenshot_area = require(... .. ".screenshot").area
+local screenshot_full = require(... .. ".screenshot").full
 
 --- 4x4 grid of button
 local buttons = wibox.widget({
 	-- airplane_mode,
 	-- blue_light,
 	floating_mode,
-	-- screenshot_area,
 	bluetooth,
+	screenshot_area,
 	-- microphone,
 	-- dnd,
-	-- screenshot_full,
+	screenshot_full,
 	spacing = dpi(22),
 	forced_num_cols = 4,
 	forced_num_rows = 4,

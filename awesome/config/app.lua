@@ -12,5 +12,7 @@ M.mods = {
 }
 M.wallpapers = gfs.get_configuration_dir() .. "../wallpapers/"
 M.misc = gfs.get_configuration_dir() .. "Misc/"
+M.full_screenshot = "flameshot full --clipboard"
+M.area_screenshot = "flameshot gui --clipboard"
 
 return M

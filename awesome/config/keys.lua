@@ -161,6 +161,13 @@ local GLOBAL_GROUPS = {
                 -- },
                 -- { key = "b", action = bind(awful.spawn, { "brave-browser" }), description = "open brave" },
             },
+            [mods.s] = {
+                {
+                    key = "a",
+                    action = bind(awful.spawn, { "flameshot gui --clipboard" }),
+                    description = "take screenshot"
+                },
+            }
         },
     },
     tag = {
@@ -244,26 +251,22 @@ local GLOBAL_GROUPS = {
                 {
                     key = "XF86AudioRaiseVolume",
                     action = utils.volume.increase,
-                    description =
-                    "increase volume"
+                    description = "increase volume"
                 },
                 {
                     key = "XF86AudioLowerVolume",
                     action = utils.volume.decrease,
-                    description =
-                    "decrease volume"
+                    description = "decrease volume"
                 },
                 {
                     key = "XF86AudioMute",
                     action = utils.volume.toggle,
-                    description =
-                    "toggle mute"
+                    description = "toggle mute"
                 },
                 {
                     key = "Print",
-                    action = bind(awful.spawn, { "flameshot gui" }),
-                    description =
-                    "take screenshot"
+                    action = bind(awful.spawn, { "flameshot full --clipboard" }),
+                    description = "take full screenshot"
                 },
                 -- FIXME: Doesn't work (!?)
                 {
