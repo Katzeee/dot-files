@@ -133,7 +133,7 @@ return function(s)
     --- Widgets
     -- s.stats = require("ui.panels.central-panel.stats")
     s.user_profile = require("widgets.user-profile")
-    s.quick_settings = require("widgets.quick-settings")
+    s.shortcuts = require("panels.central-panel.shortcuts")
     s.slider = require("widgets.slider")
     -- s.music_player = require("ui.panels.central-panel.music-player")
 
@@ -172,7 +172,7 @@ return function(s)
                             {
                                 {
                                     s.user_profile,
-                                    s.quick_settings,
+                                    s.shortcuts,
                                     s.slider,
                                     layout = wibox.layout.fixed.vertical,
                                 },
