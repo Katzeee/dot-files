@@ -122,7 +122,7 @@ theme.taglist_fg_occupied = theme.color4
 -- theme.wallpaper = gears.surface.load_uncached(constants.wallpapers .. "teal-liquid.jpg")
 
 -- bar
-theme.bar_height = dpi(40)
+theme.bar_height = dpi(50)
 theme.wibar_bg = "#000000"
 
 -- system tray
@@ -171,7 +171,7 @@ theme.layout_centered = icons.centered
 theme.layout_mstab = icons.mstab
 theme.layout_equalarea = icons.equalarea
 theme.layout_machi = icons.machi
-theme.layoutlist_shape_selected = utils.ui.rounded_rect(theme.border_radius)
+theme.layoutlist_shape_selected = utils.ui.rrect(theme.border_radius)
 theme.layoutlist_bg_selected = theme.widget_bg
 theme.tooltip_bg = theme.lighter_black
 theme.tooltip_fg = theme.white

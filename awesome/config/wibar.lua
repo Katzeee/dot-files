@@ -27,12 +27,11 @@ local wrap_bg = function(widgets, opts)
             widgets,
             left = beautiful.spacing_lg,
             right = beautiful.spacing_lg,
-            top = beautiful.spacing,
-            bottom = beautiful.spacing,
             widget = wibox.container.margin,
         },
         shape = utils.ui.rounded_rect(20),
         bg = opts.bg,
+        -- bg = "#FFFFFF",
         widget = wibox.container.background,
     })
 end
@@ -46,6 +45,13 @@ awful.screen.connect_for_each_screen(function(s)
         bg = beautiful.wibar_bg,
         position = "top",
         screen = s,
+        shape = beautiful.layoutlist_shape_selected,
+        margins = {
+            top = beautiful.useless_gap,
+            left = beautiful.useless_gap * 2,
+            right = beautiful.useless_gap * 2,
+
+        },
     })
 
     widgets.taglist(s)
@@ -78,11 +84,11 @@ awful.screen.connect_for_each_screen(function(s)
                 halign = "center",
                 layout = wibox.container.place,
             },
+            valign = "center",
         },
-        left = beautiful.useless_gap * 2,
-        right = beautiful.useless_gap * 2,
-        -- top = beautiful.useless_gap,
-        -- bottom = beautiful.useless_gap,
         widget = wibox.container.margin,
-    })
+        top = beautiful.useless_gap,
+        bottom = beautiful.useless_gap,
+    }
+    )
 end)
