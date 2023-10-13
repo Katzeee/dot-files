@@ -130,21 +130,17 @@ theme.systray_icon_spacing = dpi(4)
 theme.systray_max_rows = 1
 theme.bg_systray = theme.wibar_bg
 
+--- ░█▀█░█▀█░█░█░█▀▀░█░█░▀█▀░█░█
+--- ░█░█░█▀█░█░█░█░█░█▀█░░█░░░█░
+--- ░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀░░▀░░░▀░
 
--- ********************************* --
---
---              Naughty
---
--- ********************************* --
-
-theme.notification_spacing = theme.spacing
--- local nc = naughty.config
+theme.notification_spacing = theme.spacing_xl
+local nc = naughty.config
 -- nc.defaults.margin = theme.spacing_lg
 -- nc.defaults.shape = utils.ui.rounded_rect()
 -- nc.defaults.timeout = 5
 -- nc.defaults['icon_size'] = dpi(50)
 -- nc.padding = theme.spacing
--- nc.padding = theme.spacing_xl
 -- nc.presets.critical.bg = theme.red
 -- nc.presets.critical.fg = theme.bg_normal
 -- nc.presets.low.bg = theme.bg_normal
@@ -155,11 +151,9 @@ theme.notification_spacing = theme.spacing
 -- theme.notification_max_height = dpi(150)
 -- theme.notification_font = "JetBrains Mono Nerd Font 10"
 
--- ********************************* --
---
---              Widgets
---
--- ********************************* --
+--- ░█░█░▀█▀░█▀▄░█▀▀░█▀▀░▀█▀░█▀▀
+--- ░█▄█░░█░░█░█░█░█░█▀▀░░█░░▀▀█
+--- ░▀░▀░▀▀▀░▀▀░░▀▀▀░▀▀▀░░▀░░▀▀▀
 
 -- layout
 theme.layout_floating = icons.floating
@@ -176,21 +170,7 @@ theme.layoutlist_bg_selected = theme.widget_bg
 theme.tooltip_bg = theme.lighter_black
 theme.tooltip_fg = theme.white
 theme.tooltip_font = theme.font_name .. "Regular 10"
-
--- battery
--- theme.battery_happy = theme.fg_normal
--- theme.battery_tired = theme.yellow
--- theme.battery_sad = theme.red
--- theme.battery_charging = theme.green
-
--- calendar
--- theme.calendar_fg_header = theme.fg_normal
--- theme.calendar_fg_focus = theme.bg_normal
--- theme.calendar_fg_weekday = theme.green
--- theme.calendar_fg = theme.fg_normal
--- theme.calendar_bg = theme.bg_normal
--- theme.calendar_bg_focus = theme.green
-
+theme.hotkeys_bg = theme.color12
 theme.pfp = constants.misc .. "hatunemiku.png"
 
 return theme
