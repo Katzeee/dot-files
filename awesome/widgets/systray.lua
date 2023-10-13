@@ -10,7 +10,9 @@ local animation = require("modules.animation")
 
 --- ~~~~~~~
 return function()
-    local mysystray = wibox.widget.systray()
+    local mysystray = wibox.widget.systray({
+        reverse = true,
+    })
     mysystray.base_size = beautiful.systray_icon_size
 
     local widget = wibox.widget({
@@ -39,6 +41,7 @@ return function()
         size = 18,
         text = "",
         on_turn_on = function(self)
+            mysystray:set_screen(awful.screen.focused())
             system_tray_animation:set(400)
             self:set_text("")
         end,

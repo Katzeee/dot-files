@@ -7,8 +7,7 @@ local beautiful = require("beautiful")
 local utils = require("utils")
 local widgets = require("widgets")
 local panel = require("panels")
-
-local mysystray = widgets.systray()
+local systray = widgets.systray()
 
 local DEFAULT_OPTS = {
     widget_spacing = beautiful.spacing,
@@ -31,7 +30,6 @@ local wrap_bg = function(widgets, opts)
         },
         shape = utils.ui.rounded_rect(20),
         bg = opts.bg,
-        -- bg = "#FFFFFF",
         widget = wibox.container.background,
     })
 end
@@ -73,7 +71,7 @@ awful.screen.connect_for_each_screen(function(s)
                     spacing = beautiful.spacing,
                     valign = "center",
 
-                    mysystray,
+                    systray,
                     widgets.yoru_battery(),
                     widgets.layoutbox(s),
                 },
