@@ -11,5 +11,6 @@ M.mods = {
 	c = "Control",
 }
 M.wallpapers = gfs.get_configuration_dir() .. "../wallpapers/"
+M.misc = gfs.get_configuration_dir() .. "Misc/"
 
 return M

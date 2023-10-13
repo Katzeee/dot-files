@@ -191,4 +191,6 @@ theme.tooltip_font = theme.font_name .. "Regular 10"
 -- theme.calendar_bg = theme.bg_normal
 -- theme.calendar_bg_focus = theme.green
 
+theme.pfp = constants.misc .. "hatunemiku.png"
+
 return theme
