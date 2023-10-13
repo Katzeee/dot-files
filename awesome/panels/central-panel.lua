@@ -14,10 +14,11 @@ return function(s)
     --- Header
     local function header()
         local dashboard_text = wibox.widget({
-            markup = utils.ui.colorize_text("Dashboard -", "#666c79"),
+            markup = utils.ui.colorize_text("Hello", "#666c79"),
             font = beautiful.font_name .. "Bold 14",
             valign = "center",
-            widget = wibox.widget.textbox,
+            align = "center",
+            widget = wibox.widget.textbox(),
         })
 
         local function search_box()
@@ -99,6 +100,7 @@ return function(s)
 
         local widget = wibox.widget({
             {
+                nil,
                 dashboard_text,
                 nil,
                 -- search_box(),
@@ -138,7 +140,7 @@ return function(s)
     s.central_panel = awful.popup({
         type = "dock",
         screen = s,
-        minimum_height = dpi(700),
+        minimum_height = dpi(560),
         maximum_height = dpi(700),
         minimum_width = dpi(700),
         maximum_width = dpi(700),
@@ -150,13 +152,14 @@ return function(s)
                 margins = { top = beautiful.bar_height + dpi(5), bottom = dpi(5), left = dpi(5), right = dpi(5) },
             })
         end,
+        shape = utils.ui.rrect(beautiful.border_radius),
         widget = {
             {
                 {
                     header(),
                     margins = {
-                        top = dpi(10),
-                        bottom = dpi(10),
+                        -- top = dpi(10),
+                        -- bottom = dpi(10),
                         right = dpi(20),
                         left = dpi(20)
                     },
@@ -194,7 +197,6 @@ return function(s)
             },
             bg = beautiful.widget_bg,
             -- bg = beautiful.color3,
-            shape = utils.ui.rrect(beautiful.border_radius),
             widget = wibox.container.background,
         },
     })

@@ -42,8 +42,8 @@ local widget = wibox.widget({
 	{
 		{
 			{
-				quick_settings_text,
-				utils.ui.vertical_pad(dpi(20)),
+				-- quick_settings_text,
+				-- utils.ui.vertical_pad(dpi(10)),
 				{
 					buttons,
 					left = dpi(12),
@@ -52,14 +52,14 @@ local widget = wibox.widget({
 				},
 				layout = wibox.layout.fixed.vertical,
 			},
-			top = dpi(9),
-			bottom = dpi(9),
+			top = dpi(19),
+			bottom = dpi(19),
 			left = dpi(10),
 			right = dpi(10),
 			widget = wibox.container.margin,
 		},
 		widget = wibox.container.background,
-		forced_height = dpi(210),
+		forced_height = dpi(100),
 		forced_width = dpi(350),
 		bg = beautiful.widget_bg,
 		shape = utils.ui.rrect(beautiful.border_radius),
