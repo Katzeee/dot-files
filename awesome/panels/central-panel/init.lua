@@ -132,9 +132,9 @@ return function(s)
 
     --- Widgets
     -- s.stats = require("ui.panels.central-panel.stats")
-    s.user_profile = require("widgets.user-profile")
+    s.user_profile = require("panels.central-panel.user-profile")
     s.shortcuts = require("panels.central-panel.shortcuts")
-    s.slider = require("widgets.slider")
+    s.slider = require("panels.central-panel.slider")
     -- s.music_player = require("ui.panels.central-panel.music-player")
 
     s.central_panel = awful.popup({

@@ -8,6 +8,5 @@ M.layoutbox = require("widgets.layoutbox")
 M.systray = require("widgets.systray")
 M.clock = require("widgets.clock")
 M.taglist = require("widgets.taglist")
-M.user_profile = require("widgets.user-profile")
 
 return M
