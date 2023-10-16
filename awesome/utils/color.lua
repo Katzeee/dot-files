@@ -33,7 +33,7 @@ local function color_obj(args)
 	obj._props.h = args.h or 0
 	obj._props.s = args.s or 0
 	obj._props.l = args.l or 0
-	obj._props.a = args.a or 1
+	obj._props.a = args.a or 255
 	obj._props.hex = args.hex and args.hex:gsub("#", "") or "000000"
 
 	obj._props.small_rgb = args.small_rgb or false
@@ -118,6 +118,7 @@ local function color_obj(args)
 					self:_rgba_to_hex()
 					if not obj.disable_hsl then obj:_rgb_to_hsl() end
 				elseif obj._access == HSL then
+					-- gdebug.dump(self._props.a)
 					self:_hsl_to_rgb()
 					self:_rgba_to_hex()
 				elseif obj._access == ANYSUBHEX then
@@ -247,7 +248,7 @@ function M.rgba_to_hex(obj)
 			math.floor(g),
 			math.floor(b))
 		--this part only shows the alpha channel if it's not 1
-		.. (a ~= 1 and string.format("%02x", math.floor(a * 255)) or "")
+		.. (a ~= 255 and string.format("%02x", math.floor(a)) or "")
 end
 
 --no clue about any of this either
@@ -450,6 +451,9 @@ function M.darken(color, amount)
 
 	color = color_obj({ hex = color })
 	color.l = color.l - amount
+	if color.l < 0 then
+		color.l = 0
+	end
 
 	return color.hex
 end

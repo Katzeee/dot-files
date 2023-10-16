@@ -33,7 +33,7 @@ local function date_widget(date, is_current, is_another_month)
     if is_current == true then
         text_color = beautiful.one_bg3
     elseif is_another_month == true then
-        -- text_color = utils.color.darken(beautiful.white, 0.5)
+        text_color = utils.color.darken(beautiful.white, 0.5)
     end
 
     return wibox.widget({
