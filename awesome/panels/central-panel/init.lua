@@ -149,7 +149,7 @@ return function(s)
         visible = false,
         placement = function(w)
             awful.placement.top(w, {
-                margins = { top = beautiful.bar_height + dpi(5), bottom = dpi(5), left = dpi(5), right = dpi(5) },
+                margins = { top = beautiful.bar_height + dpi(10), bottom = dpi(5), left = dpi(5), right = dpi(5) },
             })
         end,
         shape = utils.ui.rrect(beautiful.border_radius),
