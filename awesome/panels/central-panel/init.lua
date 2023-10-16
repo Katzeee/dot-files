@@ -136,6 +136,21 @@ return function(s)
     s.shortcuts = require("panels.central-panel.shortcuts")
     s.slider = require("panels.central-panel.slider")
     -- s.music_player = require("ui.panels.central-panel.music-player")
+    s.calendar = require("panels.central-panel.calendar")()
+    local calendar = wibox.widget({
+        {
+            {
+                s.calendar,
+                margins = dpi(16),
+                widget = wibox.container.margin,
+            },
+            bg = beautiful.widget_bg,
+            shape = utils.ui.rrect(beautiful.border_radius),
+            widget = wibox.container.background,
+        },
+        margins = dpi(10),
+        widget = wibox.container.margin,
+    })
 
     s.central_panel = awful.popup({
         type = "dock",
@@ -143,7 +158,7 @@ return function(s)
         minimum_height = dpi(560),
         maximum_height = dpi(700),
         minimum_width = dpi(700),
-        maximum_width = dpi(700),
+        maximum_width = dpi(800),
         bg = beautiful.transparent,
         ontop = true,
         visible = false,
@@ -177,9 +192,10 @@ return function(s)
                                     layout = wibox.layout.fixed.vertical,
                                 },
                                 {
-                                    s.stats,
-                                    s.music_player,
-                                    s.awesomewm,
+                                    calendar,
+                                    -- s.stats,
+                                    -- s.music_player,
+                                    -- s.awesomewm,
                                     layout = wibox.layout.fixed.vertical,
                                 },
                                 layout = wibox.layout.align.horizontal,
