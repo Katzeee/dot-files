@@ -27,12 +27,7 @@ local GLOBAL_GROUPS = {
                 {
                     key = "j",
                     action = function()
-                        local screen = awful.screen.focused()
-                        if awful.layout.get(screen) == awful.layout.suit.max then
-                            awful.client.focus.byidx(1)
-                        else
-                            awful.client.focus.bydirection("down")
-                        end
+                        awful.client.focus.global_bydirection("down")
                         if client.focus then
                             client.focus:raise()
                         end
@@ -43,12 +38,7 @@ local GLOBAL_GROUPS = {
                 {
                     key = "k",
                     action = function()
-                        local screen = awful.screen.focused()
-                        if awful.layout.get(screen) == awful.layout.suit.max then
-                            awful.client.focus.byidx(-1)
-                        else
-                            awful.client.focus.bydirection("up")
-                        end
+                        awful.client.focus.global_bydirection("up")
                         if client.focus then
                             client.focus:raise()
                         end
@@ -179,7 +169,7 @@ local GLOBAL_GROUPS = {
     },
     screen = {
         [mods.m] = {
-            ["c"] = {
+            [mods.c] = {
                 {
                     key = "j",
                     action = bind(awful.screen.focus_relative, { 1 }),
