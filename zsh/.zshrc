@@ -172,3 +172,14 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
+
+# wsl proxy
+host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+ep () {
+    export http_proxy="http://$host_ip:7890"
+    export https_proxy="http://$host_ip:7890"
+}
+dp () {
+    unset http_proxy
+    unset https_proxy
+}
