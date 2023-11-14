@@ -1,8 +1,5 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
+export PATH=~/.local/bin:~/.npm-global/bin:~/.cargo/bin:$PATH
 export EDITOR='nvim'
-export PATH=~/.npm-global/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
