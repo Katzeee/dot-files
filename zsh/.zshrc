@@ -159,7 +159,8 @@ alias ssh='TERM=xterm-256color ssh'
 TERMINAL=alacritty
 
 # nvm
-export NVM_DIR="$HOME/.nvm"
+[ -d "$HOME/.nvm" ] && [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm" 
+# [ -d "/usr/share/nvm" ] && [ -z "$NVM_DIR" ] && export NVM_DIR="/usr/share/nvm" # You should NOT uncomment this line but cp /usr/share/nvm to ~/.nvm because the privilige
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
@@ -171,7 +172,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # wsl proxy
-host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+host_ip=$(cat /etc/resolv.conf | grep "nameserver" | cut -f 2 -d " ")
 ep () {
     export http_proxy="http://$host_ip:7890"
     export https_proxy="http://$host_ip:7890"
