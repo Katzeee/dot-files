@@ -46,7 +46,8 @@ awful.rules.rules = {
 				"^图片",
 				"会话记录$",
 				"飞书会议",
-				"EmojiFloatWnd"
+				"EmojiFloatWnd",
+				"/tmp/screenshot.png"
 			},
 			role = {
 				"AlarmWindow", -- Thunderbird's calendar.

@@ -2,11 +2,11 @@ local menubar = require("menubar")
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local constants = require("config.app")
+local app = require("config.app")
 local utils = require("utils")
 
-local mods = constants.mods
-local terminal = constants.terminal
+local mods = app.mods
+local terminal = app.terminal
 local bind = utils.misc.bind
 
 local GLOBAL_GROUPS = {
@@ -136,7 +136,7 @@ local GLOBAL_GROUPS = {
                     action = menubar.show,
                     description =
                     "open apps"
-                }
+                },
                 -- {
                 -- 	key = "f",
                 -- 	action = bind(awful.spawn, { "firefox" }),
@@ -153,8 +153,16 @@ local GLOBAL_GROUPS = {
             [mods.s] = {
                 {
                     key = "a",
-                    action = bind(awful.spawn, { "flameshot gui --clipboard" }),
+                    action = bind(awful.spawn, { app.area_screenshot }),
                     description = "take screenshot"
+                },
+                {
+                    key = "s",
+                    action = function()
+                        os.execute(app.save_image_from_clipboard)
+                        awful.spawn(app.show_screenshot)
+                    end,
+                    description = "show screenshot"
                 },
             }
         },
