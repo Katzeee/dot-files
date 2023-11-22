@@ -1,3 +1,4 @@
+zmodload zsh/zprof
 export PATH=~/.local/bin:~/.npm-global/bin:~/.cargo/bin:$PATH
 export EDITOR='nvim'
 
@@ -156,6 +157,16 @@ extract () {
 alias lg=lazygit
 alias ra=ranger
 alias ssh='TERM=xterm-256color ssh'
+function warn_grep() {
+    figlet -f pagga "USE RG"
+    grep "$@"
+}
+alias grep=warn_grep
+function warn_find() {
+    figlet -f pagga "USE FD"
+    find "$@"
+}
+alias find=warn_find
 TERMINAL=alacritty
 
 # nvm
