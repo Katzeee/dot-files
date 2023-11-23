@@ -27,6 +27,10 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 
+client.connect_signal("property::floating", function(c)
+	c.ontop = c.floating and not c.fullscreen
+end)
+
 -- https://stackoverflow.com/a/51687321
 -- Hide border when there is only one client
 screen.connect_signal("arrange", function(s)
