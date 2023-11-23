@@ -36,7 +36,8 @@ awful.rules.rules = {
 				"Wpa_gui",
 				"veromix",
 				"xtightvncviewer",
-				"opengl test"
+				"opengl test",
+				-- "QQ" -- doesn't work
 			},
 
 			-- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -47,28 +48,25 @@ awful.rules.rules = {
 				"会话记录$",
 				"飞书会议",
 				"EmojiFloatWnd",
-				"/tmp/screenshot.png"
 			},
 			role = {
 				"AlarmWindow", -- Thunderbird's calendar.
 				"ConfigManager", -- Thunderbird's about:config.
 				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
 				"bubble",
-        -- "browser-window"
 			},
 		},
 		properties = { floating = true },
 	},
-
-  -- Chrome
-  {
-    rule = {
-      role = {
-        "browser",
-      }
-    },
-	  properties = { floating = false, maximized = false },
-  },
+	{
+		rule = { name = "/tmp/screenshot.png" },
+		properties = { floating = true, ontop = true }
+	},
+	-- Chrome
+	{
+		rule = { role = "browser" },
+		properties = { floating = false, maximized = false },
+	},
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },

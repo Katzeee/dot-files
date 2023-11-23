@@ -14,7 +14,7 @@ return function(s)
     --- Header
     local function header()
         local dashboard_text = wibox.widget({
-            markup = utils.ui.colorize_text("Hello", "#666c79"),
+            markup = utils.ui.colorize_text("Another awesome day!", "#666c79"),
             font = beautiful.font_name .. "Bold 14",
             valign = "center",
             align = "center",
