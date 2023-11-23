@@ -109,21 +109,32 @@ source $ZSH/oh-my-zsh.sh
 
 extract () {
   if [ -f $1 ] ; then
+    file_name=$(basename "$1")
+    dir_name="${file_name%.*}"
+    mkdir -p "${dir_name}"
+
     case $1 in
-      *.tar.bz2)    tar xvjf $1    ;;
-      *.tar.gz)     tar xvzf $1    ;;
-      *.tar.xz)     tar xf $1      ;;
-      *.bz2)        bunzip2 $1     ;;
-      *.rar)        unrar x $1     ;;
-      *.gz)         gunzip $1      ;;
-      *.tar)        tar xvf $1     ;;
-      *.tbz2)       tar xvjf $1    ;;
-      *.tgz)        tar xvzf $1    ;;
-      *.zip)        unzip $1       ;;
-      *.Z)          uncompress $1  ;;
-      *.7z)         7z x $1        ;;
+      *.tar.bz2)    tar xvjf $1 -C "${dir_name}"    ;;
+      *.tar.gz)     tar xvzf $1 -C "${dir_name}"    ;;
+      *.tar.xz)     tar xf $1 -C "${dir_name}"      ;;
+      *.bz2)        bunzip2 $1 --stdout > "${dir_name}/${file_name%.*}"   ;;
+      *.rar)        unrar x $1 "${dir_name}/"       ;;
+      *.gz)         gunzip -c $1 > "${dir_name}/${file_name%.*}"   ;;
+      *.tar)        tar xvf $1 -C "${dir_name}"     ;;
+      *.tbz2)       tar xvjf $1 -C "${dir_name}"    ;;
+      *.tgz)        tar xvzf $1 -C "${dir_name}"    ;;
+      *.zip)        unzip $1 -d "${dir_name}"       ;;
+      *.Z)          uncompress $1                   ;;
+      *.7z)         7z x $1 -o"${dir_name}"         ;;
       *)            echo "don't know how to extract '$1'..." ;;
     esac
+    set -- "${dir_name}"/*
+    if [ $# -eq 1 ] && [ -d "$1" ]; then
+      echo "Only one folder inside '${dir_name}', moving it out..."
+      mv "${dir_name}"/* "${dir_name}_temp_for_extract"
+      rmdir "${dir_name}"
+      mv "${dir_name}_temp_for_extract" "${dir_name}"
+    fi
   else
     echo "'$1' is not a valid file!"
   fi
