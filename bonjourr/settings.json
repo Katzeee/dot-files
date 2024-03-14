@@ -1,0 +1,205 @@
+{
+  "about": {
+    "browser": "chrome",
+    "version": "19.1.1"
+  },
+  "showall": true,
+  "lang": "en",
+  "dark": "system",
+  "favicon": "⚜️",
+  "tabtitle": "",
+  "greeting": "",
+  "pagegap": 1,
+  "pagewidth": 1600,
+  "time": true,
+  "main": true,
+  "dateformat": "eu",
+  "background_blur": 3,
+  "background_bright": 0.77,
+  "background_type": "unsplash",
+  "quicklinks": true,
+  "textShadow": 0.2,
+  "announcements": "major",
+  "review": -1,
+  "cssHeight": 100,
+  "css": "",
+  "hide": {
+    "greetings": true,
+    "settingsicon": true
+  },
+  "linkstyle": "large",
+  "linknewtab": false,
+  "linksrow": 6,
+  "linksoefbaq": {
+    "_id": "linksoefbaq",
+    "order": 4,
+    "title": "Notes",
+    "url": "https://katzeee.github.io/Notes",
+    "parent": 0
+  },
+  "linksirhabo": {
+    "_id": "linksirhabo",
+    "icon": "https://github.githubassets.com/apple-touch-icon-114x114.png",
+    "order": 1,
+    "title": "Github",
+    "url": "https://github.com"
+  },
+  "linksfbjppf": {
+    "_id": "linksfbjppf",
+    "icon": "https://www.bilibili.com/favicon.ico",
+    "order": 3,
+    "title": "BiliBili",
+    "url": "https://bilibili.com"
+  },
+  "linkseaqhqm": {
+    "_id": "linkseaqhqm",
+    "icon": "https://tse1-mm.cn.bing.net/th/id/OIP-C.ZBZ_kmqd4KPEVuRxzwX4mgHaHa?pid=ImgDet&rs=1",
+    "order": 0,
+    "title": "PVE",
+    "url": "https://host.xacpve.fun:8006"
+  },
+  "linksccoadi": {
+    "_id": "linksccoadi",
+    "icon": "https://www.gstatic.com/youtube/img/branding/favicon/favicon_192x192.png",
+    "order": 2,
+    "title": "Youtube",
+    "url": "https://youtube.com"
+  },
+  "linktabs": {
+    "active": false,
+    "selected": 0,
+    "titles": [
+      ""
+    ]
+  },
+  "clock": {
+    "ampm": false,
+    "analog": false,
+    "face": "none",
+    "seconds": true,
+    "size": 1,
+    "style": "round",
+    "timezone": "auto"
+  },
+  "unsplash": {
+    "collection": "",
+    "every": "hour",
+    "lastCollec": "day",
+    "pausedImage": null,
+    "time": 1710403207475
+  },
+  "weather": {
+    "ccode": "FR",
+    "city": "City",
+    "fcHigh": 11,
+    "fcLast": 1699362000,
+    "forecast": "auto",
+    "geolocation": "precise",
+    "lastCall": 1699350685,
+    "lastState": {
+      "description": "clear sky",
+      "feels_like": 14.88,
+      "icon_id": 800,
+      "sunrise": 1699308806,
+      "sunset": 1699347659,
+      "temp": 15.97,
+      "temp_max": 16.99
+    },
+    "moreinfo": "none",
+    "provider": "",
+    "temperature": "actual",
+    "unit": "metric"
+  },
+  "notes": {
+    "align": "left",
+    "on": false,
+    "opacity": 0.1,
+    "text": "### Double click to edit!  \n\n[ ] Supports Markdown and clickable checkboxes  \n[ ] With keyboard shortcuts, [see documentation](https://bonjourr.fr/docs/overview/#notes)",
+    "width": 40
+  },
+  "searchbar": {
+    "on": true,
+    "opacity": 0.1,
+    "engine": "bing",
+    "newtab": false,
+    "placeholder": "",
+    "request": "",
+    "suggestions": true
+  },
+  "quotes": {
+    "on": true,
+    "author": false,
+    "frequency": "day",
+    "last": 1710376406205,
+    "type": "classic"
+  },
+  "font": {
+    "size": "14",
+    "family": "",
+    "system": false,
+    "weight": "400",
+    "weightlist": []
+  },
+  "move": {
+    "layouts": {
+      "double": {
+        "grid": [
+          [
+            "time",
+            "."
+          ],
+          [
+            "main",
+            "."
+          ],
+          [
+            "quicklinks",
+            "."
+          ]
+        ],
+        "items": {}
+      },
+      "single": {
+        "grid": [
+          [
+            "time"
+          ],
+          [
+            "main"
+          ],
+          [
+            "searchbar"
+          ],
+          [
+            "quicklinks"
+          ],
+          [
+            "quotes"
+          ]
+        ],
+        "items": {}
+      },
+      "triple": {
+        "grid": [
+          [
+            ".",
+            "time",
+            "."
+          ],
+          [
+            ".",
+            "main",
+            "."
+          ],
+          [
+            ".",
+            "quicklinks",
+            "."
+          ]
+        ],
+        "items": {}
+      }
+    },
+    "selection": "single"
+  }
+}
