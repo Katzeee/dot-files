@@ -1,0 +1,17 @@
+' Track Action id
+set clipboard+=unnamed
+set hlsearch
+set incsearch
+set smartcase
+let mapleader = " "
+nmap <tab><tab> <action>(SearchEverywhere)
+nmap <leader>c <action>(CommentByLineComment)
+vmap <leader>c <action>(CommentByLineComment)
+nmap <leader>U <action>(FindUsages)
+nmap E <action>(PreviousTab)
+nmap R <action>(NextTab)
+nmap <tab>f <action>(GotoFile)
+nmap <leader>f <action>(ReformatCode)
+vmap n <action>(SelectNextOccurrence)
+noremap H 0
+noremap L $
