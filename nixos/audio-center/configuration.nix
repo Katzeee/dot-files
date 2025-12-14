@@ -24,6 +24,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.unmanaged = [
+    "type:bridge"
+    "interface-name:br*"
+    "type:bluetooth"
+  ];
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
@@ -87,6 +92,13 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.settings = {
+    General = {
+      AutoEnable = true;
+      ControllerMode = "dual";
+      FastConnectable = true;
+    };
+  };
 #   services.udev.extraRules = ''
 #     ACTION=="add|change", KERNEL=="hci0", ATTR{btdrv}=="0x01", RUN+="/usr/bin/btattach -B /dev/%k -P h4 -S 115200 -L"
 #   '';
@@ -101,6 +113,11 @@
     #  thunderbird
     ];
   };
+
+  # Keep user systemd running without interactive login (needed for PipeWire/WirePlumber user units)
+  systemd.tmpfiles.rules = [
+    "f /var/lib/systemd/linger/xac 0644 root root -"
+  ];
 
   # Install firefox.
   programs.firefox.enable = true;
