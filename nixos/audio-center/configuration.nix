@@ -114,10 +114,17 @@
     ];
   };
 
-  # Keep user systemd running without interactive login (needed for PipeWire/WirePlumber user units)
-  systemd.tmpfiles.rules = [
-    "f /var/lib/systemd/linger/xac 0644 root root -"
-  ];
+  systemd.services.enable-linger-xac = {
+    description = "Enable systemd linger for xac (start user services without login)";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+    };
+    path = [ pkgs.systemd ];
+    script = ''
+      loginctl enable-linger xac
+    '';
+  };
 
   # Install firefox.
   programs.firefox.enable = true;
