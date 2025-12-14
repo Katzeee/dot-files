@@ -48,19 +48,17 @@
     LC_TIME = "zh_CN.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # Headless boot: no display server / display manager / desktop environment.
+  services.xserver.enable = false;
+  services.displayManager.sddm.enable = false;
+  services.desktopManager.plasma6.enable = false;
+  systemd.defaultUnit = "multi-user.target";
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -82,6 +80,20 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  # Headless Bluetooth audio: avoid logind/seat gating so WirePlumber registers BlueZ media endpoints
+  # even when no interactive session exists.
+  services.pipewire.wireplumber.extraConfig."10-headless-bluez.conf" = {
+    "wireplumber.profiles" = {
+      main = {
+        "monitor.bluez.seat-monitoring" = "disabled";
+      };
+    };
+
+    "monitor.bluez.properties" = {
+      "bluez5.roles" = [ "a2dp_sink" ];
+    };
   };
 
   # PipeWire/WirePlumber are user services on NixOS; for headless boot we need them on default.target.
@@ -144,7 +156,65 @@
       AutoEnable = true;
       ControllerMode = "dual";
       FastConnectable = true;
+      DiscoverableTimeout = 0;
+      PairableTimeout = 0;
     };
+  };
+
+  systemd.services.bt-agent = {
+    description = "Bluetooth pairing agent (headless)";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "bluetooth.service" ];
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "2s";
+      ExecStart = "${pkgs.bluez-tools}/bin/bt-agent -c NoInputNoOutput";
+    };
+  };
+
+  systemd.services.bt-headless-setup = {
+    description = "Bluetooth headless setup (discoverable/pairable)";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "bluetooth.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = "90s";
+    };
+    path = [ pkgs.bluez ];
+    script = ''
+      set -euo pipefail
+
+      # Wait until the controller is visible to bluetoothctl, then select it.
+      ctrl=""
+      i=0
+      while [ "$i" -lt 90 ]; do
+        line="$(
+          bluetoothctl list 2>/dev/null | {
+            IFS= read -r first || true
+            printf '%s' "$first"
+          }
+        )"
+        # Expected line format: "Controller <MAC> <Name>"
+        if [ -n "$line" ]; then
+          set -- $line
+          if [ "$#" -ge 2 ]; then
+            ctrl="$2"
+            if [ -n "$ctrl" ]; then
+              break
+            fi
+          fi
+        fi
+        i=$((i + 1))
+        sleep 1
+      done
+
+      [ -n "$ctrl" ]
+      bluetoothctl select "$ctrl"
+      bluetoothctl power on
+      bluetoothctl pairable on
+      bluetoothctl discoverable on
+    '';
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -163,6 +233,31 @@
   systemd.tmpfiles.rules = [
     "f /var/lib/systemd/linger/xac 0644 root root -"
   ];
+
+  # In a fully headless boot, some setups still won't bring up the user manager until a real login
+  # session exists. This forces the `xac` user manager + audio stack to be started at boot so
+  # Bluetooth audio works without interactive login.
+  systemd.services.xac-headless-audio = {
+    description = "Start xac user manager + PipeWire stack at boot (headless)";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-logind.service" "bluetooth.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      TimeoutStartSec = "60s";
+    };
+    path = [ pkgs.coreutils pkgs.systemd ];
+    script = ''
+      set -euo pipefail
+
+      uid="$(id -u xac)"
+      systemctl start "user@$uid.service"
+
+      # Start the audio stack inside xac's user manager.
+      systemctl --user -M xac@ start pipewire.service wireplumber.service pipewire-pulse.service || true
+      systemctl --user -M xac@ start pipewire-default-volume-150.service || true
+    '';
+  };
 
   # Install firefox.
   programs.firefox.enable = true;
