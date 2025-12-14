@@ -68,6 +68,7 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  hardware.alsa.enablePersistence = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -81,6 +82,52 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  # PipeWire/WirePlumber are user services on NixOS; for headless boot we need them on default.target.
+  systemd.user.services.pipewire.wantedBy = [ "default.target" ];
+  systemd.user.services.wireplumber.wantedBy = [ "default.target" ];
+  systemd.user.services.pipewire-pulse.wantedBy = [ "default.target" ];
+
+  systemd.user.services.pipewire-default-volume-150 = {
+    description = "Force default sink volume via pactl (headless boot)";
+    wantedBy = [ "default.target" ];
+    wants = [ "pipewire.service" "wireplumber.service" "pipewire-pulse.service" ];
+    after = [ "pipewire.service" "wireplumber.service" "pipewire-pulse.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = "90s";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    script = ''
+      set -euo pipefail
+
+      # Wait for pipewire-pulse socket then apply volume on the default sink.
+      for _ in $(seq 1 90); do
+        if [ -S "$XDG_RUNTIME_DIR/pulse/native" ]; then
+          break
+        fi
+        sleep 1
+      done
+
+      export PULSE_SERVER="unix:$XDG_RUNTIME_DIR/pulse/native"
+
+      # Wait until at least one sink exists, then set volume on that sink explicitly.
+      sink=""
+      for _ in $(seq 1 90); do
+        sink="$(${pkgs.pulseaudio}/bin/pactl list short sinks 2>/dev/null | ${pkgs.gawk}/bin/awk 'NR==1{print $2}')"
+        if [ -n "$sink" ]; then
+          break
+        fi
+        sleep 1
+      done
+
+      [ -n "$sink" ]
+      ${pkgs.coreutils}/bin/timeout 2 ${pkgs.pulseaudio}/bin/pactl set-default-sink "$sink"
+      ${pkgs.coreutils}/bin/timeout 2 ${pkgs.pulseaudio}/bin/pactl set-sink-mute "$sink" 0
+      ${pkgs.coreutils}/bin/timeout 2 ${pkgs.pulseaudio}/bin/pactl set-sink-volume "$sink" 150%
+    '';
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -99,32 +146,23 @@
       FastConnectable = true;
     };
   };
-#   services.udev.extraRules = ''
-#     ACTION=="add|change", KERNEL=="hci0", ATTR{btdrv}=="0x01", RUN+="/usr/bin/btattach -B /dev/%k -P h4 -S 115200 -L"
-#   '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xac = {
     isNormalUser = true;
     description = "xac";
-    extraGroups = [ "networkmanager" "wheel" ];
+    # Important: audio group is required for headless boot of PipeWire/WirePlumber
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
   };
 
-  systemd.services.enable-linger-xac = {
-    description = "Enable systemd linger for xac (start user services without login)";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    path = [ pkgs.systemd ];
-    script = ''
-      loginctl enable-linger xac
-    '';
-  };
+  # Keep user systemd running without interactive login (needed for PipeWire/WirePlumber user units)
+  systemd.tmpfiles.rules = [
+    "f /var/lib/systemd/linger/xac 0644 root root -"
+  ];
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -135,12 +173,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   nix.settings.experimental-features = ["nix-command" "flakes" ];
+  nix.settings.substituters = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
   environment.systemPackages = with pkgs; [
     git
     vim
     wget
 
     bluez
+    pulseaudio
     pulsemixer
     # pavucontrol
 
