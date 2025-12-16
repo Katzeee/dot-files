@@ -15,7 +15,9 @@
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "audio-center"; # Define your hostname.
+  hardware.enableAllFirmware = true;
+  
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -66,7 +68,7 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  hardware.alsa.enablePersistence = true;
+  # hardware.alsa.enablePersistence = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -153,6 +155,8 @@
   hardware.bluetooth.powerOnBoot = true;
   hardware.bluetooth.settings = {
     General = {
+      Name = "audio-center";
+      Alias = "audio-center"; # prevent desktop manager from renaming the device
       AutoEnable = true;
       ControllerMode = "dual";
       FastConnectable = true;
@@ -279,7 +283,7 @@
     pulsemixer
     # pavucontrol
 
-    linux-firmware
+    # linux-firmware
   ];
   environment.variables.EDITOR = "vim";
 
