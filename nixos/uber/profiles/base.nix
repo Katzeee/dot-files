@@ -3,6 +3,7 @@
 {
   imports = [
     ../modules/nix/settings.nix
+    ../modules/system/agenix.nix
     ../modules/system/locale.nix
     ../modules/system/timezone.nix
     ../modules/system/ssh.nix
