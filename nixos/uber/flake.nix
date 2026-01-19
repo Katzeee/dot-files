@@ -12,21 +12,14 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      mkHost = import ./lib/mkHost.nix { inherit lib; };
+      mkHost = import ./lib/mkHost.nix { inherit lib inputs; };
     in
     {
       nixosConfigurations = {
-        uber = mkHost {
-          hostname = "uber";
+        vm-nixos = mkHost {
           system = "x86_64-linux";
           modules = [
-            ./hosts/uber/default.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.xac = import ./home/users/xac/default.nix;
-            }
+            ./hosts/vm-nixos/default.nix
           ];
         };
       };

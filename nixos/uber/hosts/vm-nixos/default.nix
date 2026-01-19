@@ -5,6 +5,7 @@
     ../../profiles/base.nix
     ../../profiles/desktop.nix
     ../../profiles/vm.nix
+    ../../profiles/users/xac.nix
 
     ./hardware.nix
     ./boot.nix
