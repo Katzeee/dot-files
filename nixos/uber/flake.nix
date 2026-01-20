@@ -13,7 +13,7 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      mkHost = import ./lib/mkHost.nix { inherit lib inputs; };
+      mkHost = import ./lib/mk-host.nix { inherit lib inputs; };
     in
     {
       nixosConfigurations = {

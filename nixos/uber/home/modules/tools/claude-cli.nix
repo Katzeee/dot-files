@@ -2,44 +2,36 @@
 
 let
   cfg = config.claude;
-  json = pkgs.formats.json { };
-  jsonMerge = import ../../../lib/mkJsonMerge.nix { inherit lib pkgs; };
-  templateReplace = import ../../../lib/mkTemplateReplace.nix { inherit lib pkgs; };
+  configOps = import ../../../lib/config-ops.nix { inherit lib pkgs; };
   claudePkg = (import (builtins.fetchTarball {
     url = "https://github.com/kumulustech/claude-nix/archive/refs/heads/main.tar.gz";
   }) { inherit pkgs; }).claude-code;
 
   tokenPath =
-    if config ? age && config.age.secrets ? claude
+    if config ? age && config.age.secrets ? claude && config.age.secrets.claude ? path
     then config.age.secrets.claude.path
     else null;
 
-  claudeDir = "${config.home.homeDirectory}/.claude";
-  settingsPath = "${claudeDir}/settings.json";
+  settingsPath = "${config.home.homeDirectory}/.claude/settings.json";
   rootPath = "${config.home.homeDirectory}/.claude.json";
 
-  glmSettingsTemplate = {
-    env = {
-      ANTHROPIC_AUTH_TOKEN = "__TOKEN__";
-      ANTHROPIC_BASE_URL = "https://open.bigmodel.cn/api/anthropic";
-      API_TIMEOUT_MS = "3000000";
-      CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = 1;
-    };
-  };
-
-  glmSettingsPatch = templateReplace.mkTemplateReplace {
-    templatePath = json.generate "claude-settings-template.json" glmSettingsTemplate;
-    replacements = [
-      {
-        placeholder = "__TOKEN__";
-        path = tokenPath;
-        escape = "json";
-      }
+  settingsFile = {
+    path = settingsPath;
+    format = "json";
+    ops = [
+      { op = "set"; path = "env.ANTHROPIC_AUTH_TOKEN"; fromFile = tokenPath; }
+      { op = "set"; path = "env.ANTHROPIC_BASE_URL"; value = "https://open.bigmodel.cn/api/anthropic"; }
+      { op = "set"; path = "env.API_TIMEOUT_MS"; value = "3000000"; }
+      { op = "set"; path = "env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC"; value = 1; }
     ];
   };
 
-  glmRoot = json.generate "claude-root.json" {
-    hasCompletedOnboarding = true;
+  rootFile = {
+    path = rootPath;
+    format = "json";
+    ops = [
+      { op = "set"; path = "hasCompletedOnboarding"; value = true; }
+    ];
   };
 in
 {
@@ -64,24 +56,9 @@ in
 
     home.packages = [ claudePkg ];
 
-    home.activation.claudeSettings = lib.mkIf (cfg.provider == "glm")
-      (jsonMerge.mkActivation {
-        entries = [
-          {
-            path = settingsPath;
-            patch = {
-              kind = "cmd";
-              value = glmSettingsPatch.renderCmd;
-            };
-          }
-          {
-            path = rootPath;
-            patch = {
-              kind = "path";
-              value = glmRoot;
-            };
-          }
-        ];
-      });
+    home.activation.claudeSettings = lib.mkIf (cfg.provider == "glm" && tokenPath != null) (configOps.mkActivation {
+      name = "claude";
+      files = [ settingsFile rootFile ];
+    });
   };
 }
