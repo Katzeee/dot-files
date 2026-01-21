@@ -14,11 +14,12 @@
     let
       lib = nixpkgs.lib;
       mkHost = import ./lib/mk-host.nix { inherit lib inputs; };
+      system = "x86_64-linux";
     in
     {
       nixosConfigurations = {
         vm-nixos = mkHost {
-          system = "x86_64-linux";
+          system = system;
           modules = [
             ./hosts/vm-nixos/default.nix
           ];
