@@ -3,15 +3,7 @@
 let
   cfg = config.claude;
   configOps = import ../../../lib/config-ops.nix { inherit lib pkgs; };
-  claudePkg =
-    let
-      src = builtins.fetchTarball {
-        url = "https://github.com/kumulustech/claude-nix/archive/refs/heads/main.tar.gz";
-      };
-      nodejsFallback = if pkgs ? nodejs_18 then pkgs.nodejs_18 else pkgs.nodejs_20;
-      pkgs' = pkgs // { nodejs_18 = nodejsFallback; };
-    in
-    import (src + "/claude-code.nix") { pkgs = pkgs'; };
+  claudePkg = pkgs.claude-cli;
 
   getSecretPath = cfg:
     if cfg != null && cfg ? age && cfg.age.secrets ? claude && cfg.age.secrets.claude ? path
