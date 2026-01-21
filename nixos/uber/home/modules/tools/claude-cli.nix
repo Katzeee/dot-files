@@ -1,16 +1,27 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, osConfig ? null, ... }:
 
 let
   cfg = config.claude;
   configOps = import ../../../lib/config-ops.nix { inherit lib pkgs; };
-  claudePkg = (import (builtins.fetchTarball {
-    url = "https://github.com/kumulustech/claude-nix/archive/refs/heads/main.tar.gz";
-  }) { inherit pkgs; }).claude-code;
+  claudePkg =
+    let
+      src = builtins.fetchTarball {
+        url = "https://github.com/kumulustech/claude-nix/archive/refs/heads/main.tar.gz";
+      };
+      nodejsFallback = if pkgs ? nodejs_18 then pkgs.nodejs_18 else pkgs.nodejs_20;
+      pkgs' = pkgs // { nodejs_18 = nodejsFallback; };
+    in
+    import (src + "/claude-code.nix") { pkgs = pkgs'; };
+
+  getSecretPath = cfg:
+    if cfg != null && cfg ? age && cfg.age.secrets ? claude && cfg.age.secrets.claude ? path
+    then cfg.age.secrets.claude.path
+    else null;
 
   tokenPath =
-    if config ? age && config.age.secrets ? claude && config.age.secrets.claude ? path
-    then config.age.secrets.claude.path
-    else null;
+    let hmPath = getSecretPath config;
+        osPath = getSecretPath osConfig;
+    in if hmPath != null then hmPath else osPath;
 
   settingsPath = "${config.home.homeDirectory}/.claude/settings.json";
   rootPath = "${config.home.homeDirectory}/.claude.json";
