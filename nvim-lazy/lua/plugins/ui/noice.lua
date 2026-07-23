@@ -3,6 +3,9 @@ local icons = require("core.icons")
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
+  keys = {
+    { "<Tab>O", "<cmd>Noice history<cr>", desc = "Output history" },
+  },
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {
     cmdline = {

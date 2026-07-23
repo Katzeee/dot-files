@@ -5,6 +5,8 @@ return {
   event = "VeryLazy",
   opts = {
     preset = "modern",
+    delay = 500,
+    sort = { "alphanum" },
     win = { border = icons.profile.border },
     icons = {
       breadcrumb = icons.profile.which_key.breadcrumb,
@@ -16,12 +18,18 @@ return {
       keys = icons.profile.which_key.keys,
     },
     spec = {
-      { "<leader>g", group = "Git" },
-      { "<leader>l", group = "LSP" },
-      { "<leader>s", group = "Search" },
-      { "<leader>t", group = "Terminal" },
+      { "<leader>b", group = "Debug" },
       { "<leader>d", group = "Debug" },
-      { "<Tab>", group = "Views" },
+      { "<leader>e", group = "Diagnostics" },
+      { "<leader>g", group = "Git" },
+      { "<leader>i", group = "Incoming calls" },
+      { "<leader>p", group = "Paste" },
+      { "<leader>r", group = "Refactor" },
+      { "<Tab>", group = "Commands" },
+      { "<Tab>c", group = "Code" },
+      { "<Tab>d", group = "Debug" },
+      { "<Tab>g", group = "Git" },
+      { "<Tab>t", group = "Terminal" },
     },
   },
 }

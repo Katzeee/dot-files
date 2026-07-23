@@ -3,6 +3,12 @@ local icons = require("core.icons")
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
+  keys = {
+    { "<Tab>ca", function() vim.lsp.buf.code_action() end, desc = "Quick fix" },
+    { "<Tab>cr", function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
+    { "<Tab>s", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
+    { "<Tab>S", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
+  },
   dependencies = {
     "mason-org/mason.nvim",
     "mason-org/mason-lspconfig.nvim",
@@ -64,15 +70,11 @@ return {
         map("gd", vim.lsp.buf.definition, "LSP definition")
         map("gh", vim.lsp.buf.hover, "LSP hover")
         map("gi", vim.lsp.buf.implementation, "LSP implementation")
-        map("<F2>", vim.lsp.buf.rename, "LSP rename")
+        map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
         map("<leader>U", vim.lsp.buf.references, "LSP references")
         map("<leader>u", "<cmd>Telescope lsp_references<cr>", "Search LSP references")
-        map("<leader><leader>ca", vim.lsp.buf.code_action, "Code action")
-        map("<leader>la", vim.lsp.buf.code_action, "Code action")
+        map("<leader>in", vim.lsp.buf.incoming_calls, "Incoming calls")
         map("<leader>f", function()
-          vim.lsp.buf.format({ async = true })
-        end, "Format")
-        map("<leader>lf", function()
           vim.lsp.buf.format({ async = true })
         end, "Format")
         map("<leader>ej", function()
@@ -81,15 +83,7 @@ return {
         map("<leader>ek", function()
           vim.diagnostic.jump({ count = -1, float = true })
         end, "Previous diagnostic")
-        map("<leader>lj", function()
-          vim.diagnostic.jump({ count = 1, float = true })
-        end, "Next diagnostic")
-        map("<leader>lk", function()
-          vim.diagnostic.jump({ count = -1, float = true })
-        end, "Previous diagnostic")
         map("gl", vim.diagnostic.open_float, "Line diagnostics")
-        map("<leader>q", vim.diagnostic.setloclist, "Diagnostic list")
-        map("<leader>lq", vim.diagnostic.setloclist, "Diagnostic list")
 
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then

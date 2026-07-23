@@ -30,7 +30,6 @@ return {
     { "<C-w>", function() close_buffer(0) end, desc = "Close buffer", nowait = true },
     { "E", "<cmd>BufferLineCyclePrev<cr>", desc = "Previous buffer" },
     { "R", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-    { "<leader>t", "<cmd>BufferLineTogglePin<cr>", desc = "Toggle buffer pin" },
   },
   opts = {
     options = {

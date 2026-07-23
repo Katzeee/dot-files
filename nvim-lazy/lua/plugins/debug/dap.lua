@@ -1,22 +1,22 @@
 return {
   "mfussenegger/nvim-dap",
   keys = {
-    { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
-    { "<leader>dc", function() require("dap").clear_breakpoints() end, desc = "Clear breakpoints" },
+    { "<leader>bb", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+    { "<leader>bs", function() require("dap").step_into() end, desc = "Step into" },
+    { "<leader>bn", function() require("dap").step_over() end, desc = "Step over" },
+    { "<leader>br", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
+    { "<leader>bj", function() require("dap").goto_() end, desc = "Jump to cursor" },
+    { "<leader>bc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>bo", function() require("dap").step_out() end, desc = "Step out" },
     {
-      "<leader>ds",
+      "<leader>dc",
       function()
-        local widgets = require("dap.ui.widgets")
-        widgets.centered_float(widgets.threads)
+        require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
       end,
-      desc = "Debug threads",
+      desc = "Conditional breakpoint",
     },
-    { "<F5>", function() require("dap").continue() end, desc = "Debug continue" },
-    { "<F6>", function() require("dap").step_into() end, desc = "Debug step into" },
-    { "<F7>", function() require("dap").step_over() end, desc = "Debug step over" },
-    { "<F8>", function() require("dap").step_out() end, desc = "Debug step out" },
-    { "<F9>", function() require("dap").run_last() end, desc = "Debug run last" },
-    { "<F10>", function() require("dap").terminate() end, desc = "Debug terminate" },
+    { "<Tab>dd", function() require("dap").continue() end, desc = "Select and start debugging" },
+    { "<Tab>td", function() require("dap").repl.toggle() end, desc = "Debug REPL" },
   },
   dependencies = {
     {

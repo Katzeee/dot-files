@@ -11,12 +11,10 @@ return {
     },
   },
   keys = {
-    { "<Tab>b", "<cmd>Telescope buffers theme=dropdown previewer=false<cr>", desc = "Buffers" },
+    { "<Tab><Tab>", "<cmd>Telescope commands<cr>", desc = "Commands" },
     { "<Tab>f", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>", desc = "Find files" },
     { "<Tab>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find text" },
-    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
-    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Recent files" },
+    { "<Tab>w", "<cmd>Telescope grep_string<cr>", desc = "Search word" },
   },
   opts = function()
     local actions = require("telescope.actions")
