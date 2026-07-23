@@ -9,7 +9,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = function()
-      local parsers = { "bash", "c", "cpp", "json", "lua", "markdown", "markdown_inline", "python", "rust", "vim", "vimdoc" }
+      -- Neovim ships parsers and matching queries for C, Lua, Markdown, Vim,
+      -- Vimdoc, and query files. Do not shadow those parsers with independently
+      -- versioned nvim-treesitter builds.
+      local parsers = { "bash", "cpp", "json", "python", "rust" }
       require("nvim-treesitter").update(parsers):wait(300000)
       require("nvim-treesitter").install(parsers):wait(300000)
     end,
