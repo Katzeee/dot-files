@@ -40,3 +40,22 @@ lua/core/icons/profiles/nerd.lua
 
 Profiles are data-only. Plugins consume `core.icons` and never select glyphs
 or infer font capabilities themselves.
+
+## Plugin organization
+
+Plugin specs are grouped by responsibility and normally keep one primary
+plugin per file:
+
+```text
+lua/plugins/
+├── coding/  # completion, LSP, package management, formatting
+├── core/    # shared plugin dependencies
+├── debug/   # DAP and its tightly coupled integrations
+├── editor/  # editing, navigation, and syntax
+├── tools/   # terminal and source-control tools
+└── ui/      # theme, layout, status, and notifications
+```
+
+`lua/plugins/init.lua` imports only these responsibility boundaries. Adding a
+plugin requires creating a file in the appropriate directory; the central
+entry point does not enumerate individual plugins.
