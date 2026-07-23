@@ -67,9 +67,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local function open_nvim_tree(data)
-  if vim.fn.isdirectory(data.file) == 0 then
-    vim.cmd.cd(vim.fs.dirname(data.file))
-  else
+  if data.file ~= "" and vim.fn.isdirectory(data.file) == 1 then
     vim.cmd.cd(data.file)
     require("nvim-tree.api").tree.open()
   end
@@ -78,7 +76,7 @@ end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   callback = function()
-    vim.cmd("set fo-=cro")
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   end,
 })
 

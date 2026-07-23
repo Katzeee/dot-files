@@ -1,130 +1,23 @@
-local utils = require("utils")
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
---   operation_mode = "o"
-
-local opts = { noremap = true, silent = true }
---Remap space as leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-utils.keymap.register({
-  mode = { "n", "v", "x", "t", "c" },
-  lhs = "<Space>",
-  rhs = "<Nop>",
-  options = opts,
-  desc = "Leader key",
-})
+local map = vim.keymap.set
 
-utils.keymap.batch_register_in_mode({ "" }, {
-  {
-    lhs = "<S-h>",
-    rhs = "0",
-    options = opts,
-    desc = "Eazy line navigation",
-  },
-  {
-    lhs = "<S-l>",
-    rhs = "$",
-    options = opts,
-    desc = "Eazy line navigation",
-  },
-})
+map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+map({ "n", "v", "o" }, "H", "0", { desc = "Line start" })
+map({ "n", "v", "o" }, "L", "$", { desc = "Line end" })
+map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+map("n", "gw", "*N", { desc = "Search word under cursor" })
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
-utils.keymap.batch_register_in_mode({ "n" }, {
-  {
-    lhs = "<",
-    rhs = "v<gv<Esc>",
-    options = opts,
-    desc = "Indent",
-  },
-  {
-    lhs = ">",
-    rhs = "v>gv<Esc>",
-    options = opts,
-    desc = "Indent",
-  },
-  {
-    lhs = "<C-h>",
-    rhs = "<C-w>h",
-    options = opts,
-    desc = "Better window navigation",
-  },
-  {
-    lhs = "<C-j>",
-    rhs = "<C-w>j",
-    options = opts,
-    desc = "Better window navigation",
-  },
-  {
-    lhs = "<C-k>",
-    rhs = "<C-w>k",
-    options = opts,
-    desc = "Better window navigation",
-  },
-  {
-    lhs = "<C-l>",
-    rhs = "<C-w>l",
-    options = opts,
-    desc = "Better window navigation",
-  },
-  {
-    lhs = "<C-Up>",
-    rhs = ":resize -2<CR>",
-    options = opts,
-    desc = "Resize with arrow",
-  },
-  {
-    lhs = "<C-Down>",
-    rhs = ":resize +2<CR>",
-    options = opts,
-    desc = "Resize with arrow",
-  },
-  {
-    lhs = "<C-Left>",
-    rhs = ":vertical resize -2<CR>",
-    options = opts,
-    desc = "Resize with arrow",
-  },
-  {
-    lhs = "<C-Right>",
-    rhs = ":vertical resize +2<CR>",
-    options = opts,
-    desc = "Resize with arrow",
-  },
-  {
-    lhs = "gw",
-    rhs = "*N",
-    options = opts,
-    desc = "Search word under cursor",
-  },
-})
+map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
+map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
+map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
+map("n", "<C-Up>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-Down>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
-utils.keymap.batch_register_in_mode({ "v" }, {
-  {
-    lhs = "<",
-    rhs = "<gv",
-    options = opts,
-    desc = "Indent",
-  },
-  {
-    lhs = ">",
-    rhs = ">gv",
-    options = opts,
-    desc = "Indent",
-  },
-})
-
-utils.keymap.batch_register_in_mode({ "i" }, {
-  {
-    lhs = "jk",
-    rhs = "<ESC>",
-    options = opts,
-    desc = "Escape insert",
-  },
-})
+map("v", "<", "<gv", { desc = "Indent left" })
+map("v", ">", ">gv", { desc = "Indent right" })
