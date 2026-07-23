@@ -1,5 +1,26 @@
 local icons = require("core.icons")
 
+local function on_attach(buffer)
+  local api = require("nvim-tree.api")
+  api.config.mappings.default_on_attach(buffer)
+
+  local function opts(desc)
+    return { buffer = buffer, desc = "nvim-tree: " .. desc, nowait = true, silent = true }
+  end
+
+  vim.keymap.set("n", "<Tab>e", api.tree.close, opts("Close"))
+  vim.keymap.set("n", "o", function()
+    local node = api.tree.get_node_under_cursor()
+    if node and (node.name == ".." or node.nodes) then
+      api.node.open.edit()
+    else
+      api.node.open.preview()
+    end
+  end, opts("Expand folder or preview file"))
+  vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "v", api.node.open.vertical, opts("Open in vertical split"))
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFindFile" },
@@ -7,77 +28,33 @@ return {
     { "<Tab>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
   },
   dependencies = icons.nerd and { "nvim-tree/nvim-web-devicons" } or nil,
-  config = function(_, opts)
-    require("nvim-tree").setup(opts)
-
-    local group = vim.api.nvim_create_augroup("nvim_tree_layout", { clear = true })
-    local filling_layout = false
-
-    local function ensure_main_window()
-      if filling_layout then
-        return
-      end
-
-      local normal_windows = vim.tbl_filter(function(window)
-        return vim.api.nvim_win_get_config(window).relative == ""
-      end, vim.api.nvim_tabpage_list_wins(0))
-
-      if #normal_windows ~= 1 then
-        return
-      end
-
-      local tree_window = normal_windows[1]
-      local tree_buffer = vim.api.nvim_win_get_buf(tree_window)
-      if vim.bo[tree_buffer].filetype ~= "NvimTree" then
-        return
-      end
-
-      filling_layout = true
-      vim.wo[tree_window].winfixwidth = true
-      vim.cmd("botright vnew")
-      vim.api.nvim_win_set_width(tree_window, opts.view.width)
-      vim.api.nvim_set_current_win(tree_window)
-      filling_layout = false
-    end
-
-    local function schedule_layout_check()
-      vim.schedule(ensure_main_window)
-    end
-
-    vim.api.nvim_create_autocmd("QuitPre", {
-      group = group,
-      callback = function()
-        local current_window = vim.api.nvim_get_current_win()
-        local normal_windows = vim.tbl_filter(function(window)
-          return vim.api.nvim_win_get_config(window).relative == ""
-        end, vim.api.nvim_tabpage_list_wins(0))
-
-        if #normal_windows ~= 2 or vim.bo[vim.api.nvim_win_get_buf(current_window)].filetype == "NvimTree" then
-          return
-        end
-
-        local companion_window = normal_windows[1] == current_window and normal_windows[2] or normal_windows[1]
-        local companion_buffer = vim.api.nvim_win_get_buf(companion_window)
-        if vim.bo[companion_buffer].filetype == "NvimTree" then
-          require("nvim-tree.api").tree.close()
-        end
-      end,
-    })
-    vim.api.nvim_create_autocmd("FileType", {
-      group = group,
-      pattern = "NvimTree",
-      callback = schedule_layout_check,
-    })
-    vim.api.nvim_create_autocmd("WinClosed", {
-      group = group,
-      callback = schedule_layout_check,
-    })
-  end,
   opts = {
-    hijack_cursor = true,
+    disable_netrw = true,
+    hijack_netrw = true,
+    hijack_cursor = false,
     sync_root_with_cwd = true,
     respect_buf_cwd = true,
-    view = { width = 32 },
+    on_attach = on_attach,
+    diagnostics = {
+      enable = true,
+      icons = {
+        hint = icons.profile.diagnostic.hint,
+        info = icons.profile.diagnostic.info,
+        warning = icons.profile.diagnostic.warn,
+        error = icons.profile.diagnostic.error,
+      },
+    },
+    git = {
+      enable = true,
+      ignore = false,
+      timeout = 500,
+    },
+    view = {
+      width = 30,
+      side = "left",
+      number = false,
+      relativenumber = false,
+    },
     renderer = {
       group_empty = true,
       highlight_git = true,
@@ -92,6 +69,13 @@ return {
         glyphs = icons.profile.nvim_tree,
       },
     },
-    filters = { dotfiles = false },
+    filters = {
+      dotfiles = false,
+      custom = {},
+    },
+    trash = {
+      cmd = "trash",
+      require_confirm = true,
+    },
   },
 }

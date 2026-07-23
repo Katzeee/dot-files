@@ -2,6 +2,15 @@ return {
   "mfussenegger/nvim-dap",
   keys = {
     { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+    { "<leader>dc", function() require("dap").clear_breakpoints() end, desc = "Clear breakpoints" },
+    {
+      "<leader>ds",
+      function()
+        local widgets = require("dap.ui.widgets")
+        widgets.centered_float(widgets.threads)
+      end,
+      desc = "Debug threads",
+    },
     { "<F5>", function() require("dap").continue() end, desc = "Debug continue" },
     { "<F6>", function() require("dap").step_into() end, desc = "Debug step into" },
     { "<F7>", function() require("dap").step_over() end, desc = "Debug step over" },
@@ -13,7 +22,20 @@ return {
     {
       "rcarriga/nvim-dap-ui",
       dependencies = { "nvim-neotest/nvim-nio" },
-      opts = {},
+      opts = {
+        layouts = {
+          {
+            elements = { "scopes", "breakpoints", "stacks", "watches" },
+            size = 30,
+            position = "left",
+          },
+          {
+            elements = { "repl", "console" },
+            size = 10,
+            position = "bottom",
+          },
+        },
+      },
     },
     {
       "theHamsta/nvim-dap-virtual-text",
@@ -34,8 +56,14 @@ return {
     local dapui = require("dapui")
 
     dap.listeners.after.event_initialized["dapui"] = dapui.open
-    dap.listeners.before.event_terminated["dapui"] = dapui.close
-    dap.listeners.before.event_exited["dapui"] = dapui.close
+    dap.listeners.before.event_terminated["dapui"] = function()
+      dapui.close()
+      dap.repl.close()
+    end
+    dap.listeners.before.event_exited["dapui"] = function()
+      dapui.close()
+      dap.repl.close()
+    end
 
     local codelldb = vim.fn.stdpath("data") .. "/mason/bin/codelldb"
     dap.adapters.codelldb = {
@@ -57,5 +85,10 @@ return {
     dap.configurations.c = { launch }
     dap.configurations.cpp = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
+
+    require("dap.ext.vscode").load_launchjs(nil, {
+      codelldb = { "c", "cpp", "rust" },
+      cppdbg = { "c", "cpp", "rust" },
+    })
   end,
 }

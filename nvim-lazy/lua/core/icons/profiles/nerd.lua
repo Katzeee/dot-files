@@ -43,6 +43,12 @@ return {
   bufferline = {
     close = "",
   },
+  lualine = {
+    branch = "",
+    added = "",
+    modified = "",
+    removed = "",
+  },
   aerial = {},
   mason = {
     package_installed = "◍",

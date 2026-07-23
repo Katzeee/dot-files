@@ -10,8 +10,13 @@ return {
         table.insert(sources, builtin)
       end
     end
-    add_if("prettier", null_ls.builtins.formatting.prettier)
-    add_if("black", null_ls.builtins.formatting.black)
+    add_if(
+      "prettier",
+      null_ls.builtins.formatting.prettier.with({
+        extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+      })
+    )
+    add_if("black", null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }))
     add_if("stylua", null_ls.builtins.formatting.stylua)
     add_if("yapf", null_ls.builtins.formatting.yapf)
     return {

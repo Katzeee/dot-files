@@ -2,7 +2,7 @@ local icons = require("core.icons")
 
 return {
   "mason-org/mason.nvim",
-  cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate" },
+  lazy = false,
   build = ":MasonUpdate",
   opts = {
     ui = {

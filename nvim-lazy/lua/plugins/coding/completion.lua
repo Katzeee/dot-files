@@ -20,6 +20,33 @@ return {
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+    local kind_icons = icons.nerd and {
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "󰅲",
+    } or {}
 
     cmp.setup({
       snippet = {
@@ -30,16 +57,17 @@ return {
       mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping.select_next_item(),
         ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-b>"] = cmp.mapping.scroll_docs(-1),
+        ["<C-f>"] = cmp.mapping.scroll_docs(1),
         ["<A-x>"] = cmp.mapping.complete(),
+        ["<C-y>"] = cmp.config.disable,
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
+            cmp.confirm({ select = false })
+          elseif luasnip.expandable() then
+            luasnip.expand()
           else
             fallback()
           end
@@ -61,6 +89,29 @@ return {
       }, {
         { name = "buffer" },
       }),
+      completion = {
+        completeopt = "menu,menuone,noinsert",
+      },
+      formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, item)
+          item.kind = kind_icons[item.kind] or item.kind
+          item.menu = ({
+            nvim_lsp = "[LSP]",
+            luasnip = "[Snippet]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+          })[entry.source.name]
+          if item.abbr and #item.abbr > 40 then
+            item.abbr = item.abbr:sub(1, 40) .. "..."
+          end
+          return item
+        end,
+      },
+      confirm_opts = {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = false,
+      },
       window = icons.nerd and {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),

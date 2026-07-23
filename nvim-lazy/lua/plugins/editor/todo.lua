@@ -3,5 +3,11 @@ return {
   cmd = { "TodoTelescope", "TodoQuickFix" },
   event = { "BufReadPost", "BufNewFile" },
   dependencies = { "nvim-lua/plenary.nvim" },
-  opts = { signs = false },
+  opts = {
+    signs = false,
+    gui_style = {
+      fg = "NONE",
+      bg = "NONE",
+    },
+  },
 }

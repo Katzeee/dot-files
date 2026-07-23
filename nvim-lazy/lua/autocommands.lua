@@ -67,7 +67,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local function open_nvim_tree(data)
-  if data.file ~= "" and vim.fn.isdirectory(data.file) == 1 then
+  if data.file ~= "" and vim.fn.isdirectory(data.file) == 0 then
+    vim.cmd.cd(vim.fs.dirname(data.file))
+  elseif data.file ~= "" then
     vim.cmd.cd(data.file)
     require("nvim-tree.api").tree.open()
   end

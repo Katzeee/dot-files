@@ -5,6 +5,13 @@ return {
   event = "VeryLazy",
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {
+    lsp = {
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+    },
     popupmenu = { kind_icons = icons.nerd },
     presets = {
       bottom_search = true,

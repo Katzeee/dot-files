@@ -46,6 +46,12 @@ return {
     file = "",
     close = "x",
   },
+  lualine = {
+    branch = "git:",
+    added = "+",
+    modified = "~",
+    removed = "-",
+  },
   aerial = {
     Collapsed = ">",
   },
