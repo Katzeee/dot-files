@@ -13,6 +13,7 @@ return {
       ellipsis = icons.profile.which_key.ellipsis,
       mappings = icons.nerd,
       rules = icons.nerd and {} or false,
+      keys = icons.profile.which_key.keys,
     },
     spec = {
       { "<leader>g", group = "Git" },

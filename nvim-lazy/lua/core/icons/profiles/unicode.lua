@@ -1,0 +1,85 @@
+-- Overrides that use widely available Unicode glyphs, but no Nerd Font
+-- private-use characters. The complete fallback remains in ascii.lua.
+return {
+  name = "unicode",
+  has_unicode = true,
+  border = "rounded",
+  diagnostic = {
+    error = "✕",
+    warn = "▲",
+    info = "●",
+    hint = "◆",
+  },
+  telescope = {
+    prompt = "› ",
+    selection = "› ",
+  },
+  indent = "│",
+  separator = "│",
+  nvim_tree = {
+    symlink = "↗",
+    bookmark = "◆",
+    modified = "●",
+    hidden = "·",
+    folder = {
+      arrow_closed = "▸",
+      arrow_open = "▾",
+      symlink = "↗",
+      symlink_open = "↗",
+    },
+    git = {
+      unstaged = "✗",
+      staged = "✓",
+      unmerged = "≠",
+      renamed = "➜",
+      untracked = "★",
+      deleted = "−",
+      ignored = "◌",
+    },
+  },
+  bufferline = {
+    close = "×",
+    modified = "●",
+    indicator = "▎",
+    pinned = "◆",
+    separator = "thin",
+  },
+  aerial = {
+    Collapsed = "▸",
+  },
+  mason = {
+    package_installed = "✓",
+    package_pending = "…",
+    package_uninstalled = "○",
+  },
+  noice = {
+    cmdline = "›",
+    input = "›",
+  },
+  which_key = {
+    breadcrumb = "»",
+    separator = "➜",
+    ellipsis = "…",
+    keys = {
+      Up = "↑ ",
+      Down = "↓ ",
+      Left = "← ",
+      Right = "→ ",
+      CR = "↵ ",
+      NL = "↵ ",
+    },
+  },
+  lazy = {
+    config = "◆",
+    debug = "● ",
+    event = "◆ ",
+    favorite = "★ ",
+    init = "◆ ",
+    import = "← ",
+    loaded = "●",
+    not_loaded = "○",
+    start = "➜ ",
+    task = "✓ ",
+    list = { "●", "➜", "★", "‒" },
+  },
+}

@@ -5,6 +5,18 @@ return {
   event = "VeryLazy",
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {
+    cmdline = {
+      format = {
+        cmdline = { icon = icons.profile.noice.cmdline },
+        search_down = { icon = icons.profile.noice.search_down },
+        search_up = { icon = icons.profile.noice.search_up },
+        filter = { icon = icons.profile.noice.filter },
+        lua = { icon = icons.profile.noice.lua },
+        help = { icon = icons.profile.noice.help },
+        calculator = { icon = icons.profile.noice.calculator },
+        input = { icon = icons.profile.noice.input },
+      },
+    },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
