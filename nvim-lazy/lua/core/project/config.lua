@@ -36,24 +36,38 @@ local function read_json(path)
   return value
 end
 
-local function context_path()
+local function context_paths()
+  local paths = {}
   local name = vim.api.nvim_buf_get_name(0)
   if name ~= "" and vim.bo.buftype == "" then
-    return vim.fs.dirname(vim.fs.normalize(name))
+    paths[#paths + 1] = vim.fs.dirname(vim.fs.normalize(name))
   end
-  return vim.fs.normalize(vim.fn.getcwd())
+
+  local cwd = vim.fs.normalize(vim.fn.getcwd())
+  if #paths == 0 or normalize(paths[1]) ~= normalize(cwd) then
+    paths[#paths + 1] = cwd
+  end
+  return paths
+end
+
+local function home_config_path()
+  return vim.fs.normalize(vim.fn.expand("~/.nvim/config.json"))
 end
 
 local function find_project_file(start)
-  return vim.fs.find(".nvim/config.json", {
+  local path = vim.fs.find(".nvim/config.json", {
     path = start,
     upward = true,
     type = "file",
   })[1]
+  if path and normalize(path) == normalize(home_config_path()) then
+    return nil
+  end
+  return path
 end
 
 local function home_projects()
-  local path = vim.fs.normalize(vim.fn.expand("~/.nvim/config.json"))
+  local path = home_config_path()
   if not vim.uv.fs_stat(path) then
     return {}
   end
@@ -80,30 +94,41 @@ local function matching_home_project(projects, path)
   return best_root, best
 end
 
----Resolve the configuration for the current buffer or working directory.
----@return { root: string, values: table }
-function M.get()
-  local start = context_path()
+local function resolve(start, projects)
   local project_file = find_project_file(start)
   local project_root = project_file and vim.fs.dirname(vim.fs.dirname(project_file)) or nil
-  local home_root, home_project = matching_home_project(home_projects(), project_root or start)
+  local home_root, home_project = matching_home_project(projects, project_root or start)
 
-  project_root = project_root or home_root or start
-  local values = {}
-
-  if project_file then
-    values = read_json(project_file) or {}
+  if not project_file and not home_project then
+    return nil
   end
 
-  -- Preserve the existing precedence: settings explicitly stored in the
-  -- user's home configuration override repository-local values.
+  local values = project_file and (read_json(project_file) or {}) or {}
   if home_project then
     values = vim.tbl_deep_extend("force", values, home_project)
   end
 
   return {
-    root = vim.fs.normalize(project_root),
+    root = vim.fs.normalize(project_root or home_root),
     values = values,
+  }
+end
+
+---Resolve the configuration for the current buffer or working directory.
+---@return { root: string, values: table }
+function M.get()
+  local starts = context_paths()
+  local projects = home_projects()
+  for _, start in ipairs(starts) do
+    local config = resolve(start, projects)
+    if config then
+      return config
+    end
+  end
+
+  return {
+    root = starts[1],
+    values = {},
   }
 end
 
