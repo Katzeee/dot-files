@@ -12,9 +12,10 @@ return {
   },
   keys = {
     { "<Tab><Tab>", "<cmd>Telescope commands<cr>", desc = "Commands" },
-    { "<Tab>f", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>", desc = "Find files" },
+    { "<Tab>f", function() require("core.search").find_files() end, desc = "Find files" },
     { "<Tab>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find text" },
     { "<Tab>w", "<cmd>Telescope grep_string<cr>", desc = "Search word" },
+    { "<Tab>S", function() require("core.search").find_workspace_symbols() end, desc = "Workspace symbols" },
   },
   opts = function()
     local actions = require("telescope.actions")

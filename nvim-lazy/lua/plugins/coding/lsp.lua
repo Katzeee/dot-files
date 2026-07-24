@@ -7,7 +7,6 @@ return {
     { "<Tab>ca", function() vim.lsp.buf.code_action() end, desc = "Quick fix" },
     { "<Tab>cr", function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
     { "<Tab>s", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols" },
-    { "<Tab>S", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
   },
   dependencies = {
     "mason-org/mason.nvim",
