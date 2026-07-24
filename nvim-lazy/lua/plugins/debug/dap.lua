@@ -85,10 +85,5 @@ return {
     dap.configurations.c = { launch }
     dap.configurations.cpp = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
-
-    require("dap.ext.vscode").load_launchjs(nil, {
-      codelldb = { "c", "cpp", "rust" },
-      cppdbg = { "c", "cpp", "rust" },
-    })
   end,
 }

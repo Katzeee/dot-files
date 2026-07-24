@@ -92,15 +92,7 @@ function M.get()
   local values = {}
 
   if project_file then
-    if home_project and home_project.trust_level == "trusted" then
-      values = read_json(project_file) or {}
-    else
-      notify_once(
-        project_file .. ":untrusted",
-        ("Ignoring untrusted project config: %s\nAdd trust_level \"trusted\" under this project in ~/.nvim/config.json")
-          :format(project_file)
-      )
-    end
+    values = read_json(project_file) or {}
   end
 
   -- Preserve the existing precedence: settings explicitly stored in the

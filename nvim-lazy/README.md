@@ -41,6 +41,36 @@ lua/core/icons/profiles/nerd.lua
 Profiles are data-only. Plugins consume `core.icons` and never select glyphs
 or infer font capabilities themselves.
 
+## External dependencies
+
+Lazy manages Neovim plugins. When a plugin does not guarantee one of its
+external prerequisites, register that relationship once through
+`core.dependencies` and let the dependency owner choose the provider:
+
+```lua
+local mason = require("core.dependencies.providers.mason")
+
+require("core.dependencies").register("plugin-name", {
+  requires = {
+    mason.package({
+      package = "mason-package-name",
+      attempts = 2,
+      retry_delay_ms = 500,
+    }),
+  },
+  on_ready = function()
+    -- Enable only the behavior that requires the external tool.
+  end,
+})
+```
+
+The dependency funnel only coordinates lifecycle, completion, and error
+aggregation. Each registered dependency supplies an `id` and an asynchronous
+`ensure(callback)` function; providers own checking and installation policy.
+The funnel reacts to Lazy's `LazyLoad` event and runs `on_ready` only after
+every registered dependency is available. Dependencies already guaranteed by
+a plugin's supported integration should continue to use that integration.
+
 ## Plugin organization
 
 Plugin specs are grouped by responsibility and normally keep one primary
