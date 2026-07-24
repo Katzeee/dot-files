@@ -92,12 +92,17 @@ return {
       } or nil,
     })
 
+    local cmdline_mapping = cmp.mapping.preset.cmdline({
+      ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
+      ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
+    })
+
     cmp.setup.cmdline({ "/", "?" }, {
-      mapping = cmp.mapping.preset.cmdline(),
+      mapping = cmdline_mapping,
       sources = { { name = "buffer" } },
     })
     cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
+      mapping = cmdline_mapping,
       sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
     })
   end,
