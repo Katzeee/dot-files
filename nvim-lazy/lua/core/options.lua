@@ -35,6 +35,18 @@ local options = {
   wrap = true,                            -- display lines as one long line
   scrolloff = 8,                          -- is one of my fav
   sidescrolloff = 8,
+  sessionoptions = {
+    "blank",
+    "buffers",
+    "curdir",
+    "folds",
+    "help",
+    "tabpages",
+    "winsize",
+    "winpos",
+    "terminal",
+    "localoptions",
+  },
   guifont = "monospace:h17",              -- the font used in graphical neovim applications
 }
 
