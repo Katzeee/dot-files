@@ -16,6 +16,7 @@ return {
     { "<Tab>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find text" },
     { "<Tab>w", "<cmd>Telescope grep_string<cr>", desc = "Search word" },
     { "<Tab>S", function() require("core.search").find_workspace_symbols() end, desc = "Workspace symbols" },
+    { "<Tab>gs", "<cmd>Telescope git_status<cr>", desc = "Git status" },
   },
   opts = function()
     local actions = require("telescope.actions")

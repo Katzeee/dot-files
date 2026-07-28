@@ -8,6 +8,7 @@ end
 local function on_attach(buffer)
   local api = require("nvim-tree.api")
   api.config.mappings.default_on_attach(buffer)
+  vim.keymap.del("n", "<Tab>", { buffer = buffer })
 
   local function opts(desc)
     return { buffer = buffer, desc = "nvim-tree: " .. desc, nowait = true, silent = true }
