@@ -95,6 +95,13 @@ return {
     local cmdline_mapping = cmp.mapping.preset.cmdline({
       ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
       ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
+      ["<Tab>"] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+        else
+          cmp.complete()
+        end
+      end, { "c" }),
     })
 
     cmp.setup.cmdline({ "/", "?" }, {
