@@ -1,0 +1,446 @@
+watch_stylesheet: true
+watch_config: true
+debug: false
+komorebi:
+  start_command: "komorebic start --masir --ahk"
+  stop_command: "komorebic stop --masir --ahk"
+  reload_command: "komorebic stop --masir --ahk && komorebic start --masir --ahk"
+bars:
+  primary-bar:
+    enabled: true
+    screens: ["*"]
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+    blur_effect:
+      enabled: true
+      dark_mode: true
+      round_corners: true
+      border_color: None
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+    dimensions:
+      width: "100%"
+      height: 34
+    padding:
+      top: 6
+      left: 10
+      bottom: 0
+      right: 10
+    widgets:
+      left: ["komorebi_active_layout","komorebi_workspaces","active_window"]
+      center: ["cpu","memory","gpu","clock","apps"]
+      right: ["systray","media","input_status","quick_settings","wifi","battery","volume_icon","volume","power_menu"]
+widgets:
+  input_status:
+    type: "yasb.custom.CustomWidget"
+    options:
+      class_name: "input-status"
+      label: "{data[label]}"
+      label_alt: "{data[label]}"
+      label_placeholder: "…"
+      tooltip: true
+      tooltip_label: "{data[description]}"
+      exec_options:
+        run_cmd: "D:\\YASB\\scripts\\InputStatus.exe"
+        run_interval: 500
+        return_format: "json"
+        hide_empty: false
+        use_shell: false
+        encoding: "utf-8"
+      callbacks:
+        on_left: "do_nothing"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
+  cpu:
+    type: "yasb.cpu.CpuWidget"
+    options:
+      label: "<span>\uf4bc</span> {info[percent][total]}%"
+      label_alt: "<span>\uf4bc</span> {info[freq][current]} MHz"
+      hide_decimal: true
+      update_interval: 2000
+      cpu_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "exec cmd /c Taskmgr"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  memory:
+    type: "yasb.memory.MemoryWidget"
+    options:
+      label: "<span>\uefc5</span> {virtual_mem_percent}%"
+      label_alt: "<span>\uefc5</span> {virtual_mem_used}/{virtual_mem_total}"
+      hide_decimal: true
+      update_interval: 5000
+      memory_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  gpu:
+    type: "yasb.gpu.GpuWidget"
+    options:
+      label: "<span>\U000f0503</span> {info[utilization]}%"
+      label_alt: "<span>\U000f0503</span> {info[temp]}°C | {info[mem_used]}"
+      gpu_index: 0
+      hide_decimal: true
+      update_interval: 2000
+      gpu_thresholds:
+        low: 25
+        medium: 50
+        high: 90
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      menu:
+        enabled: true
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_graph: true
+        show_graph_grid: false
+        graph_history_size: 60
+  active_window:
+    type: "yasb.active_window.ActiveWindowWidget"
+    options:
+      label: "{win[title]}"
+      label_alt: "[class_name='{win[class_name]}' exe='{win[process][name]}' hwnd={win[hwnd]}]"
+      label_no_window: ""
+      label_icon: true
+      label_icon_size: 16
+      max_length: 56
+      max_length_ellipsis: "..."
+      monitor_exclusive: false
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: "{%a, %d %b %H:%M}"
+      label_alt: "{%A, %d %B %Y %H:%M:%S}"
+      timezones: []
+  komorebi_workspaces:
+    type: "komorebi.workspaces.WorkspaceWidget"
+    options:
+      label_offline: "\u23fc Offline"
+      label_workspace_btn: ""
+      label_workspace_active_btn: ""
+      label_workspace_populated_btn: ""
+      label_default_name: ""
+      label_zero_index: false
+      hide_empty_workspaces: true
+      hide_if_offline: true
+  komorebi_active_layout:
+    type: "komorebi.active_layout.ActiveLayoutWidget"
+    options:
+      hide_if_offline: false
+      label: "{icon}"
+      layouts: ['bsp', 'columns', 'rows', 'grid', 'scrolling', 'vertical_stack', 'horizontal_stack', 'ultrawide_vertical_stack', 'right_main_vertical_stack']
+      layout_icons:
+        bsp: "\ue660"
+        columns: "\ue8f3"
+        rows: "\ue8f2"
+        grid: "\ue3ec"
+        scrolling: "\uf7d4"
+        vertical_stack: "\uf4fc"
+        horizontal_stack: "\uf4fd"
+        ultrawide_vertical_stack: "\uf8f5"
+        right_main_vertical_stack: "\uf8f4"
+        monocle: "\uf4c9"
+        maximized: "\ue85b"
+        floating: "\ue3e0"
+        paused: "\ue1a2"
+        tiling: "\ue871"
+      callbacks:
+        on_left: "toggle_layout_menu"
+        on_middle: "toggle_monocle"
+        on_right: "do_nothing"
+      layout_menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "left"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_layout_icons: true
+  glazewm_workspaces:
+    type: "glazewm.workspaces.GlazewmWorkspacesWidget"
+    options:
+      offline_label: "GlazeWM Offline"
+      hide_if_offline: true
+  glazewm_tiling_direction:
+    type: "glazewm.tiling_direction.GlazewmTilingDirectionWidget"
+    options:
+      horizontal_label: "\udb81\udce1"
+      vertical_label: "\udb81\udce2"
+  weather:
+    type: "yasb.weather.WeatherWidget"
+    options:
+      label: "<span>{icon}</span> {temp}"
+      label_alt: "{location}: Min {min_temp}, Max {max_temp}, Humidity {humidity}"
+      api_key: ""
+      show_alerts: true
+      update_interval: 600
+      hide_decimal: true
+      units: "metric"
+      location: "auto:ip"
+      callbacks:
+        on_left: "toggle_card"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      icons:
+        sunnyDay: "\ue30d"
+        clearNight: "\ue32b"
+        cloudyDay: "\udb81\udd99"
+        cloudyNight: "\ue311"
+        rainyDay: "\udb81\ude7e"
+        rainyNight: "\udb81\ude7e"
+        snowyDay: "\udb81\udd98"
+        snowyNight: "\udb81\udd98"
+        blizzardDay: "\uebaa"
+        default: "\uebaa"
+      weather_card:
+        blur: True
+        round_corners: True
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        icon_size: 64
+  volume_icon:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      class_name: "volume-icon"
+      label: "<span>{icon}</span>"
+      label_alt: "<span>{icon}</span>"
+      icons:
+        muted: "\ueee8"
+        "100": "\uf028"
+      callbacks:
+        on_left: "toggle_mute"
+        on_right: "do_nothing"
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      class_name: "volume-value"
+      mute_text: "mute"
+      label: "{level}"
+      label_alt: "{level}"
+      icons:
+        muted: "\ueee8"
+        "100": "\uf028"
+      callbacks:
+        on_left: "toggle_volume_menu"
+        on_right: "exec cmd.exe /c start ms-settings:sound"
+  battery:
+    type: "yasb.battery.BatteryWidget"
+    options:
+      label: "<span>{icon}</span> {percent}%"
+      label_alt: "<span>{icon}</span> {percent}% | time: {time_remaining}"
+      status_icons:
+        icon_charging: "\ue1a3"
+        icon_critical: "\ue19c"
+        icon_low: "\uf09c"
+        icon_medium: "\uf09f"
+        icon_high: "\uf0a1"
+        icon_full: "\ue1a5"
+      charging_options:
+        icon_format: "{charging_icon}"
+  brightness:
+    type: "yasb.brightness.BrightnessWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "Brightness {percent}%"
+      tooltip: true
+      auto_light: false
+      auto_light_icon: "\udb80\udce1"
+      auto_light_night_level: 35
+      auto_light_night_start_time: "19:00"
+      auto_light_night_end_time: "06:45"
+      auto_light_day_level: 75
+      brightness_icons: [
+        "\udb80\udcde",
+        "\udb80\udcdd",
+        "\udb80\udcdf",
+        "\udb80\udce0"
+      ]
+      callbacks:
+        on_left: "toggle_label"
+  quick_settings:
+    type: "yasb.applications.ApplicationsWidget"
+    options:
+      class_name: "quick-settings"
+      label: "{data}"
+      tooltip: false
+      app_list:
+        - { icon: "\uf013", launch: "quick_settings", name: "Quick Settings" }
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span>"
+      label_alt: "{wifi_name} {wifi_strength}%"
+      wifi_icons: ["\U000f05aa", "\uf1eb", "\uf1eb", "\uf1eb", "\uf1eb"]
+      ethernet_icon: "\U000f0200"
+      update_interval: 5000
+      get_exact_wifi_strength: false
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:network"
+        on_right: "toggle_label"
+      menu_config:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+  power_menu:
+    type: "yasb.power_menu.PowerMenuWidget"
+    options:
+      label: "\uf011"
+      menu_style: "fullscreen"
+      show_user: true
+      profile_image_size: 200
+      uptime: True
+      blur: True
+      blur_background: True
+      animation_duration: 120
+      button_row: 3
+      buttons:
+        sleep: ["\uf159", "Sleep"]
+        hibernate: ["\uf037", "Hibernate"]
+        restart: ["\uf053", "Restart"]
+        shutdown: ["\uf8c7", "Shut Down"]
+        signout: ["\ue9ba", "Sign out"]
+        cancel: ["\ue888", "Cancel"]
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      label_collapsed: "\ue5de"
+      label_expanded: "\ue5df"
+      label_position: "left"
+      icon_size: 16
+      pin_click_modifier: "alt"
+      show_unpinned: true
+      show_battery: false
+      show_volume: false
+  media:
+    type: "yasb.media.MediaWidget"
+    options:
+      label: "{title}"
+      label_alt: "{title}{s}{artist}"
+      separator: " - "
+      show_thumbnail: true
+      hide_empty: true
+      controls_only: false
+      controls_hide: true
+      thumbnail_alpha: 100
+      thumbnail_padding: 12
+      thumbnail_corner_radius: 6
+      thumbnail_edge_fade: true
+      media_menu_icons:
+        prev_track: "\uf048"
+        next_track: "\uf051"
+        play: "\uf04b"
+        pause: "\uf04c"
+      max_field_size:
+        label: 22
+        label_alt: 35
+        truncate_whole_label: true
+      callbacks:
+        on_left: "toggle_media_menu"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
+      media_menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "#57464d"
+        alignment: "left"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_size: 144
+        thumbnail_corner_radius: 10
+        max_title_size: 60
+        max_artist_size: 40
+        show_source: false
+        show_volume_slider: false
+  apps:
+    type: "yasb.applications.ApplicationsWidget"
+    options:
+      label: "{data}"
+      app_list:
+        - { icon: "\U000f059f", launch: "D:\\Vivaldi\\Application\\vivaldi.exe", name: "Vivaldi" }
+        - { icon: "\U000f009c", launch: "notification_center" }
+        - { icon: "\U000f154e", launch: "cmd /c Taskmgr" }
+  github:
+    type: "yasb.github.GithubWidget"
+    options:
+      label: "<span>\ueba1</span>"
+      label_alt: "Notifications {data}"
+      token: env
+      max_notification: 30
+      only_unread: false
+      max_field_size: 54
+      update_interval: 60
+  taskbar:
+    type: "yasb.taskbar.TaskbarWidget"
+    options:
+      icon_size: 16
+      ignore_apps:
+        processes: []
+        titles: []
+        classes: []
+  wallpapers:
+    type: "yasb.wallpapers.WallpapersWidget"
+    options:
+      label: "<span>\uf03e</span>"
+      image_path: "C:\\Wallpapers"
+      change_automatically: false
+      update_interval: 60
+      gallery:
+        image_width: 220
+        orientation: "portrait"
+        image_corner_radius: 20

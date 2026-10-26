@@ -1,4 +1,8 @@
 **/*.o
+**/*.exe
+**/*.dll
+**/*.pdb
+**/*.obj
 **/*.orig
 **/*.rej
 gdb*

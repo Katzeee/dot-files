@@ -1,0 +1,97 @@
+.shell powershell
+
+# Reload whkd configuration
+# alt + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
+alt + o : Get-Process whkd -ErrorAction SilentlyContinue | Stop-Process; Start-Process 'D:\whkd\bin\whkd.exe' -WindowStyle Hidden
+alt + shift + o         : $p='C:\Users\X\komorebi.json'; $f=[IO.File]::Open($p,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::ReadWrite); try { $b=$f.ReadByte(); $f.Position=0; $f.WriteByte([byte]$b); $f.Flush() } finally { $f.Dispose() }
+
+alt + i                 : & 'D:\komorebi\bin\komorebic.exe' toggle-shortcuts
+
+# App shortcuts - these require shell to be pwsh / powershell
+# The apps will be focused if open, or launched if not open
+# alt + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
+# alt + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
+
+win + q                 : & 'D:\komorebi\bin\komorebic.exe' close
+alt + m                 : & 'D:\komorebi\bin\komorebic.exe' minimize
+
+# Focus windows
+win + h                 : & 'D:\komorebi\bin\komorebic.exe' focus left
+win + j                 : & 'D:\komorebi\bin\komorebic.exe' focus down
+win + k                 : & 'D:\komorebi\bin\komorebic.exe' focus up
+win + l                 : & 'D:\komorebi\bin\komorebic.exe' focus right
+alt + shift + oem_4     : & 'D:\komorebi\bin\komorebic.exe' cycle-focus previous # oem_4 is [
+alt + shift + oem_6     : & 'D:\komorebi\bin\komorebic.exe' cycle-focus next # oem_6 is ]
+
+# Move windows
+win + shift + h         : & 'D:\komorebi\bin\komorebic.exe' move left
+win + shift + j         : & 'D:\komorebi\bin\komorebic.exe' move down
+win + shift + k         : & 'D:\komorebi\bin\komorebic.exe' move up
+win + shift + l         : & 'D:\komorebi\bin\komorebic.exe' move right
+win + shift + return    : & 'D:\komorebi\bin\komorebic.exe' promote-swap
+
+# Stack windows
+alt + left              : & 'D:\komorebi\bin\komorebic.exe' stack left
+alt + down              : & 'D:\komorebi\bin\komorebic.exe' stack down
+alt + up                : & 'D:\komorebi\bin\komorebic.exe' stack up
+alt + right             : & 'D:\komorebi\bin\komorebic.exe' stack right
+alt + oem_1             : & 'D:\komorebi\bin\komorebic.exe' unstack # oem_1 is ;
+alt + oem_4             : & 'D:\komorebi\bin\komorebic.exe' cycle-stack previous # oem_4 is [
+alt + oem_6             : & 'D:\komorebi\bin\komorebic.exe' cycle-stack next # oem_6 is ]
+
+# Resize
+# Resize the single window or move internal boundaries using native commands
+win + alt + h           : & 'D:\komorebi\scripts\resize-window.ps1' -Direction left
+win + alt + l           : & 'D:\komorebi\scripts\resize-window.ps1' -Direction right
+win + alt + j           : & 'D:\komorebi\scripts\resize-window.ps1' -Direction down
+win + alt + k           : & 'D:\komorebi\scripts\resize-window.ps1' -Direction up
+alt + oem_plus          : & 'D:\komorebi\bin\komorebic.exe' resize-axis horizontal increase
+alt + oem_minus         : & 'D:\komorebi\bin\komorebic.exe' resize-axis horizontal decrease
+alt + shift + oem_plus  : & 'D:\komorebi\bin\komorebic.exe' resize-axis vertical increase
+alt + shift + oem_minus : & 'D:\komorebi\bin\komorebic.exe' resize-axis vertical decrease
+
+# Manipulate windows
+win + shift + space     : & 'D:\komorebi\bin\komorebic.exe' toggle-float
+win + f                 : & 'D:\komorebi\bin\komorebic.exe' toggle-maximize
+
+# Window manager options
+alt + shift + r         : & 'D:\komorebi\bin\komorebic.exe' retile
+alt + p                 : & 'D:\komorebi\bin\komorebic.exe' toggle-pause
+
+# Layouts
+alt + x                 : & 'D:\komorebi\bin\komorebic.exe' flip-layout horizontal
+alt + y                 : & 'D:\komorebi\bin\komorebic.exe' flip-layout vertical
+
+# Workspaces
+win + 1                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 0
+win + 2                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 1
+win + 3                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 2
+win + 4                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 3
+win + 5                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 4
+win + 6                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 5
+win + 7                 : & 'D:\komorebi\bin\komorebic.exe' focus-workspace 6
+
+# Send windows to workspaces without following
+win + alt + 1           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 0
+win + alt + 2           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 1
+win + alt + 3           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 2
+win + alt + 4           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 3
+win + alt + 5           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 4
+win + alt + 6           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 5
+win + alt + 7           : & 'D:\komorebi\bin\komorebic.exe' send-to-workspace 6
+
+# Move windows to workspaces and follow
+win + shift + 1         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 0
+win + shift + 2         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 1
+win + shift + 3         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 2
+win + shift + 4         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 3
+win + shift + 5         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 4
+win + shift + 6         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 5
+win + shift + 7         : & 'D:\komorebi\bin\komorebic.exe' move-to-workspace 6
+
+# Taskbar visibility
+ctrl + alt + t : if (Get-Process thide -ErrorAction SilentlyContinue) { & 'D:\THide\thide.exe' toggle } else { Start-Process 'D:\THide\thide.exe' -WindowStyle Hidden }
+
+
+# Adopt the focused window
+alt + shift + m : & 'D:\komorebi\bin\komorebic.exe' manage
