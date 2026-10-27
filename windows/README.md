@@ -8,20 +8,20 @@ Install the applications first. The configured locations are `D:\komorebi\bin`, 
 
 | Repository files | Destination |
 | --- | --- |
-| `komorebi/komorebi.json`, `komorebi/applications.json` | `%USERPROFILE%\` |
-| `komorebi/whkdrc` | `%USERPROFILE%\.config\whkdrc` |
-| `komorebi/scripts/resize-window.ps1` | `D:\komorebi\scripts\` |
-| `yasb/config.yaml`, `yasb/styles.css`, `yasb/assets/` | `%USERPROFILE%\.config\yasb\`, preserving the directory structure |
-| `yasb/scripts/InputStatus.exe` | `D:\YASB\scripts\`, built as described below |
+| `windows/komorebi/komorebi.json`, `windows/komorebi/applications.json` | `%USERPROFILE%\` |
+| `windows/komorebi/whkdrc` | `%USERPROFILE%\.config\whkdrc` |
+| `windows/komorebi/scripts/resize-window.ps1` | `D:\komorebi\scripts\` |
+| `windows/yasb/config.yaml`, `windows/yasb/styles.css`, `windows/yasb/assets/` | `%USERPROFILE%\.config\yasb\`, preserving the directory structure |
+| `windows/yasb/scripts/InputStatus.exe` | `D:\YASB\scripts\`, built as described below |
 
 The configuration contains absolute paths for this machine. When changing the account name or installation locations, update paths in the YAML, CSS, whkdrc, and resize script, including the CSS paths for the avatar and media button assets.
 
 YASB uses **JetBrainsMono Nerd Font Propo** (`JetBrainsMono NFP` in the configuration) and **Material Symbols Rounded**. Install these fonts for all users so they are available at logon.
 
-The input status helper is stored as source. Run the [build script](../yasb/scripts/Build-InputStatus.ps1) in a regular PowerShell session:
+The input status helper is stored as source. Run the [build script](yasb/scripts/Build-InputStatus.ps1) in a regular PowerShell session:
 
 ```powershell
-& D:\codes\dot-files\yasb\scripts\Build-InputStatus.ps1
+& D:\codes\dot-files\windows\yasb\scripts\Build-InputStatus.ps1
 ```
 
 Copy the generated `InputStatus.exe` to the destination above. Build artifacts are excluded by `.gitignore`.
@@ -50,7 +50,7 @@ Verify the resulting state: the first two tasks use highest and normal privilege
 
 Install the [official THide executable](https://github.com/amnweb/thide) separately at the configured location. Its control commands are `thide hide`, `thide show`, and `thide toggle`.
 
-`Ctrl + Alt + T` calls THide through `komorebi/whkdrc` to toggle visibility. THide maintains the hidden state; exiting it restores the taskbar. If the taskbar remains visible after logon, check the THide process and startup entry before adding another startup action.
+`Ctrl + Alt + T` calls THide through `windows/komorebi/whkdrc` to toggle visibility. THide maintains the hidden state; exiting it restores the taskbar. If the taskbar remains visible after logon, check the THide process and startup entry before adding another startup action.
 
 ## Win + L
 
