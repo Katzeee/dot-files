@@ -62,6 +62,13 @@
         {
           "name": "III",
           "layout": "HorizontalStack",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "QQ.exe",
+              "matching_strategy": "Equals"
+            }
+          ],
           "apply_window_based_work_area_offset": false,
           "work_area_offset": {
             "left": 608,
