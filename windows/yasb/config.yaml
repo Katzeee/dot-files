@@ -8,7 +8,7 @@ komorebi:
 bars:
   primary-bar:
     enabled: true
-    screens: ["*"]
+    screens: ["Y34wz-30"]
     class_name: "yasb-bar"
     alignment:
       position: "top"
@@ -31,7 +31,33 @@ bars:
     widgets:
       left: ["komorebi_active_layout","komorebi_workspaces","active_window"]
       center: ["cpu","memory","gpu","clock","apps"]
-      right: ["systray","media","input_status","quick_settings","wifi","battery","volume_icon","volume","power_menu"]
+      right: ["taskbar","systray","media","input_status","quick_settings","wifi","battery","volume_icon","volume","power_menu"]
+  secondary-bar:
+    enabled: true
+    screens: ["BenQ PJ"]
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+    blur_effect:
+      enabled: true
+      dark_mode: true
+      round_corners: true
+      border_color: None
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+    dimensions:
+      width: "100%"
+      height: 34
+    padding:
+      top: 6
+      left: 10
+      bottom: 0
+      right: 10
+    widgets:
+      left: ["komorebi_workspaces","active_window"]
+      center: ["clock"]
+      right: []
 widgets:
   input_status:
     type: "yasb.custom.CustomWidget"
@@ -429,6 +455,21 @@ widgets:
     type: "yasb.taskbar.TaskbarWidget"
     options:
       icon_size: 16
+      show_only_visible: false
+      strict_filtering: true
+      monitor_exclusive: false
+      hide_empty: true
+      preview:
+        enabled: true
+        width: 320
+        delay: 300
+        padding: 8
+        margin: 6
+        blur: false
+        peek: false
+      grouping:
+        enabled: true
+        show_count: true
       ignore_apps:
         processes: []
         titles: []

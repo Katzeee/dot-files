@@ -4,6 +4,140 @@
   "toggle_float_placement": "None",
   "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.41/schema.json",
   "app_specific_configuration_path": "$Env:USERPROFILE/applications.json",
+  "manage_rules": [
+    [
+      {
+        "kind": "Exe",
+        "id": "AweSunRemote.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "OrayUI",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": ".+",
+        "matching_strategy": "Regex"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "claude.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "Chrome_WidgetWin_1",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": ".+",
+        "matching_strategy": "Regex"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "Arknights.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "UnityWndClass",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "Games.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": "鹰角启动器",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "oopz.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "XX_INFICITY_RUNNER_WIN32_WINDOW",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "HYP.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": "米哈游启动器",
+        "matching_strategy": "Equals"
+      }
+    ]
+  ],
+  "floating_applications": [
+    [
+      {
+        "kind": "Exe",
+        "id": "Arknights.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "UnityWndClass",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "Games.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": "鹰角启动器",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "oopz.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Class",
+        "id": "XX_INFICITY_RUNNER_WIN32_WINDOW",
+        "matching_strategy": "Equals"
+      }
+    ],
+    [
+      {
+        "kind": "Exe",
+        "id": "HYP.exe",
+        "matching_strategy": "Equals"
+      },
+      {
+        "kind": "Title",
+        "id": "米哈游启动器",
+        "matching_strategy": "Equals"
+      }
+    ]
+  ],
   "window_hiding_behaviour": "Cloak",
   "cross_monitor_move_behaviour": "Insert",
   "default_workspace_padding": 6,
@@ -17,6 +151,9 @@
         "column_ratios": [0.68]
       }
     }
+  },
+  "display_index_preferences": {
+    "1": "BNQDD03-5&1e244e01&0&UID4352"
   },
   "monitors": [
     {
@@ -43,21 +180,59 @@
         {
           "name": "II",
           "layout": "VerticalStack",
+          "tile": true,
+          "initial_workspace_rules": [
+            [
+              {
+                "kind": "Exe",
+                "id": "Arknights.exe",
+                "matching_strategy": "Equals"
+              },
+              {
+                "kind": "Class",
+                "id": "UnityWndClass",
+                "matching_strategy": "Equals"
+              }
+            ],
+            [
+              {
+                "kind": "Exe",
+                "id": "Games.exe",
+                "matching_strategy": "Equals"
+              },
+              {
+                "kind": "Title",
+                "id": "鹰角启动器",
+                "matching_strategy": "Equals"
+              }
+            ],
+            [
+              {
+                "kind": "Exe",
+                "id": "oopz.exe",
+                "matching_strategy": "Equals"
+              },
+              {
+                "kind": "Class",
+                "id": "XX_INFICITY_RUNNER_WIN32_WINDOW",
+                "matching_strategy": "Equals"
+              }
+            ],
+            [
+              {
+                "kind": "Exe",
+                "id": "HYP.exe",
+                "matching_strategy": "Equals"
+              },
+              {
+                "kind": "Title",
+                "id": "米哈游启动器",
+                "matching_strategy": "Equals"
+              }
+            ]
+          ],
           "apply_window_based_work_area_offset": false,
-          "work_area_offset": {
-            "left": 608,
-            "top": 88,
-            "right": 1216,
-            "bottom": 176
-          },
-          "work_area_offset_rules": {
-            "2": {
-              "left": 0,
-              "top": 0,
-              "right": 0,
-              "bottom": 0
-            }
-          }
+          "work_area_offset_rules": {}
         },
         {
           "name": "III",
@@ -162,6 +337,15 @@
           }
         }
       ]
+    },
+    {
+      "work_area_offset": {
+        "left": 0,
+        "top": 9,
+        "right": 0,
+        "bottom": 9
+      },
+      "workspaces": []
     }
   ],
   "border_colours": {

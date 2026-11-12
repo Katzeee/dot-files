@@ -25,20 +25,19 @@ try {
         }
         return
     }
+    if ($null -eq $workspace.workspace_config.work_area_offset) { return }
     $config = [IO.File]::ReadAllText((Join-Path $env:USERPROFILE 'komorebi.json')) | ConvertFrom-Json
-    $mc = $config.monitors[$monitorIndex]
-    $wc = $mc.workspaces[$workspaceIndex]
     $wp = $config.default_workspace_padding
-    if ($null -ne $mc.workspace_padding) { $wp = $mc.workspace_padding }
-    if ($null -ne $wc.workspace_padding) { $wp = $wc.workspace_padding }
+    if ($null -ne $monitor.workspace_padding) { $wp = $monitor.workspace_padding }
+    if ($null -ne $workspace.workspace_padding) { $wp = $workspace.workspace_padding }
     $cp = $config.default_container_padding
-    if ($null -ne $mc.container_padding) { $cp = $mc.container_padding }
-    if ($null -ne $wc.container_padding) { $cp = $wc.container_padding }
+    if ($null -ne $monitor.container_padding) { $cp = $monitor.container_padding }
+    if ($null -ne $workspace.container_padding) { $cp = $workspace.container_padding }
     $padding = [int]$wp + [int]$cp + [int]$config.border_width + [int]$config.border_offset
     $availableWidth = [int]$monitor.work_area_size.right - 2 * $padding
     $availableHeight = [int]$monitor.work_area_size.bottom - 2 * $padding
     $offset = $workspace.work_area_offset
-    if ($null -eq $offset) { $offset = $wc.work_area_offset }
+    if ($null -eq $offset) { $offset = $workspace.workspace_config.work_area_offset }
     $width = $availableWidth - [int]$offset.right
     $height = $availableHeight - [int]$offset.bottom
     switch ($Direction) {
